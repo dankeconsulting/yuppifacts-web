@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "@/components/public.css";
+import "@/components/preregistration.css";
+import "@/components/access.css";
+import "@/components/wizard.css";
 
 export const metadata: Metadata = {
   title: "YuppiFacts | Solicita y organiza tus facturas",

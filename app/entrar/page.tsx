@@ -1,3 +1,28 @@
 import Link from "next/link";
-import { ArrowRight, Building2, FileCheck2, QrCode, ShieldCheck, Users } from "lucide-react";
-export default function SignInPage(){return <main className="auth"><section className="auth-pitch"><Link className="brand" href="/"><span>Y</span>YuppiFacts</Link><div><h1>Tu información fiscal,<br/><em>en orden y bajo control.</em></h1><p>Administra tickets, solicitudes y facturas sin entregar tus certificados fiscales.</p><ul><li><QrCode/> Escanea y relaciona comprobantes</li><li><FileCheck2/> Da seguimiento a cada solicitud</li><li><ShieldCheck/> Documentos privados por RFC</li></ul></div><small>YuppiFacts · Gestión documental fiscal</small></section><section className="auth-form"><div><p className="eyebrow">ACCESO SEGURO</p><h2>Inicia sesión en tu cuenta</h2><p>Selecciona el tipo de espacio al que quieres entrar.</p><div className="role-tabs"><button className="active"><Users size={17}/>Como usuario</button><button><FileCheck2 size={17}/>Como contador</button><button><Building2 size={17}/>Como empresa</button></div><label>Correo<input type="email" placeholder="tu@empresa.mx"/></label><label>Contraseña<input type="password" placeholder="Mínimo 8 caracteres"/></label><button className="button full">Iniciar sesión <ArrowRight size={18}/></button><p className="muted center">¿Aún no tienes cuenta? <Link href="/registro">Contratar YuppiFacts</Link></p></div></section></main>}
+import { ArrowRight, Check, FileCheck2, LockKeyhole, QrCode, ShieldCheck } from "lucide-react";
+
+const highlights = [
+  { icon: QrCode, title: "Tickets y QR en un solo lugar", text: "Captura, relaciona y da seguimiento sin perder contexto." },
+  { icon: FileCheck2, title: "Solicitudes con trazabilidad", text: "Conoce el estado de cada documento y lo que falta." },
+  { icon: ShieldCheck, title: "Datos fiscales protegidos", text: "Tu información se organiza por cuenta y RFC." },
+];
+
+export default function SignInPage() {
+  return <main className="access-shell">
+    <section className="access-aside">
+      <Link className="brand" href="/"><span>Y</span>YuppiFacts</Link>
+      <div className="access-pitch"><p className="eyebrow">GESTIÓN FISCAL, SIN COMPLICARTE</p><h1>Tu información fiscal,<br /><em>en orden y bajo control.</em></h1><p>Reúne tickets, solicitudes y facturas en un espacio claro para que siempre sepas qué sigue.</p><div className="access-highlights">{highlights.map(({ icon: Icon, title, text }) => <article key={title}><span><Icon size={19} /></span><div><b>{title}</b><small>{text}</small></div></article>)}</div></div>
+      <p className="access-stack"><Check size={15} /> Sin e.firma ni certificados <Check size={15} /> Datos bajo tu control</p>
+    </section>
+    <section className="access-form-wrap">
+      <form className="access-card">
+        <p className="eyebrow">ACCESO A YUPPIFACTS</p><h2>Bienvenido de vuelta</h2><p className="access-lead">Entra para continuar organizando tus solicitudes y facturas.</p>
+        <label>Correo electrónico<input type="email" autoComplete="email" placeholder="tu@empresa.mx" /></label>
+        <label>Contraseña<input type="password" autoComplete="current-password" placeholder="Tu contraseña" /></label>
+        <button type="button" className="button full">Entrar a mi cuenta <ArrowRight size={18} /></button>
+        <p className="access-register">¿Aún no tienes cuenta? <Link href="/registro">Contratar YuppiFacts</Link></p>
+        <p className="access-privacy"><LockKeyhole size={14} /> Tu acceso y tus documentos se mantienen protegidos.</p>
+      </form>
+    </section>
+  </main>;
+}

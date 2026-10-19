@@ -27,12 +27,12 @@
 }
 
 .stepList::before {
-  bottom: 39px;
+  height: var(--timeline-length);
   background: #333842;
 }
 
 .stepList::after {
-  height: calc((100% - 78px) * var(--timeline-progress));
+  height: calc(var(--timeline-length) * var(--timeline-progress));
   background: linear-gradient(#ab93ff, #7157cf);
   box-shadow: 0 0 12px #a78bfa80;
   transition: height 520ms cubic-bezier(.2, .8, .2, 1);
@@ -141,14 +141,6 @@
   .stepList::after {
     top: 29px;
     left: 29px;
-  }
-
-  .stepList::before {
-    bottom: 29px;
-  }
-
-  .stepList::after {
-    height: calc((100% - 58px) * var(--timeline-progress));
   }
 
   .step {

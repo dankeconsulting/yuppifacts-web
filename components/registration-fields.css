@@ -1,0 +1,5 @@
+/* The account form deliberately keeps one field per row at every breakpoint. */
+.signup-fields {
+  grid-template-columns: 1fr;
+  gap: 0;
+}

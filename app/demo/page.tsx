@@ -1,2 +1,2 @@
-import Workspace from "@/components/workspace";
-export default function DemoPage(){return <Workspace mode="subscriber" demo/>}
+import ActivationGate from "@/components/activation-gate";
+export default function DemoPage(){return <ActivationGate/>}
