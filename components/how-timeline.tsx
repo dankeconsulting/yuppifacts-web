@@ -14,7 +14,7 @@ const steps = [
 export default function HowTimeline() {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeStep, setActiveStep] = useState(-1);
-  const progress = activeStep < 0 ? 0 : activeStep / (steps.length - 1);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let frame = 0;
@@ -24,9 +24,16 @@ export default function HowTimeline() {
       if (!section) return;
       const nodes = Array.from(section.querySelectorAll<HTMLElement>(`[data-timeline-step]`));
       const threshold = window.innerHeight * 0.62;
-      const isBeforeSection = section.getBoundingClientRect().top > threshold;
-      const nextStep = isBeforeSection ? -1 : nodes.reduce((last, node, index) => node.getBoundingClientRect().top <= threshold ? index : last, -1);
+      const centers = nodes.map(node => {
+        const rect = node.getBoundingClientRect();
+        return rect.top + rect.height / 2;
+      });
+      const start = centers[0];
+      const end = centers[centers.length - 1];
+      const nextProgress = Math.min(1, Math.max(0, (threshold - start) / (end - start)));
+      const nextStep = centers.reduce((last, center, index) => center <= threshold ? index : last, -1);
       setActiveStep(current => current === nextStep ? current : nextStep);
+      setProgress(current => Math.abs(current - nextProgress) < .001 ? current : nextProgress);
     };
     const onScroll = () => {
       if (!frame) frame = window.requestAnimationFrame(updateProgress);
