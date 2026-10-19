@@ -5,6 +5,20 @@
   letter-spacing: 1.35px;
 }
 
+.access-pitch h1 {
+  font-size: clamp(38px, 4vw, 60px);
+  letter-spacing: -3.2px;
+}
+
+.access-pitch h1 > span {
+  display: block;
+  white-space: nowrap;
+}
+
+.access-pitch h1 span em {
+  font-style: italic;
+}
+
 .access-privacy {
   color: #aab4c4;
   font-size: 12px;
