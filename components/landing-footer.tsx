@@ -66,7 +66,7 @@ const copy = {
       ai: "AI",
       register: "Register",
       login: "Sign in",
-      privacy: "Privacy",
+      privacy: "Privacy Policy",
       terms: "Terms of Service",
       payment: "Payments and plans",
       data: "Data protection",

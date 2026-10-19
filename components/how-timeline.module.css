@@ -106,7 +106,8 @@
 .stepContent h3 {
   margin: 0 0 13px;
   color: #bcc3cf;
-  font-size: clamp(25px, 2.35vw, 34px);
+  font-size: clamp(23px, 2.2vw, 32px);
+  font-weight: 500;
   letter-spacing: -1.55px;
   line-height: 1.15;
   transition: color 300ms ease;
@@ -192,7 +193,7 @@
   }
 
   .stepContent h3 {
-    font-size: 23px;
+    font-size: 21px;
     letter-spacing: -1.1px;
   }
 

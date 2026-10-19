@@ -24,6 +24,7 @@ export default function ConsentLayer() {
   const pathname = usePathname();
   const isLanding = pathname === "/";
   const [consent, setConsent] = useState<null | boolean>(null);
+  const [consentReady, setConsentReady] = useState(false);
   const [modal, setModal] = useState<LandingModal | null>(null);
   const [modalClosed, setModalClosed] = useState(false);
   const [locale, setLocale] = useState<"es" | "en">("es");
@@ -31,6 +32,7 @@ export default function ConsentLayer() {
   useEffect(() => {
     const storedConsent = localStorage.getItem("yf-cookie-consent");
     setConsent(storedConsent === "accepted" ? true : storedConsent === "rejected" ? false : null);
+    setConsentReady(true);
 
     const syncLocale = () => setLocale(localStorage.getItem("yf-language") === "en" ? "en" : "es");
     syncLocale();
@@ -73,7 +75,7 @@ export default function ConsentLayer() {
 
   return (
     <>
-      {consent === null && (
+      {isLanding && consentReady && consent === null && (
         <aside className="cookie-banner" role="dialog" aria-label="Cookies">
           <div className="cookie-banner-content">
             <Cookie className="cookie-banner-icon" aria-hidden="true" />
@@ -121,7 +123,7 @@ export default function ConsentLayer() {
                 <X />
               </button>
               <p className="landing-modal-label">
-                {english ? "SPECIAL PRICE · DAY OF THE DEAD" : "PRECIO ESPECIAL · DÍA DE MUERTOS"}
+                {english ? "SPECIAL PRICE - $3,900 MXN" : "PRECIO ESPECIAL - $3,900 MXN"}
               </p>
               <h2>{title}</h2>
               <p className="landing-modal-highlight">
@@ -136,16 +138,16 @@ export default function ConsentLayer() {
               </p>
               <p>{body}</p>
               <ol className="landing-modal-steps">
-                <li><QrCode aria-hidden="true" />{english ? "Scan your ticket or QR" : "Escanea tu ticket o QR"}</li>
-                <li><FilePenLine aria-hidden="true" />{english ? "YuppiFacts prepares the request" : "YuppiFacts prepara la solicitud"}</li>
-                <li><FileText aria-hidden="true" />{english ? "Receive and organize your invoice" : "Recibe y organiza tu factura"}</li>
+                <li><QrCode aria-hidden="true" /><span>{english ? <>Scan your ticket<br />or QR code.</> : <>Escanea tu ticket<br />o código QR.</>}</span></li>
+                <li><FilePenLine aria-hidden="true" /><span>{english ? <>YuppiFacts prepares<br />the request.</> : <>YuppiFacts prepara<br />la solicitud.</>}</span></li>
+                <li><FileText aria-hidden="true" /><span>{english ? <>Receive and organize<br />your invoice.</> : <>Recibe y organiza<br />tu factura.</>}</span></li>
               </ol>
               <div className="landing-modal-spots">
-                <b>{english ? <>Only <em>26</em> spots remain.</> : <>Solo quedan <em>26</em> espacios disponibles.</>}</b>
-                <span>{english ? "Day of the Dead special price\nFor new subscriptions" : "Precio especial por Día de Muertos\nAplica para nuevas contrataciones"}</span>
+                <b>{english ? <>Only <em>51</em> spots remain</> : <>Solo quedan <em>51</em> espacios disponibles</>}</b>
+                <span>{english ? "Day of the Dead special price for accounting firms.\nFor new subscriptions." : "Precio especial por Día de Muertos para despachos contables.\nAplica para nuevas contrataciones."}</span>
               </div>
               <Link className="landing-modal-cta" href="/registro" onClick={closeModal}>
-                {cta || (english ? "I want faster invoicing" : "Quiero agilizar mi facturación")}
+                {english ? "I want to speed up invoice requests" : "Quiero agilizar solicitudes de facturas"}
                 <Rocket size={21} />
               </Link>
             </div>

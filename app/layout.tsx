@@ -3,6 +3,7 @@ import "./globals.css";
 import "@/components/public.css";
 import "@/components/preregistration.css";
 import "@/components/access.css";
+import "@/components/form-field-adjustments.css";
 import "@/components/wizard.css";
 import ConsentLayer from "@/components/consent-layer";
 

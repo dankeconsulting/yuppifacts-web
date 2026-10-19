@@ -23,7 +23,7 @@ export default function LandingPage() {
       <div className="hero-copy">
         <p className="eyebrow"><Sparkles size={15} /> {english ? "AI that organizes, suggests and supports you" : "IA que organiza, sugiere y te acompaña"}</p>
         <h1>{english ? <>Request<br />invoices without<br /><em>the headache</em><span className="hero-title-dot">.</span></> : <>Solicita tus<br />facturas sin<br /><em>dolores de cabeza</em><span className="hero-title-dot">.</span></>}</h1>
-        <p className="lead">{english ? "YuppiFacts reads your receipt or QR code, prepares the information each provider requires, and organizes your invoices in one place. You always remain in control." : "YuppiFacts lee tu ticket o QR, prepara los datos que solicita cada proveedor y organiza tus facturas en un solo lugar. Tú mantienes siempre el control."}</p>
+        <p className="lead">{english ? <>YuppiFacts reads your receipt or QR code, prepares the information each provider requires,<br />and organizes your invoices in one place.<br />You always remain in control.</> : <>YuppiFacts lee tu ticket o QR, prepara los datos que solicita<br />cada proveedor y organiza tus facturas en un solo lugar.<br />Tú mantienes siempre el control.</>}</p>
         <div className="hero-actions"><Link className="button" href="#planes">{english ? "View plans" : "Ver planes"} <ArrowRight size={18} /></Link><Link className="button ghost" href="/entrar">{english ? "Log in" : "Iniciar sesión"}</Link></div>
         <ul className="proof"><li><Check /> {english ? "No e-signature or certificates" : "Sin e.firma ni certificados"}</li><li><Check /> {english ? "Tax data protected" : "Datos fiscales protegidos"}</li><li><Check /> {english ? "People, accountants and companies" : "Personas, contadores y empresas"}</li></ul>
       </div>
@@ -76,5 +76,6 @@ function Feature({ icon, title, text }: { icon: React.ReactNode; title: string; 
 
 function Marquee({ locale }: { locale: "es" | "en" }) {
   const items = locale === "en" ? ["AI for documents", "QR and receipts", "Provider portal", "XML and PDF", "RFC security", "Data under control"] : ["IA para documentos", "QR y tickets", "Portal de proveedores", "XML y PDF", "Seguridad por RFC", "Datos bajo control"];
-  return <div className="logo-slider" aria-label="Capacidades de YuppiFacts"><div className="marquee-track">{[...items, ...items].map((item, index) => <span className="marquee-item" key={`${item}-${index}`}>{item}<i>✦</i></span>)}</div></div>;
+  const loopItems = [...items, ...items, ...items, ...items];
+  return <div className="logo-slider" aria-label="Capacidades de YuppiFacts"><div className="marquee-track">{loopItems.map((item, index) => <span className="marquee-item" key={`${item}-${index}`}>{item}<i>✦</i></span>)}</div></div>;
 }

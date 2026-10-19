@@ -5,7 +5,7 @@
   background: var(--footer-bg);
   border-top: 1px solid var(--footer-line);
   color: #f7f5ff;
-  padding: clamp(72px, 9vw, 156px) max(24px, calc((100% - 1340px) / 2)) 28px;
+  padding: clamp(36px, 4.5vw, 78px) max(24px, calc((100% - 1340px) / 2)) 28px;
   position: relative;
 }
 
@@ -42,7 +42,7 @@ footer.landing-footer { display: block; }
 .landing-footer-intro h2 i { color: #f7f5ff; font-style: normal; }
 .landing-footer-intro > p { color: var(--footer-muted); font-size: 16px; line-height: 1.65; margin: 0; max-width: 490px; }
 .landing-footer-office { border-top: 1px solid var(--footer-line); margin-top: 60px; max-width: 460px; padding-top: 22px; }
-.landing-footer-label { color: #aa93ff; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .12em; margin: 0 0 18px; }
+.landing-footer-label { color: #aa93ff; font-family: var(--font-mono); font-size: 15px; font-weight: 700; letter-spacing: .12em; margin: 0 0 18px; }
 .landing-footer address { color: #d4d8e5; font-size: 15px; font-style: normal; line-height: 1.7; }
 .landing-footer address span { display: block; }
 .landing-footer-contact-lines { flex-direction: column; gap: 14px; margin-top: 25px; }
@@ -53,7 +53,7 @@ footer.landing-footer { display: block; }
 .landing-footer-cta:hover { background: #a985ff; transform: translateY(-2px); }
 .landing-footer-nav { display: grid; gap: clamp(25px, 4vw, 62px); grid-template-columns: repeat(3, minmax(145px, 1fr)); padding-top: 176px; }
 .landing-footer-column { min-width: 0; }
-.landing-footer-link { align-items: center; border-top: 1px solid var(--footer-line); color: #f2f1f7; display: flex; font-size: 15px; font-weight: 620; gap: 12px; justify-content: space-between; min-height: 56px; text-decoration: none; transition: color .2s ease, padding .2s ease; }
+.landing-footer-link { align-items: center; border-top: 1px solid var(--footer-line); color: #f2f1f7; display: flex; font-size: 14px; font-weight: 500; gap: 12px; justify-content: space-between; min-height: 56px; text-decoration: none; transition: color .2s ease, padding .2s ease; }
 .landing-footer-link:last-child { border-bottom: 1px solid var(--footer-line); }
 .landing-footer-link svg { color: #9d9bb1; flex: 0 0 auto; }
 .landing-footer-link:hover { color: #b69aff; padding-left: 4px; }
@@ -76,9 +76,10 @@ footer.landing-footer { display: block; }
 .landing-footer-bottom p { color: #7e879d; font-size: 13px; margin: 0; text-align: right; }
 .landing-footer-legal a { color: #7e879d; font-weight: 650; text-decoration: none; white-space: nowrap; }
 .landing-footer-legal a:hover { color: #a9b0c4; }
-.landing-footer-language { background: #1b1d36; border-radius: 999px; display: flex; padding: 4px; width: fit-content; }
-.landing-footer-language button { background: transparent; border: 0; border-radius: 999px; color: #8f98ae; cursor: pointer; font-size: 12px; font-weight: 600; min-width: 40px; padding: 6px 8px; }
+.landing-footer-language { align-items: center; background: #1b1d36; border-radius: 999px; display: flex; padding: 4px; width: fit-content; }
+.landing-footer-language button { appearance: none; background: transparent; border: 0; border-radius: 999px; color: #8f98ae; cursor: pointer; font-size: 12px; font-weight: 500; min-width: 40px; outline: none; padding: 6px 8px; -webkit-tap-highlight-color: transparent; }
 .landing-footer-language button.active { background: #5b5d70; color: #fff; }
+.landing-footer-language button:focus { outline: none; }
 .landing-footer-top-button { align-items: center; background: rgba(255,255,255,.06); border: 0; border-radius: 50%; color: #f7f5ff; cursor: pointer; display: flex; height: 56px; justify-content: center; position: absolute; right: max(24px, calc((100% - 1530px) / 2)); top: 180px; transition: background .2s ease, transform .2s ease; width: 56px; }
 .landing-footer-top-button:hover { background: #8f63f6; color: #170d2e; transform: translateY(-2px); }
 
@@ -89,7 +90,7 @@ footer.landing-footer { display: block; }
 }
 
 @media (max-width: 640px) {
-  .landing-footer { padding: 64px 24px 24px; }
+  .landing-footer { padding: 32px 24px 24px; }
   .landing-footer-brand { font-size: 25px; margin-bottom: 48px; }
   .landing-footer-brand span { border-radius: 15px; height: 48px; width: 48px; }
   .landing-footer-intro h2 { font-size: 31px; max-width: 320px; }

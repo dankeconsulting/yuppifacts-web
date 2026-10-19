@@ -1,0 +1,40 @@
+/* Public form controls: readable at a glance without turning them into headings. */
+.signup-shell input:not([type="checkbox"]),
+.signup-shell select,
+.signup-shell textarea,
+.access-shell input:not([type="checkbox"]),
+.access-shell select,
+.access-shell textarea,
+.wizard-shell input:not([type="checkbox"]),
+.wizard-shell select,
+.wizard-shell textarea {
+  color: #d3d9e4;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.signup-shell input::placeholder,
+.signup-shell textarea::placeholder,
+.access-shell input::placeholder,
+.access-shell textarea::placeholder,
+.wizard-shell input::placeholder,
+.wizard-shell textarea::placeholder {
+  color: #b7bfcc;
+  font-weight: 500;
+  opacity: 1;
+}
+
+.signup-country > button,
+.signup-country-menu button,
+.access-country > button,
+.access-country-menu button,
+.wizard-shell select {
+  color: #cbd2dd;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Verification controls retain their deliberately larger, focused treatment. */
+.signup-otp input,
+.access-otp input { font-size: 25px; font-weight: 600; }
+.access-pin-input { font-size: 23px; font-weight: 600; }

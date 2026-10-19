@@ -1,6 +1,12 @@
 .landing-footer-link { font-weight: 500; }
 .landing-footer-intro h2 { font-weight: 600; }
 
+/* Keep the editorial desktop lockup to its intended two lines. */
+@media (min-width: 901px) {
+  .landing-footer-intro h2 { max-width: 560px; }
+  .landing-footer-intro h2 span { white-space: nowrap; }
+}
+
 @media (min-width: 430px) and (max-width: 640px) {
   .landing-footer-intro h2 { max-width: none; }
   .landing-footer-intro h2 span { white-space: nowrap; }
