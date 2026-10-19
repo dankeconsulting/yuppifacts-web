@@ -1,0 +1,46 @@
+/* Ajustes visuales específicos de la landing. */
+.metric {
+  top: 15px;
+}
+
+.floating {
+  bottom: -6px;
+}
+
+.logo-slider {
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  .metric {
+    top: -12px;
+  }
+
+  .floating {
+    bottom: -12px;
+  }
+
+  .features h2,
+  .cta h2 {
+    font-size: 0;
+    letter-spacing: 0;
+  }
+
+  .features h2::after,
+  .cta h2::after {
+    display: block;
+    color: var(--text);
+    font-size: clamp(37px, 10vw, 48px);
+    letter-spacing: -2px;
+    line-height: 1.08;
+    white-space: pre-line;
+  }
+
+  .features h2::after {
+    content: "Todo lo necesario para\A facturar, nada que\A comprometa tu\A información";
+  }
+
+  .cta h2::after {
+    content: "Tecnología de\A vanguardia al alcance\A de tu facturación";
+  }
+}

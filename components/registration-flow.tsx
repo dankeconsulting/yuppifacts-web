@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Check, CheckCircle2, ChevronDown, LockKeyhole, S
 import "./registration-flow.css";
 import "./registration-fields.css";
 import "./registration-aside-heading.css";
+import "./registration-mobile-adjustments.css";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const countries = [

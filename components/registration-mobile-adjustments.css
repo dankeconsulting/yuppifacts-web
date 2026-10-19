@@ -1,0 +1,22 @@
+.signup-billing-tabs button {
+  font-weight: 500;
+}
+
+.signup-billing-tabs button.active {
+  font-weight: 600;
+}
+
+@media (max-width: 850px) {
+  .signup-actions {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .signup-actions > button:first-child,
+  .signup-actions > .button {
+    margin: 0;
+  }
+}

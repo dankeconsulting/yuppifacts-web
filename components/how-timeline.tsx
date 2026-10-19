@@ -31,7 +31,8 @@ export default function HowTimeline() {
       });
       const start = centers[0];
       const isCompact = window.matchMedia("(max-width: 600px)").matches;
-      const end = isCompact ? rects[rects.length - 1].bottom : centers[centers.length - 1];
+      const lastParagraph = nodes[nodes.length - 1]?.querySelector<HTMLElement>("p");
+      const end = isCompact && lastParagraph ? lastParagraph.getBoundingClientRect().bottom : centers[centers.length - 1];
       const nextProgress = Math.min(1, Math.max(0, (threshold - start) / (end - start)));
       const nextStep = centers.reduce((last, center, index) => center <= threshold ? index : last, -1);
       setActiveStep(current => current === nextStep ? current : nextStep);
