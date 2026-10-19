@@ -79,7 +79,6 @@ export default function ConsentLayer() {
 
   const english = locale === "en";
   const title = english ? modal?.titleEn : modal?.titleEs;
-  const body = english ? modal?.bodyEn : modal?.bodyEs;
   const cta = english ? modal?.ctaEn : modal?.ctaEs;
 
   return (
@@ -149,7 +148,6 @@ export default function ConsentLayer() {
                   ? "Leave repetitive forms behind: YuppiFacts turns your tickets into clear, organized invoice requests."
                   : "Deja atrás los formularios repetitivos: YuppiFacts convierte tus tickets en solicitudes de factura claras y ordenadas."}
               </p>
-              <p>{body}</p>
               <ol className="landing-modal-steps">
                 <li><QrCode aria-hidden="true" /><span>{english ? <>Scan your ticket<br />or QR code.</> : <>Escanea tu ticket<br />o código QR.</>}</span></li>
                 <li><FilePenLine aria-hidden="true" /><span>{english ? <>YuppiFacts prepares<br />the request.</> : <>YuppiFacts prepara<br />la solicitud.</>}</span></li>
