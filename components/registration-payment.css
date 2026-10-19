@@ -1,0 +1,30 @@
+.payment-summary-card { max-width: 650px; }
+.payment-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 28px 0 22px; overflow: hidden; border: 1px solid #3d3454; border-radius: 16px; background: #3d3454; }
+.payment-summary > div { display: grid; gap: 5px; padding: 20px; background: #161421; }
+.payment-summary span { color: #b9a5ff; font-size: 11px; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+.payment-summary b { font-size: 18px; }
+.payment-summary small { color: #aab4c6; font-size: 12px; line-height: 1.5; }
+.payment-summary__total { grid-column: 1 / -1; background: #1d172b !important; }
+.payment-summary__total strong { font-size: 31px; letter-spacing: -1.3px; }
+.payment-summary__edit { display: flex; align-items: center; justify-content: center; gap: 8px; grid-column: 1 / -1; border: 0; background: #262035; color: #d8ccff; padding: 14px; font-weight: 800; cursor: pointer; }
+.payment-summary__edit:hover { background: #302644; }
+.payment-summary__edit:disabled { cursor: wait; opacity: .65; }
+.payment-selection-editor { margin: 22px 0; border: 1px solid #4e4070; border-radius: 16px; background: #15131e; padding: 21px; }
+.payment-selection-editor__head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.payment-selection-editor__head .eyebrow { margin: 0 0 8px; }
+.payment-selection-editor__head h2 { margin: 0; font-size: 21px; }
+.payment-selection-editor__head > button { border: 0; background: transparent; color: #aeb7c5; cursor: pointer; font-size: 26px; line-height: 1; }
+.payment-billing-tabs { display: flex; width: fit-content; max-width: 100%; margin: 21px 0; padding: 4px; border: 1px solid #353947; border-radius: 999px; background: #101116; }
+.payment-billing-tabs button { border: 0; border-radius: 999px; background: transparent; color: #9da7b8; padding: 9px 15px; font-size: 12px; font-weight: 800; cursor: pointer; }
+.payment-billing-tabs .active { background: #a78bfa; color: #17121f; }
+.payment-plan-list { display: grid; gap: 9px; }
+.payment-plan-list button { display: grid; grid-template-columns: 1fr auto; gap: 7px; width: 100%; border: 1px solid #303440; border-radius: 11px; background: #11131a; color: #f0f1f5; padding: 14px; text-align: left; cursor: pointer; }
+.payment-plan-list button.selected { border-color: #a78bfa; background: #211a32; }
+.payment-plan-list b, .payment-plan-list small { display: block; }
+.payment-plan-list small { margin-top: 4px; color: #a6b0c0; font-size: 12px; line-height: 1.45; }
+.payment-plan-list svg { color: #c4b2ff; }
+.payment-editor-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; }
+.payment-editor-actions > button:first-child { display: flex; align-items: center; gap: 7px; border: 0; background: transparent; color: #b7c0cf; font-weight: 800; cursor: pointer; }
+.voucher-upload--disabled { cursor: default; opacity: .68; }
+.payment-error { color: #ffabb4; }
+@media (max-width: 560px) { .payment-summary { grid-template-columns: 1fr; } .payment-summary__total, .payment-summary__edit { grid-column: auto; } .payment-billing-tabs { width: 100%; justify-content: space-between; } .payment-billing-tabs button { flex: 1; padding: 9px 6px; } }
