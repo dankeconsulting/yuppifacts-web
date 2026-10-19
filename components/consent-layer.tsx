@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Check, Cookie, Rocket, X } from "lucide-react";
+import { Cookie, FilePenLine, FileText, QrCode, Rocket, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./consent-layer.css";
 import "./consent-layer-adjustments.css";
@@ -136,9 +136,9 @@ export default function ConsentLayer() {
               </p>
               <p>{body}</p>
               <ol className="landing-modal-steps">
-                <li><Check />{english ? "Scan your ticket or QR" : "Escanea tu ticket o QR"}</li>
-                <li><Check />{english ? "YuppiFacts prepares the request" : "YuppiFacts prepara la solicitud"}</li>
-                <li><Check />{english ? "Receive and organize your invoice" : "Recibe y organiza tu factura"}</li>
+                <li><QrCode aria-hidden="true" />{english ? "Scan your ticket or QR" : "Escanea tu ticket o QR"}</li>
+                <li><FilePenLine aria-hidden="true" />{english ? "YuppiFacts prepares the request" : "YuppiFacts prepara la solicitud"}</li>
+                <li><FileText aria-hidden="true" />{english ? "Receive and organize your invoice" : "Recibe y organiza tu factura"}</li>
               </ol>
               <div className="landing-modal-spots">
                 <b>{english ? <>Only <em>26</em> spots remain.</> : <>Solo quedan <em>26</em> espacios disponibles.</>}</b>
