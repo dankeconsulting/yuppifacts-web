@@ -33,7 +33,7 @@ El frontend no recibe `DATABASE_URL`, llaves de AWS ni otros secretos. Esos valo
 ## Render: proyecto `yuppifacts-api`
 
 1. Conecta Render al repositorio `yuppifacts-api`.
-2. Usa `api` como raíz del servicio si se mantiene el monorepo durante la transición; al separar el repositorio, su raíz será `./`.
+2. Usa `./` como raíz del servicio: `yuppifacts-api` contiene únicamente el backend.
 3. Configura las variables de `api/.env.example`, incluyendo el `DATABASE_URL` de Neon y la lista `WEB_ORIGIN`.
 4. Añade las credenciales o el rol de AWS con permisos mínimos para S3, KMS y SES. No las expongas a Vercel.
 5. Copia la URL externa final de Render en `NEXT_PUBLIC_API_URL` dentro de Vercel.
