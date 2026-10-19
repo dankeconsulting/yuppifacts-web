@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Building2, Check, CreditCard, Landmark, UsersRound } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, Check, CreditCard, Landmark, ShieldCheck, UsersRound } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import "./promotion-flow.css";
 
@@ -39,5 +39,6 @@ export default function PromotionFlow(){
     {step===3&&selected&&<><h1>Conoce los beneficios de tu plan.</h1><p className="promotion-lead">Revisa lo que incluye tu contratación promocional antes de continuar.</p><section className="promotion-detail"><div><p>PLAN SELECCIONADO</p><h2>{selected.name}</h2><span>{selected.seats}</span></div><ul>{selected.benefits.map(benefit=><li key={benefit}><Check/>{benefit}</li>)}</ul><div className="promotion-detail-price"><span>{period==="monthly"?"Mensual":"Trimestral"}</span><strong>{format(price)} <em>MXN</em></strong>{period==="monthly"&&<small>Precio regular <s>{format(selected.regularMonthly)}</s></small>}</div></section></>}
     {step===4&&selected&&<><h1>Revisa tu pago.</h1><p className="promotion-lead">El pago se procesará de forma segura en Mercado Pago. Una vez validado, continuarás a la comprobación de tu contratación.</p><section className="promotion-summary"><div><span>Perfil</span><b>{profiles.find(item=>item.id===profile)?.title}</b></div><div><span>Plan</span><b>{selected.name}</b></div><div><span>Forma de pago</span><b>{period==="monthly"?"Mensual":"Trimestral"}</b></div><div><span>Promoción</span><b>Noviembre 2026</b></div><div className="total"><span>Total a pagar</span><strong>{format(price)} <em>MXN</em></strong></div></section><div className="promotion-payment"><CreditCard/><div><b>Mercado Pago</b><p>Serás dirigido al checkout oficial y seguro de Mercado Pago.</p></div><button onClick={beginPayment} disabled={creating}>{creating?"Preparando pago…":"Pagar con Mercado Pago"}</button></div>{notice&&<p className="promotion-notice">{notice}</p>}</>}
     <footer className="promotion-actions">{step>1?<button onClick={()=>setStep(step-1)}><ArrowLeft/>Regresar</button>:<span/>}{step<4?<button className="promotion-next" disabled={(step===1&&!profile)||(step===2&&!selected)} onClick={next}>Continuar<ArrowRight/></button>:null}</footer>
+    <footer className="promotion-security-footer"><span><ShieldCheck />Tus datos están seguros y protegidos.</span><p>© 2024 – 2026 YuppiFacts<sup>®</sup>. Todos los derechos reservados. <Link href="/privacidad">| Política de Privacidad</Link> <Link href="/terminos">| Condiciones de Servicio</Link></p></footer>
   </div></section></main>;
 }
