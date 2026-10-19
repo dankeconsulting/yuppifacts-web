@@ -12,6 +12,11 @@
   font-style: italic;
 }
 
+.signup-aside h1 .signup-title-accent {
+  color: #aa92ff;
+  font-style: normal;
+}
+
 @media (max-width: 850px) {
   .signup-aside h1 {
     font-size: clamp(36px, 9vw, 48px);
