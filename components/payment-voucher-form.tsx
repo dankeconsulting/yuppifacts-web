@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, DragEvent, FormEvent, useMemo, useRef, useState } from "react";
+import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Check, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, Phone, ShieldCheck, TicketCheck, X } from "lucide-react";
 import "./payment-voucher.css";
 
@@ -35,7 +35,9 @@ export default function PaymentVoucherForm() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const currentCountry = countries[countryCode];
+  const [promotion, setPromotion] = useState<{promotionId:string;promotionToken:string}|null>(null);
   const stateOptions = useMemo(() => currentCountry.states, [currentCountry]);
+  useEffect(() => { const value=new URLSearchParams(window.location.hash.slice(1)).get("promo");const [promotionId,promotionToken]=value?.split(".")??[];if(promotionId&&promotionToken)setPromotion({promotionId,promotionToken}); }, []);
 
   const selectFile = (nextFile?: File) => {
     setError(null);
@@ -82,6 +84,7 @@ export default function PaymentVoucherForm() {
         contentType: file.type,
         byteSize: file.size,
         sha256: await sha256(file),
+        ...(promotion ?? {}),
       };
       const created = await fetch(`${api}/v1/promotion-vouchers`, {
         method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload),

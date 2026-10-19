@@ -1,4 +1,4 @@
-import PaymentVoucherForm from "@/components/payment-voucher-form";
+import TicketPaymentGate from "@/components/ticket-payment-gate";
 
 export const metadata = {
   title: "Comprobación de pago | YuppiFacts®",
@@ -6,5 +6,5 @@ export const metadata = {
 };
 
 export default function TicketsPage() {
-  return <PaymentVoucherForm />;
+  return <TicketPaymentGate />;
 }

@@ -232,17 +232,17 @@
   justify-content: center;
   gap: 12px;
   border-radius: 999px;
-  background: #24213d;
-  color: #fff;
+  background: #a78bfa;
+  color: #171225;
   margin-top: auto;
   padding: 15px;
   font-size: 16px;
   font-weight: 500;
   text-decoration: none;
-  box-shadow: 0 16px 33px #a78bfa3d;
+  box-shadow: none;
 }
 
-.landing-modal-cta:hover { background: #332d55; }
+.landing-modal-cta:hover { background: #b9a5ff; }
 
 .landing-modal-tab {
   position: fixed;
