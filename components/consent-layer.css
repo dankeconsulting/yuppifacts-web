@@ -284,7 +284,7 @@
 
   .landing-modal-copy {
     min-height: 100dvh;
-    padding: 112px 38px 48px;
+    padding: 104px 34px 40px;
     overflow: visible;
   }
 
@@ -295,14 +295,38 @@
   }
 
   .landing-modal-close span { display: inline; }
-  .landing-modal h2 { font-size: clamp(40px, 12vw, 62px); }
-
-  .landing-modal-steps {
-    grid-template-columns: 1fr;
-    gap: 9px;
+  .landing-modal-label {
+    padding: 9px 15px;
+    font-size: 10px;
   }
 
-  .landing-modal-steps li { font-size: 14px; }
+  .landing-modal h2 {
+    margin: 22px 0 16px;
+    font-size: clamp(35px, 9vw, 47px);
+    letter-spacing: -2.4px;
+  }
+
+  .landing-modal-highlight {
+    font-size: 16px !important;
+    line-height: 1.38 !important;
+  }
+
+  .landing-modal-copy > p {
+    font-size: 14px;
+    line-height: 1.48;
+  }
+
+  .landing-modal-steps {
+    display: none;
+  }
+
+  .landing-modal-spots {
+    margin: 24px 0 18px;
+    padding: 17px 14px;
+  }
+
+  .landing-modal-spots b { font-size: 17px; }
+  .landing-modal-cta { padding: 16px; font-size: 16px; }
 
   .landing-modal-tab {
     top: 58%;
