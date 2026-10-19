@@ -136,7 +136,7 @@ export default function ConsentLayer() {
                 <X />
               </button>
               <p className="landing-modal-label">
-                {english ? "SPECIAL PRICE - $3,900 MXN" : "PRECIO ESPECIAL - $3,900 MXN"}
+                {english ? "FROM $899 MXN" : "DESDE $899 MXN"}
               </p>
               <h2>{title}</h2>
               <p className="landing-modal-highlight">
@@ -170,9 +170,10 @@ export default function ConsentLayer() {
 
       {isLanding && modal && modalClosed && (
         <button className="landing-modal-tab" onClick={openModal} aria-label={english ? "Open YuppiFacts promotion" : "Abrir promoción de YuppiFacts"}>
-          <span>IA</span>
-          <b>{english ? "for" : "para"}</b>
-          <em>{english ? "Invoices" : "Facturas"}</em>
+          <span>{english ? "PROMOTION" : "PROMOCIÓN"}</span>
+          <b>{english ? "ACCOUNTANTS" : "CONTADORES"}</b>
+          <b>{english ? "AND BUSINESSES" : "Y EMPRESAS"}</b>
+          <em>{english ? "FROM $899 MXN" : "DESDE $899 MXN"}</em>
         </button>
       )}
     </>
