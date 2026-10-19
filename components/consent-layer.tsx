@@ -29,6 +29,7 @@ export default function ConsentLayer() {
   const [modal, setModal] = useState<LandingModal | null>(null);
   const [modalClosed, setModalClosed] = useState(false);
   const [locale, setLocale] = useState<"es" | "en">("es");
+  const [remainingSpots, setRemainingSpots] = useState(100);
 
   useEffect(() => {
     const hostname = window.location.hostname.toLowerCase();
@@ -46,6 +47,7 @@ export default function ConsentLayer() {
     window.addEventListener("yf-language-change", syncLocale);
 
     if (isLanding) {
+      fetch(`${api}/v1/public/promotion`).then((response) => response.ok ? response.json() : null).then((data: { remaining?: number } | null) => { if (typeof data?.remaining === "number") setRemainingSpots(data.remaining); }).catch(() => null);
       fetch(`${api}/v1/public/landing-modal`)
         .then((response) => (response.ok ? response.json() : null))
         .then((data: LandingModal | null) => {
@@ -154,7 +156,7 @@ export default function ConsentLayer() {
                 <li><FileText aria-hidden="true" /><span>{english ? <>Receive and organize<br />your invoice.</> : <>Recibe y organiza<br />tu factura.</>}</span></li>
               </ol>
               <div className="landing-modal-spots">
-                <b>{english ? <>Only <em>51</em> spots remain</> : <>Solo quedan <em>51</em> espacios disponibles</>}</b>
+                <b>{english ? <>Only <em>{remainingSpots}</em> spots remain</> : <>Solo quedan <em>{remainingSpots}</em> espacios disponibles</>}</b>
                 <span>{english ? "Day of the Dead special price for accounting firms.\nFor new subscriptions." : "Precio especial por Día de Muertos para despachos contables.\nAplica para nuevas contrataciones."}</span>
               </div>
               <Link className="landing-modal-cta" href={promoUrl} onClick={closeModal}>

@@ -1,14 +1,16 @@
 .cookie-banner {
   position: fixed;
   z-index: 80;
-  right: clamp(24px, 5vw, 78px);
+  right: auto;
   bottom: 28px;
-  left: clamp(24px, 5vw, 78px);
+  left: 50%;
+  width: min(calc(100% - 48px), 1248px);
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  gap: 30px;
-  padding: 30px 40px;
-  border-radius: 24px;
+  gap: 24px;
+  padding: 24px 34px;
+  border-radius: 20px;
   background: #2a2b32;
   color: #f8f7ff;
   box-shadow: 0 20px 60px #0008;
@@ -18,29 +20,29 @@
   display: flex;
   flex: 1;
   align-items: flex-start;
-  gap: 24px;
+  gap: 20px;
   min-width: 0;
 }
 
 .cookie-banner-icon {
   flex: 0 0 auto;
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   margin-top: 4px;
   color: #ab93ff;
 }
 
 .cookie-banner b {
   display: block;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .cookie-banner p {
-  max-width: 890px;
-  margin: 9px 0 12px;
+  max-width: 720px;
+  margin: 7px 0 9px;
   color: #cbd0dc;
-  font-size: 17px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.45;
 }
 
 .cookie-banner a {
@@ -54,7 +56,7 @@
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .cookie-banner button {
@@ -67,9 +69,9 @@
 }
 
 .cookie-banner .cookie-accept {
-  min-width: 138px;
-  padding: 17px 28px;
-  border-radius: 11px;
+  min-width: 112px;
+  padding: 14px 22px;
+  border-radius: 10px;
   background: #f3f4f8;
   color: #171725;
 }
@@ -128,9 +130,9 @@
   right: 22px;
   display: grid;
   place-items: center;
-  width: 72px;
-  height: 72px;
-  min-width: 72px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
   padding: 0;
   aspect-ratio: 1;
   border: 0;
@@ -309,9 +311,9 @@
     top: calc(env(safe-area-inset-top) + 22px);
     right: 24px;
     z-index: 2;
-    width: 56px;
-    height: 56px;
-    min-width: 56px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
     padding: 0;
   }
 
@@ -365,8 +367,11 @@
 
   .cookie-banner {
     right: 22px;
+    right: 22px;
     bottom: 22px;
     left: 22px;
+    width: auto;
+    transform: none;
     display: block;
     padding: 32px 36px 36px;
     border-radius: 28px;

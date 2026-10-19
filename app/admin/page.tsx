@@ -1,2 +1,3 @@
 import Workspace from "@/components/workspace";
-export default function AdminPage(){return <Workspace mode="admin"/>}
+import AdminPromoCard from "@/components/admin-promo-card";
+export default function AdminPage(){return <><AdminPromoCard/><Workspace mode="admin"/></>}
