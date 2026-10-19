@@ -122,7 +122,7 @@ export default function PaymentVoucherForm() {
           <div className="voucher-icon"><TicketCheck aria-hidden="true" /></div>
           <p className="voucher-eyebrow">PROMOCIÓN YUPPIFACTS</p>
           <h1 id="voucher-title">Confirma tu contratación.</h1>
-          <p>Adjunta tu comprobante de pago por <strong>$3,900 MXN</strong>. Validaremos tu promoción antes de activar tu cuenta.</p>
+          <p>Adjunta tu comprobante de pago. Validaremos tu promoción antes de activar tu cuenta.</p>
         </div>
 
         <form className="voucher-form" onSubmit={submit} noValidate>

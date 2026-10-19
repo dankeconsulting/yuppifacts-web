@@ -23,7 +23,7 @@ type LandingModal = {
 
 export default function ConsentLayer() {
   const pathname = usePathname();
-  const isLanding = pathname === "/";
+  const [isLanding, setIsLanding] = useState(false);
   const [consent, setConsent] = useState<null | boolean>(null);
   const [consentReady, setConsentReady] = useState(false);
   const [modal, setModal] = useState<LandingModal | null>(null);
@@ -31,6 +31,12 @@ export default function ConsentLayer() {
   const [locale, setLocale] = useState<"es" | "en">("es");
 
   useEffect(() => {
+    const hostname = window.location.hostname.toLowerCase();
+    setIsLanding(pathname === "/" && (hostname === "yuppifacts.com" || hostname === "www.yuppifacts.com"));
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isLanding) return;
     const storedConsent = localStorage.getItem("yf-cookie-consent");
     setConsent(storedConsent === "accepted" ? true : storedConsent === "rejected" ? false : null);
     setConsentReady(true);
