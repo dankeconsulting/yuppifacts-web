@@ -1,12 +1,36 @@
 .signup-billing-tabs button {
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .signup-billing-tabs button.active {
   font-weight: 600;
 }
 
+.signup-plan strong {
+  grid-column: 3;
+}
+
+.signup-plan svg {
+  grid-column: 2;
+}
+
 @media (max-width: 850px) {
+  .signup-plan {
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .signup-plan svg {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+
+  .signup-plan strong {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    margin-right: 0;
+  }
+
   .signup-actions {
     width: 100%;
     flex-direction: row;

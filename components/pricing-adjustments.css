@@ -1,3 +1,8 @@
 .landing .plans h2 span {
   color: #ab93ff;
 }
+
+.billing-control button {
+  font-size: 12px;
+  font-weight: 600;
+}

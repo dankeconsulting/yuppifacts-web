@@ -88,8 +88,8 @@
 .landing-modal {
   display: grid;
   grid-template-columns: minmax(280px, 0.85fr) minmax(420px, 1fr);
-  width: min(1500px, 100%);
-  height: min(1050px, calc(100dvh - 32px));
+  width: min(1260px, calc(100% - 64px));
+  height: min(920px, calc(100dvh - 56px));
   overflow: hidden;
   border: 1px solid #554183;
   border-radius: 30px;
@@ -143,7 +143,9 @@
 .landing-modal-close span { display: none; }
 
 .landing-modal-label {
+  align-self: flex-start;
   display: inline-block;
+  width: fit-content;
   margin: 0;
   padding: 10px 17px;
   border-radius: 999px;
@@ -151,6 +153,7 @@
   color: #d9d2ef;
   font-size: 11px;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .landing-modal h2 {
@@ -244,24 +247,27 @@
   left: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
   transform: translateY(-50%);
   border: 1px solid #4a3976;
   border-left: 0;
-  border-radius: 0 16px 16px 0;
+  border-radius: 0 20px 20px 0;
   background: #171225;
   color: #fff;
-  padding: 16px 12px 16px 10px;
+  width: 136px;
+  min-height: 158px;
+  padding: 24px 20px 24px 16px;
   box-shadow: 0 12px 35px #0008;
   font: inherit;
-  line-height: 1;
   text-align: left;
   cursor: pointer;
 }
 
-.landing-modal-tab span { color: #ab93ff; font: 800 14px "DM Mono", monospace; }
-.landing-modal-tab b { color: #fff; font-size: 13px; }
-.landing-modal-tab em { color: #e7bd55; font-size: 13px; font-style: normal; font-weight: 800; }
+.landing-modal-tab span { color: #ab93ff; font: 800 17px/1.1 "DM Mono", monospace; }
+.landing-modal-tab b { color: #fff; font-size: 15px; line-height: 1.1; }
+.landing-modal-tab em { color: #e7bd55; font-size: 15px; font-style: normal; font-weight: 800; line-height: 1.1; }
 .landing-modal-tab:hover { background: #241a40; }
 
 @media (max-width: 800px) {
@@ -330,8 +336,15 @@
 
   .landing-modal-tab {
     top: 58%;
-    padding: 15px 10px 15px 8px;
+    width: 96px;
+    min-height: 136px;
+    gap: 6px;
+    padding: 20px 12px 20px 10px;
   }
+
+  .landing-modal-tab span { font-size: 14px; }
+  .landing-modal-tab b,
+  .landing-modal-tab em { font-size: 13px; }
 
   .cookie-banner {
     right: 22px;

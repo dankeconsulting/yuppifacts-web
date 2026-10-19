@@ -28,3 +28,5 @@
 .voucher-upload--disabled { cursor: default; opacity: .68; }
 .payment-error { color: #ffabb4; }
 @media (max-width: 560px) { .payment-summary { grid-template-columns: 1fr; } .payment-summary__total, .payment-summary__edit { grid-column: auto; } .payment-billing-tabs { width: 100%; justify-content: space-between; } .payment-billing-tabs button { flex: 1; padding: 9px 6px; } }
+
+.payment-billing-tabs button { font-size: 11px; font-weight: 600; }

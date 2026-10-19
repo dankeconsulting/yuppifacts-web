@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, BarChart3, Check, FileText, LockKeyhole, QrCode, ShieldCheck, Sparkles, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Building2, Check, FileText, LockKeyhole, QrCode, ShieldCheck, Sparkles, TrendingUp, Users } from "lucide-react";
 import PricingSection from "@/components/pricing-section";
 import HowTimeline from "@/components/how-timeline";
 import LandingFooter from "@/components/landing-footer";
@@ -50,10 +50,10 @@ export default function LandingPage() {
         <Feature icon={<FileText />} title={english ? "Traceable requests" : "Solicitudes trazables"} text={english ? "Clear statuses: assisted, awaiting user, sent and completed." : "Estados explícitos: asistida, pendiente de usuario, enviada y completada."} />
         <Feature icon={<ShieldCheck />} title={english ? "Data under control" : "Datos bajo control"} text={english ? "Account and RFC isolation, temporary URLs and access audit trails." : "Aislamiento por cuenta y RFC, URLs temporales y auditoría de accesos."} />
         <Feature icon={<TrendingUp />} title={english ? "Built to grow" : "Hecho para crecer"} text={english ? "One RFC for individuals, multiple taxpayers for firms and corporations." : "Un RFC para personas físicas, múltiples contribuyentes para despachos y corporativos."} />
-        <Feature icon={<LockKeyhole />} title={english ? "Enterprise-grade security" : "Seguridad de nivel empresarial"} text={english ? "Your tax information is protected with encryption, access controls and technology designed to keep data secure." : "Protección de tu información fiscal mediante cifrado, controles de acceso y tecnología diseñada para mantener tus datos seguros."} />
-        <Feature icon={<Sparkles />} title={english ? "Integrated artificial intelligence" : "Inteligencia artificial integrada"} text={english ? "Simplify information capture, reduce repetitive work and speed up invoice requests with intelligent technology." : "Simplifica la captura de información, reduce tareas repetitivas y agiliza tus solicitudes de facturación con tecnología inteligente."} />
-        <Feature icon={<BarChart3 />} title={english ? "Control and traceability" : "Control y trazabilidad"} text={english ? "Check request status, organize receipts and maintain an operation history in one place." : "Consulta el estado de tus solicitudes, organiza tus comprobantes y mantén un historial de tus operaciones en un solo lugar."} />
-        <Feature icon={<TrendingUp />} title={english ? "Technology that grows with you" : "Tecnología que crece contigo"} text={english ? "A platform for people, companies and accounting firms that need to manage invoicing efficiently." : "Una plataforma diseñada para personas, empresas y despachos contables que necesitan gestionar su facturación de manera eficiente."} />
+        <Feature icon={<LockKeyhole />} title={english ? "Military-grade security" : "Seguridad grado militar"} text={english ? "Your tax information is protected with encryption, access controls and technology designed to keep data secure." : "Protección de tu información fiscal mediante cifrado, controles de acceso y tecnología diseñada para mantener tus datos seguros."} />
+        <Feature icon={<Sparkles />} title={english ? "Next-generation AI" : "IA de última generación"} text={english ? "Simplify information capture, reduce repetitive work and speed up invoice requests with intelligent technology." : "Simplifica la captura de información, reduce tareas repetitivas y agiliza tus solicitudes de facturación con tecnología inteligente."} />
+        <Feature icon={<FileText size={24} strokeWidth={2} />} title={english ? "Control and traceability" : "Control y trazabilidad"} text={english ? "Check request status, organize receipts and maintain an operation history in one place." : "Consulta el estado de tus solicitudes, organiza tus comprobantes y mantén un historial de tus operaciones en un solo lugar."} />
+        <Feature icon={<Building2 size={24} strokeWidth={2} />} title={english ? "Technology that grows with you" : "Tecnología que crece contigo"} text={english ? "A platform for people, companies and accounting firms that need to manage invoicing efficiently." : "Una plataforma diseñada para personas, empresas y despachos contables que necesitan gestionar su facturación de manera eficiente."} />
       </div>
     </section>
 

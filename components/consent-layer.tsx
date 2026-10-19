@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Check, Cookie, Rocket, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./consent-layer.css";
@@ -19,6 +20,8 @@ type LandingModal = {
 };
 
 export default function ConsentLayer() {
+  const pathname = usePathname();
+  const isLanding = pathname === "/";
   const [consent, setConsent] = useState<null | boolean>(null);
   const [modal, setModal] = useState<LandingModal | null>(null);
   const [modalClosed, setModalClosed] = useState(false);
@@ -32,18 +35,20 @@ export default function ConsentLayer() {
     syncLocale();
     window.addEventListener("yf-language-change", syncLocale);
 
-    fetch(`${api}/v1/public/landing-modal`)
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data: LandingModal | null) => {
-        if (!data?.isEnabled) return;
+    if (isLanding) {
+      fetch(`${api}/v1/public/landing-modal`)
+        .then((response) => (response.ok ? response.json() : null))
+        .then((data: LandingModal | null) => {
+          if (!data?.isEnabled) return;
 
-        setModal(data);
-        setModalClosed(Boolean(sessionStorage.getItem("yf-landing-modal-dismissed")));
-      })
-      .catch(() => null);
+          setModal(data);
+          setModalClosed(Boolean(sessionStorage.getItem("yf-landing-modal-dismissed")));
+        })
+        .catch(() => null);
+    }
 
     return () => window.removeEventListener("yf-language-change", syncLocale);
-  }, []);
+  }, [isLanding]);
 
   const decideCookies = (value: boolean) => {
     localStorage.setItem("yf-cookie-consent", value ? "accepted" : "rejected");
@@ -92,7 +97,7 @@ export default function ConsentLayer() {
         </aside>
       )}
 
-      {modal && !modalClosed && (
+      {isLanding && modal && !modalClosed && (
         <div
           className="landing-modal-backdrop"
           role="dialog"
@@ -142,7 +147,7 @@ export default function ConsentLayer() {
         </div>
       )}
 
-      {modal && modalClosed && (
+      {isLanding && modal && modalClosed && (
         <button className="landing-modal-tab" onClick={openModal} aria-label={english ? "Open YuppiFacts promotion" : "Abrir promoción de YuppiFacts"}>
           <span>IA</span>
           <b>{english ? "for" : "para"}</b>

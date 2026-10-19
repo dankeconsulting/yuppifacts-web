@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUp, ChevronDown, MapPin } from "lucide-react";
+import { ArrowRight, ArrowUp, ChevronDown, Instagram, Linkedin, Mail, MessageCircle, Phone, Youtube } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./landing-footer.css";
 
@@ -18,7 +18,7 @@ const copy = {
       "Verónica Anzures, 11590, Miguel Hidalgo,",
       "Ciudad de México, México",
     ],
-    contact: "Comenzar ahora",
+    contact: "Hablemos ahora",
     explore: "EXPLORAR",
     account: "TU CUENTA",
     resources: "RECURSOS",
@@ -31,7 +31,7 @@ const copy = {
       register: "Regístrate",
       login: "Entrar",
       privacy: "Privacidad",
-      terms: "Términos",
+      terms: "Condiciones de uso",
       payment: "Pagos y contratación",
       data: "Protección de datos",
       access: "Acceso al panel",
@@ -49,7 +49,7 @@ const copy = {
       "Verónica Anzures, 11590, Miguel Hidalgo,",
       "Mexico City, Mexico",
     ],
-    contact: "Get started",
+    contact: "Let's talk now",
     explore: "EXPLORE",
     account: "YOUR ACCOUNT",
     resources: "RESOURCES",
@@ -62,7 +62,7 @@ const copy = {
       register: "Register",
       login: "Sign in",
       privacy: "Privacy",
-      terms: "Terms",
+      terms: "Terms of Service",
       payment: "Payments and plans",
       data: "Data protection",
       access: "Panel access",
@@ -105,7 +105,9 @@ export default function LandingFooter() {
             <Link className="brand landing-footer-brand" href="/" aria-label="YuppiFacts">
               <span>Y</span>YuppiFacts
             </Link>
-            <h2>{text.statement}</h2>
+            <h2>
+              {locale === "es" ? <><span>Facturación organizada,</span><br /><em>sin fricción</em><i>.</i></> : <><span>Organized invoicing,</span><br /><em>without friction</em><i>.</i></>}
+            </h2>
             <p>{text.description}</p>
 
             <div className="landing-footer-office">
@@ -117,8 +119,13 @@ export default function LandingFooter() {
               </address>
             </div>
 
+            <div className="landing-footer-contact-lines">
+              <a href="tel:+525592624328"><Phone size={18} aria-hidden="true" />(+52) 55 926 243 28</a>
+              <a href="mailto:ai@yuppifacts.com"><Mail size={18} aria-hidden="true" />ai@yuppifacts.com</a>
+            </div>
+
             <Link className="landing-footer-cta" href="/registro">
-              <MapPin size={18} aria-hidden="true" />
+              <MessageCircle size={18} aria-hidden="true" />
               {text.contact}
             </Link>
           </div>
@@ -136,7 +143,6 @@ export default function LandingFooter() {
               <p className="landing-footer-label">{text.account}</p>
               <FooterLink href="/registro">{text.links.register}</FooterLink>
               <FooterLink href="/entrar">{text.links.login}</FooterLink>
-              <FooterLink href="/entrar">{text.links.access}</FooterLink>
             </div>
             <div className="landing-footer-column">
               <p className="landing-footer-label">{text.resources}</p>
@@ -149,6 +155,11 @@ export default function LandingFooter() {
         </div>
 
         <div className="landing-footer-bottom">
+          <div className="landing-footer-social" aria-label="Social media">
+            <a href="https://instagram.com/yuppifacts" aria-label="Instagram"><Instagram size={18} aria-hidden="true" /></a>
+            <a href="https://linkedin.com/company/yuppifacts" aria-label="LinkedIn"><Linkedin size={18} aria-hidden="true" /></a>
+            <a href="https://youtube.com/@yuppifacts" aria-label="YouTube"><Youtube size={18} aria-hidden="true" /></a>
+          </div>
           <div className="landing-footer-controls">
             <div className="landing-footer-country">
               <button type="button" className="landing-footer-country-trigger" onClick={() => setCountryOpen((open) => !open)} aria-expanded={countryOpen}>
@@ -173,11 +184,11 @@ export default function LandingFooter() {
             </div>
           </div>
           <p className="landing-footer-legal">{text.copyright} <Link href="/privacidad">| {text.links.privacy}</Link> <Link href="/terminos">| {text.links.terms}</Link></p>
-          <button type="button" className="landing-footer-top-button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label={text.top}>
-            <ArrowUp size={18} aria-hidden="true" />
-          </button>
         </div>
       </div>
+      <button type="button" className="landing-footer-top-button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label={text.top}>
+        <ArrowUp size={18} aria-hidden="true" />
+      </button>
     </footer>
   );
 }
