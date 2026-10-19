@@ -8,7 +8,7 @@
 }
 
 .landing .logo-slider {
-  margin-top: 10px;
+  margin-top: 52px;
 }
 
 .landing .hero-title-dot {
@@ -40,6 +40,10 @@
 }
 
 @media (max-width: 760px) {
+  .landing .logo-slider {
+    margin-top: 18px;
+  }
+
   .landing .metric {
     top: -12px;
   }
