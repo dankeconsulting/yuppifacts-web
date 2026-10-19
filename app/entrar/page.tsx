@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Check, FileCheck2, LockKeyhole, QrCode, ShieldCheck } from "lucide-react";
+import "@/components/access-heading.css";
 
 const highlights = [
   { icon: QrCode, title: "Tickets y QR en un solo lugar", text: "Captura, relaciona y da seguimiento sin perder contexto." },
@@ -11,7 +12,7 @@ export default function SignInPage() {
   return <main className="access-shell">
     <section className="access-aside">
       <Link className="brand" href="/"><span>Y</span>YuppiFacts</Link>
-      <div className="access-pitch"><p className="eyebrow">GESTIÓN FISCAL, SIN COMPLICARTE</p><h1>Tu información fiscal,<br /><em>en orden y bajo control.</em></h1><p>Reúne tickets, solicitudes y facturas en un espacio claro para que siempre sepas qué sigue.</p><div className="access-highlights">{highlights.map(({ icon: Icon, title, text }) => <article key={title}><span><Icon size={19} /></span><div><b>{title}</b><small>{text}</small></div></article>)}</div></div>
+      <div className="access-pitch"><p className="eyebrow">GESTIÓN FISCAL, SIN COMPLICARTE</p><h1>Tu información<br />fiscal, <em>en orden</em><br /><em>y bajo control.</em></h1><p>Reúne tickets, solicitudes y facturas en un espacio claro para que siempre sepas qué sigue.</p><div className="access-highlights">{highlights.map(({ icon: Icon, title, text }) => <article key={title}><span><Icon size={19} /></span><div><b>{title}</b><small>{text}</small></div></article>)}</div></div>
       <p className="access-stack"><Check size={15} /> Sin e.firma ni certificados <Check size={15} /> Datos bajo tu control</p>
     </section>
     <section className="access-form-wrap">
@@ -20,7 +21,7 @@ export default function SignInPage() {
         <label>Correo electrónico<input type="email" autoComplete="email" placeholder="tu@empresa.mx" /></label>
         <label>Contraseña<input type="password" autoComplete="current-password" placeholder="Tu contraseña" /></label>
         <button type="button" className="button full">Entrar a mi cuenta <ArrowRight size={18} /></button>
-        <p className="access-register">¿Aún no tienes cuenta? <Link href="/registro">Contratar YuppiFacts</Link></p>
+        <p className="access-register">¿Aún no tienes cuenta? <Link href="/registro">Regístrate</Link></p>
         <p className="access-privacy"><LockKeyhole size={14} /> Tu acceso y tus documentos se mantienen protegidos.</p>
       </form>
     </section>
