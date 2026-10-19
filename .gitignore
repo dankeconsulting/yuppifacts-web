@@ -5,3 +5,5 @@ node_modules/
 *.log
 api/node_modules/
 api/.env
+
+/api/
