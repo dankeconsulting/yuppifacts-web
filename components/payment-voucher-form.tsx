@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Check, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, Phone, ShieldCheck, TicketCheck, X } from "lucide-react";
+import { CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, Phone, ShieldCheck, TicketCheck, X } from "lucide-react";
 import "./payment-voucher.css";
 import PublicProcessFooter from "./public-process-footer";
 
@@ -32,7 +32,7 @@ export default function PaymentVoucherForm() {
   const [countryCode, setCountryCode] = useState<CountryCode>("MX");
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [notice, setNotice] = useState<string | null>(null);
+  const [receiptOpen, setReceiptOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const currentCountry = countries[countryCode];
@@ -42,7 +42,7 @@ export default function PaymentVoucherForm() {
 
   const selectFile = (nextFile?: File) => {
     setError(null);
-    setNotice(null);
+    setReceiptOpen(false);
     if (!nextFile) return;
     if (!fileIsAllowed(nextFile)) {
       setFile(null);
@@ -62,7 +62,7 @@ export default function PaymentVoucherForm() {
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
-    setNotice(null);
+    setReceiptOpen(false);
     const form = new FormData(event.currentTarget);
     if (!file) {
       setError("Adjunta el comprobante de tu pago para continuar.");
@@ -98,7 +98,7 @@ export default function PaymentVoucherForm() {
       const submitted = await fetch(`${api}/v1/promotion-vouchers/${upload.voucherId}/submit`, { method: "POST" });
       const submittedBody = await submitted.json().catch(() => ({}));
       if (!submitted.ok) throw new Error(submittedBody.error ?? "No fue posible registrar tu comprobante.");
-      setNotice("Recibimos tu comprobante. Revisaremos el pago y te avisaremos cuando tu cuenta esté lista.");
+      setReceiptOpen(true);
       event.currentTarget.reset();
       setCountryCode("MX");
       setFile(null);
@@ -151,11 +151,10 @@ export default function PaymentVoucherForm() {
 
           <div className="voucher-security"><ShieldCheck aria-hidden="true" /><span>Tu comprobante se almacena de forma privada y se usa únicamente para validar este pago.</span></div>
           {error && <p className="voucher-message error"><CircleAlert aria-hidden="true" />{error}</p>}
-          {notice && <p className="voucher-message success"><Check aria-hidden="true" />{notice}</p>}
           <button className="voucher-submit" disabled={submitting} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
         </form>
 
-      </section><PublicProcessFooter />
+      </section><PublicProcessFooter />{receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}
     </main>
   );
 }
