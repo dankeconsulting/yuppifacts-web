@@ -141,8 +141,8 @@ export default function ConsentLayer() {
               <h2>{title}</h2>
               <p className="landing-modal-highlight">
                 {english
-                  ? "Make invoice requests faster at the places where you shop in Mexico. AI handles the repetitive work."
-                  : "Impulsa la agilidad de solicitar tus facturas donde realizas compras en México. La IA lo hace sola."}
+                  ? "Speed up invoice requests for your company or clients if you are an accountant or accounting firm in Mexico. YuppiFacts AI does it for you."
+                  : "Impulsa la agilidad de solicitar tus facturas de tu empresa o clientes si eres contador o despacho contable en México. YuppiFacts AI lo hace por ti."}
               </p>
               <p className="landing-modal-intro">
                 {english
@@ -157,7 +157,7 @@ export default function ConsentLayer() {
               </ol>
               <div className="landing-modal-spots">
                 <b>{english ? <>Only <em>{remainingSpots}</em> spots remain</> : <>Solo quedan <em>{remainingSpots}</em> espacios disponibles</>}</b>
-                <span>{english ? "Day of the Dead special price for accounting firms.\nFor new subscriptions." : "Precio especial por Día de Muertos para despachos contables.\nAplica para nuevas contrataciones."}</span>
+                <span>{english ? "Day of the Dead special price for accountants,\naccounting firms, businesses and corporations.\nFor new subscriptions." : "Precio especial por Día de Muertos para contadores,\ndespachos contables, empresas y corporativos\nAplica para nuevas contrataciones."}</span>
               </div>
               <Link className="landing-modal-cta" href={promoUrl} onClick={closeModal}>
                 {english ? "I want to speed up invoice requests" : "Quiero agilizar solicitudes de facturas"}
