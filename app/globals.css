@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Poppins:wght@400;500;600;700;800&display=swap');
 
-/* Keep scrolling available while hiding the native bar on the public landing. */
-html:has(.landing) { scrollbar-width: none; }
-html:has(.landing)::-webkit-scrollbar { display: none; }
+/* Keep scrolling available while hiding the native bar on public journeys. */
+html:has(.landing),
+html:has(.signup-shell),
+html:has(.access-shell),
+html:has(.legal-page) { scrollbar-width: none; }
+html:has(.landing)::-webkit-scrollbar,
+html:has(.signup-shell)::-webkit-scrollbar,
+html:has(.access-shell)::-webkit-scrollbar,
+html:has(.legal-page)::-webkit-scrollbar,
+.landing-modal-backdrop::-webkit-scrollbar { display: none; }
+.landing-modal-backdrop { scrollbar-width: none; }
 
 body { font-family: Poppins, Arial, sans-serif !important; }
 .landing { padding-top: 84px; }
