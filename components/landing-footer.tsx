@@ -1,11 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUp, ChevronDown, Instagram, Linkedin, Mail, MessageCircle, Phone, Youtube } from "lucide-react";
+import { ArrowRight, ArrowUp, ChevronDown, Instagram, Linkedin, Mail, Phone, Youtube } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./landing-footer.css";
+import "./landing-footer-adjustments.css";
 
 type Locale = "es" | "en";
+
+function WhatsAppIcon({ size = 20 }: { size?: number }) {
+  return <svg aria-hidden="true" fill="currentColor" height={size} viewBox="0 0 24 24" width={size}><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.198.297-.768.966-.94 1.164-.173.198-.347.223-.644.074-.297-.148-1.255-.463-2.39-1.477-.883-.787-1.48-1.76-1.653-2.057-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.372-.025-.52-.075-.149-.67-1.612-.916-2.207-.242-.579-.487-.5-.67-.51a12.72 12.72 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.273.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.077 4.49.71.306 1.263.489 1.695.626.712.227 1.36.195 1.872.118.571-.085 1.758-.718 2.006-1.412.248-.694.248-1.289.173-1.412-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.375a9.87 9.87 0 0 1-1.51-5.26c.001-5.446 4.43-9.876 9.879-9.876a9.87 9.87 0 0 1 6.985 2.893 9.87 9.87 0 0 1 2.893 6.985c-.002 5.447-4.43 9.878-9.877 9.878M12.047 0C5.486 0 .15 5.336.147 11.897a11.84 11.84 0 0 0 1.6 5.988L0 24l6.335-1.662a11.87 11.87 0 0 0 5.709 1.455h.005c6.56 0 11.894-5.336 11.897-11.897A11.88 11.88 0 0 0 12.047 0" /></svg>;
+}
 
 const copy = {
   es: {
@@ -30,8 +35,8 @@ const copy = {
       ai: "IA",
       register: "Regístrate",
       login: "Entrar",
-      privacy: "Privacidad",
-      terms: "Condiciones de uso",
+      privacy: "Política de Privacidad",
+      terms: "Condiciones de Servicio",
       payment: "Pagos y contratación",
       data: "Protección de datos",
       access: "Acceso al panel",
@@ -125,7 +130,7 @@ export default function LandingFooter() {
             </div>
 
             <Link className="landing-footer-cta" href="/registro">
-              <MessageCircle size={18} aria-hidden="true" />
+              <WhatsAppIcon />
               {text.contact}
             </Link>
           </div>

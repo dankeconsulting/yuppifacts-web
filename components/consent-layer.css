@@ -181,7 +181,7 @@
 .landing-modal-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 6px;
   padding: 0;
   margin: 19px 0;
   list-style: none;
@@ -253,21 +253,21 @@
   transform: translateY(-50%);
   border: 1px solid #4a3976;
   border-left: 0;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 18px 18px 0;
   background: #171225;
   color: #fff;
-  width: 136px;
-  min-height: 158px;
-  padding: 24px 20px 24px 16px;
+  width: 112px;
+  min-height: 130px;
+  padding: 18px 12px 18px 14px;
   box-shadow: 0 12px 35px #0008;
   font: inherit;
   text-align: left;
   cursor: pointer;
 }
 
-.landing-modal-tab span { color: #ab93ff; font: 800 17px/1.1 "DM Mono", monospace; }
-.landing-modal-tab b { color: #fff; font-size: 15px; line-height: 1.1; }
-.landing-modal-tab em { color: #e7bd55; font-size: 15px; font-style: normal; font-weight: 800; line-height: 1.1; }
+.landing-modal-tab span { color: #ab93ff; font: 800 15px/1.1 "DM Mono", monospace; }
+.landing-modal-tab b { color: #fff; font-size: 14px; line-height: 1.1; }
+.landing-modal-tab em { color: #e7bd55; font-size: 14px; font-style: normal; font-weight: 800; line-height: 1.1; }
 .landing-modal-tab:hover { background: #241a40; }
 
 @media (max-width: 800px) {
@@ -336,15 +336,15 @@
 
   .landing-modal-tab {
     top: 58%;
-    width: 96px;
-    min-height: 136px;
-    gap: 6px;
-    padding: 20px 12px 20px 10px;
+    width: 84px;
+    min-height: 112px;
+    gap: 5px;
+    padding: 16px 9px 16px 10px;
   }
 
-  .landing-modal-tab span { font-size: 14px; }
+  .landing-modal-tab span { font-size: 13px; }
   .landing-modal-tab b,
-  .landing-modal-tab em { font-size: 13px; }
+  .landing-modal-tab em { font-size: 12px; }
 
   .cookie-banner {
     right: 22px;

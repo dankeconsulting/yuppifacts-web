@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Check, Cookie, Rocket, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./consent-layer.css";
+import "./consent-layer-adjustments.css";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 
@@ -127,6 +128,11 @@ export default function ConsentLayer() {
                 {english
                   ? "Make invoice requests faster at the places where you shop in Mexico. AI handles the repetitive work."
                   : "Impulsa la agilidad de solicitar tus facturas donde realizas compras en México. La IA lo hace sola."}
+              </p>
+              <p className="landing-modal-intro">
+                {english
+                  ? "Leave repetitive forms behind: YuppiFacts turns your tickets into clear, organized invoice requests."
+                  : "Deja atrás los formularios repetitivos: YuppiFacts convierte tus tickets en solicitudes de factura claras y ordenadas."}
               </p>
               <p>{body}</p>
               <ol className="landing-modal-steps">

@@ -15,6 +15,9 @@ body { font-family: Poppins, Arial, sans-serif !important; }
   backdrop-filter: blur(14px);
 }
 
+.landing .button, .landing button { font-weight: 500; }
+.landing .nav-actions { font-weight: 500; }
+
 @media (max-width: 600px) {
   .landing { padding-top: 72px; }
 }

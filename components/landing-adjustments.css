@@ -1,4 +1,9 @@
 /* Ajustes visuales específicos de la landing. */
+.landing h1,
+.landing h2 {
+  font-weight: 600;
+}
+
 .landing .metric {
   top: 15px;
 }

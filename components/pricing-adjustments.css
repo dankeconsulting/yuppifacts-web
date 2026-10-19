@@ -4,5 +4,7 @@
 
 .billing-control button {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
 }
+
+.billing-control button.active { font-weight: 600; }

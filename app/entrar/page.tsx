@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Check, FileCheck2, LockKeyhole, QrCode, ShieldCheck } from "lucide-react";
 import "@/components/access-heading.css";
 import "@/components/access-topbar.css";
+import "@/components/access-adjustments.css";
 
 const highlights = [
   { icon: QrCode, title: "Tickets y QR en un solo lugar", text: "Captura, relaciona y da seguimiento sin perder contexto." },

@@ -64,8 +64,8 @@ export default function HowTimeline({ locale = "es" }: { locale?: "es" | "en" })
   return <section id="como-funciona" className={styles.how} ref={sectionRef}>
     <p className="eyebrow">{english ? "HOW IT WORKS" : "CÓMO FUNCIONA"}</p>
     <h2>
-      <span className={styles.desktopTitle}>{english ? <>YuppiFacts handles the repetitive work.<br />The decision remains yours.</> : <>Lo repetitivo lo hace YuppiFacts.<br />La decisión sigue siendo tuya.</>}</span>
-      <span className={styles.mobileTitle}>{english ? <><span>YuppiFacts handles</span><span>the repetitive work.</span><span><em>The decision remains</em></span><span><em>yours</em></span></> : <><span>Lo repetitivo lo hace</span><span>YuppiFacts. <em>La</em></span><span><em>decisión sigue</em></span><span><em>siendo tuya</em></span></>}</span>
+      <span className={styles.desktopTitle}>{english ? <>YuppiFacts handles the repetitive work.<br /><em>The decision remains yours</em><i>.</i></> : <>Lo repetitivo lo hace YuppiFacts.<br /><em>La decisión sigue siendo tuya</em><i>.</i></>}</span>
+      <span className={styles.mobileTitle}>{english ? <><span>YuppiFacts handles</span><span>the repetitive work.</span><span><em>The decision remains</em></span><span><em>yours</em><i>.</i></span></> : <><span>Lo repetitivo lo hace</span><span>YuppiFacts.</span><span><em>La decisión sigue</em></span><span><em>siendo tuya</em><i>.</i></span></>}</span>
     </h2>
     <div className={styles.stepList} style={{ "--timeline-progress": progress, "--timeline-length": `${lineLength}px` } as CSSProperties}>
       {localizedSteps.map(({ number, icon: Icon, title, description }, index) => <article className={`${styles.step} ${index <= activeStep ? styles.active : ""}`} data-timeline-step key={number}>

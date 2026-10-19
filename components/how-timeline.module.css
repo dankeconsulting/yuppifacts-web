@@ -16,6 +16,16 @@
   display: none;
 }
 
+.how h2 em {
+  color: #ab93ff;
+  font-style: normal;
+}
+
+.how h2 i {
+  color: #f7f5ff;
+  font-style: normal;
+}
+
 .stepList {
   position: relative;
   max-width: 1040px;
@@ -152,11 +162,6 @@
   .mobileTitle > span {
     display: block;
     white-space: nowrap;
-  }
-
-  .mobileTitle em {
-    color: #ab93ff;
-    font-style: normal;
   }
 
   .stepList::before,
