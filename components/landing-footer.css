@@ -1,0 +1,69 @@
+.landing-footer {
+  --footer-bg: #0b0d20;
+  --footer-line: rgba(199, 188, 255, 0.13);
+  --footer-muted: #9da4ba;
+  background: var(--footer-bg);
+  border-top: 1px solid var(--footer-line);
+  color: #f7f5ff;
+  padding: clamp(72px, 9vw, 156px) max(24px, calc((100% - 1340px) / 2)) 28px;
+}
+
+.landing-footer-inner { max-width: 1340px; margin: 0 auto; }
+.landing-footer-top { display: grid; grid-template-columns: minmax(310px, .9fr) minmax(600px, 1.45fr); gap: clamp(62px, 9vw, 170px); }
+.landing-footer-brand { display: inline-flex; font-size: 30px; margin-bottom: 58px; }
+.landing-footer-brand span { width: 58px; height: 58px; border-radius: 18px; }
+.landing-footer-intro h2 { max-width: 440px; color: #f7f5ff; font-size: clamp(28px, 2.4vw, 42px); letter-spacing: -.045em; line-height: 1.07; margin: 0 0 22px; }
+.landing-footer-intro > p { color: var(--footer-muted); font-size: 16px; line-height: 1.65; margin: 0; max-width: 490px; }
+.landing-footer-office { border-top: 1px solid var(--footer-line); margin-top: 60px; max-width: 460px; padding-top: 22px; }
+.landing-footer-label { color: #aa93ff; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .12em; margin: 0 0 18px; }
+.landing-footer address { color: #d4d8e5; font-size: 15px; font-style: normal; line-height: 1.7; }
+.landing-footer address span { display: block; }
+.landing-footer-cta { align-items: center; background: #8f63f6; border-radius: 999px; color: #160d2c; display: flex; font-size: 15px; font-weight: 750; gap: 9px; margin-top: 25px; padding: 14px 22px; text-decoration: none; transition: transform .2s ease, background .2s ease; width: fit-content; }
+.landing-footer-cta:hover { background: #a985ff; transform: translateY(-2px); }
+.landing-footer-nav { display: grid; gap: clamp(25px, 4vw, 62px); grid-template-columns: repeat(3, minmax(145px, 1fr)); padding-top: 176px; }
+.landing-footer-column { min-width: 0; }
+.landing-footer-link { align-items: center; border-top: 1px solid var(--footer-line); color: #f2f1f7; display: flex; font-size: 15px; font-weight: 620; gap: 12px; justify-content: space-between; min-height: 56px; text-decoration: none; transition: color .2s ease, padding .2s ease; }
+.landing-footer-link:last-child { border-bottom: 1px solid var(--footer-line); }
+.landing-footer-link svg { color: #9d9bb1; flex: 0 0 auto; }
+.landing-footer-link:hover { color: #b69aff; padding-left: 4px; }
+.landing-footer-link:hover svg { color: #b69aff; }
+.landing-footer-bottom { align-items: center; border-top: 1px solid var(--footer-line); display: grid; gap: 24px; grid-template-columns: 1fr minmax(380px, auto) 1fr; margin-top: 105px; padding-top: 26px; }
+.landing-footer-controls { align-items: center; display: flex; gap: 18px; }
+.landing-footer-country { position: relative; }
+.landing-footer-country-trigger { align-items: center; background: transparent; border: 1px solid var(--footer-line); border-radius: 999px; color: #d8dbea; cursor: pointer; display: inline-flex; font-size: 13px; font-weight: 650; gap: 8px; padding: 10px 13px; }
+.landing-footer-country-trigger:hover { border-color: rgba(183, 157, 255, .55); }
+.country-code { color: #a8b0c7; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+.landing-footer-country i { background: #31d2bf; border-radius: 50%; display: inline-block; height: 7px; margin-left: 2px; width: 7px; }
+.landing-footer-country-menu { background: #1b1e3a; border: 1px solid rgba(190, 174, 255, .18); border-radius: 20px; bottom: calc(100% + 12px); box-shadow: 0 18px 46px rgba(0, 0, 0, .38); min-width: 220px; padding: 10px; position: absolute; z-index: 3; }
+.landing-footer-country-menu button { align-items: center; background: transparent; border: 0; border-radius: 12px; color: #77829b; cursor: pointer; display: grid; font-size: 15px; gap: 11px; grid-template-columns: 28px 1fr auto; padding: 13px 12px; text-align: left; width: 100%; }
+.landing-footer-country-menu button:hover, .landing-footer-country-menu button.active { background: rgba(255, 255, 255, .055); color: #f7f5ff; }
+.landing-footer-country-menu button.active .country-code { color: #f7f5ff; }
+.landing-footer-bottom p { color: #7e879d; font-size: 13px; margin: 0; text-align: center; }
+.landing-footer-legal a { color: #a9b0c4; font-weight: 650; text-decoration: none; white-space: nowrap; }
+.landing-footer-legal a:hover { color: #c2aaff; }
+.landing-footer-language { background: rgba(255,255,255,.055); border-radius: 999px; display: flex; padding: 4px; width: fit-content; }
+.landing-footer-language button { background: transparent; border: 0; border-radius: 999px; color: #8f98ae; cursor: pointer; font-size: 12px; font-weight: 750; min-width: 40px; padding: 8px 10px; }
+.landing-footer-language button.active { background: #f1eff7; color: #242033; }
+.landing-footer-top-button { align-items: center; background: rgba(255,255,255,.06); border: 0; border-radius: 50%; color: #f7f5ff; cursor: pointer; display: flex; height: 44px; justify-content: center; justify-self: end; transition: background .2s ease, transform .2s ease; width: 44px; }
+.landing-footer-top-button:hover { background: #8f63f6; color: #170d2e; transform: translateY(-2px); }
+
+@media (max-width: 900px) {
+  .landing-footer-top { grid-template-columns: 1fr; }
+  .landing-footer-nav { padding-top: 0; }
+  .landing-footer-bottom { margin-top: 64px; }
+}
+
+@media (max-width: 640px) {
+  .landing-footer { padding: 64px 24px 24px; }
+  .landing-footer-brand { font-size: 25px; margin-bottom: 48px; }
+  .landing-footer-brand span { border-radius: 15px; height: 48px; width: 48px; }
+  .landing-footer-intro h2 { font-size: 31px; max-width: 320px; }
+  .landing-footer-office { margin-top: 45px; }
+  .landing-footer-nav { gap: 40px 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .landing-footer-column:last-child { grid-column: span 2; }
+  .landing-footer-bottom { align-items: end; gap: 18px; grid-template-columns: 1fr auto; margin-top: 56px; }
+  .landing-footer-controls { gap: 10px; grid-column: span 2; }
+  .landing-footer-bottom p { font-size: 11px; line-height: 1.6; text-align: left; }
+  .landing-footer-legal a { display: inline-block; }
+  .landing-footer-top-button { height: 38px; width: 38px; }
+}

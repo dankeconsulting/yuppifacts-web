@@ -12,6 +12,10 @@
   line-height: 1.04;
 }
 
+.mobileTitle {
+  display: none;
+}
+
 .stepList {
   position: relative;
   max-width: 1040px;
@@ -125,7 +129,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 760px) {
   .how {
     width: min(100% - 36px, 1180px);
     padding: 82px 0;
@@ -135,6 +139,24 @@
     margin-bottom: 49px;
     font-size: clamp(37px, 10vw, 48px);
     letter-spacing: -3px;
+  }
+
+  .desktopTitle {
+    display: none;
+  }
+
+  .mobileTitle {
+    display: block;
+  }
+
+  .mobileTitle > span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .mobileTitle em {
+    color: #ab93ff;
+    font-style: normal;
   }
 
   .stepList::before,

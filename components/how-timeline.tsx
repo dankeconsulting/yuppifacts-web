@@ -11,7 +11,14 @@ const steps = [
   { number: "04", icon: FileText, title: "Recibe y organiza tus facturas", description: "Vincula XML y PDF al ticket, contribuyente y periodo correcto." },
 ];
 
-export default function HowTimeline() {
+const englishSteps = [
+  { number: "01", icon: QrCode, title: "Upload your receipt or scan the QR", description: "Upload a JPG, PNG or PDF, or paste the official invoicing link." },
+  { number: "02", icon: ListChecks, title: "Choose your tax profile", description: "YuppiFacts uses only the RFC information you authorized for that request." },
+  { number: "03", icon: Sparkles, title: "AI prepares it, you confirm", description: "We detect provider requirements, propose the information and point out anything missing." },
+  { number: "04", icon: FileText, title: "Receive and organize your invoices", description: "Link XML and PDF files to the receipt, taxpayer and correct period." },
+];
+
+export default function HowTimeline({ locale = "es" }: { locale?: "es" | "en" }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeStep, setActiveStep] = useState(-1);
   const [progress, setProgress] = useState(0);
@@ -30,7 +37,7 @@ export default function HowTimeline() {
         return rect.top + rect.height / 2;
       });
       const start = centers[0];
-      const isCompact = window.matchMedia("(max-width: 600px)").matches;
+      const isCompact = window.matchMedia("(max-width: 760px)").matches;
       const lastParagraph = nodes[nodes.length - 1]?.querySelector<HTMLElement>("p");
       const end = isCompact && lastParagraph ? lastParagraph.getBoundingClientRect().bottom : centers[centers.length - 1];
       const nextProgress = Math.min(1, Math.max(0, (threshold - start) / (end - start)));
@@ -52,14 +59,19 @@ export default function HowTimeline() {
     };
   }, []);
 
+  const english = locale === "en";
+  const localizedSteps = english ? englishSteps : steps;
   return <section id="como-funciona" className={styles.how} ref={sectionRef}>
-    <p className="eyebrow">CÓMO FUNCIONA</p>
-    <h2>Lo repetitivo lo hace YuppiFacts.<br />La decisión sigue siendo tuya.</h2>
+    <p className="eyebrow">{english ? "HOW IT WORKS" : "CÓMO FUNCIONA"}</p>
+    <h2>
+      <span className={styles.desktopTitle}>{english ? <>YuppiFacts handles the repetitive work.<br />The decision remains yours.</> : <>Lo repetitivo lo hace YuppiFacts.<br />La decisión sigue siendo tuya.</>}</span>
+      <span className={styles.mobileTitle}>{english ? <><span>YuppiFacts handles</span><span>the repetitive work.</span><span><em>The decision remains</em></span><span><em>yours</em></span></> : <><span>Lo repetitivo lo hace</span><span>YuppiFacts. <em>La</em></span><span><em>decisión sigue</em></span><span><em>siendo tuya</em></span></>}</span>
+    </h2>
     <div className={styles.stepList} style={{ "--timeline-progress": progress, "--timeline-length": `${lineLength}px` } as CSSProperties}>
-      {steps.map(({ number, icon: Icon, title, description }, index) => <article className={`${styles.step} ${index <= activeStep ? styles.active : ""}`} data-timeline-step key={number}>
+      {localizedSteps.map(({ number, icon: Icon, title, description }, index) => <article className={`${styles.step} ${index <= activeStep ? styles.active : ""}`} data-timeline-step key={number}>
         <span className={styles.stepIcon}><Icon size={24} /></span>
         <div className={styles.stepContent}>
-          <span className={styles.stepNumber}>Paso&nbsp; {number}</span>
+          <span className={styles.stepNumber}>{english ? "Step" : "Paso"}&nbsp; {number}</span>
           <h3>{title}</h3>
           <p>{description}</p>
         </div>

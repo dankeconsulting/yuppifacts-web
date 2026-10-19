@@ -1,9 +1,80 @@
+"use client";
+
 import Link from "next/link";
-import { ArrowRight, BriefcaseBusiness, Building2, Check, FileText, QrCode, ShieldCheck, Sparkles, UserRound, Users } from "lucide-react";
+import { ArrowRight, BarChart3, Check, FileText, LockKeyhole, QrCode, ShieldCheck, Sparkles, TrendingUp, Users } from "lucide-react";
 import PricingSection from "@/components/pricing-section";
 import HowTimeline from "@/components/how-timeline";
+import LandingFooter from "@/components/landing-footer";
 import RevealOnScroll from "@/components/reveal-on-scroll";
+import { useLandingLocale } from "@/components/use-landing-locale";
 import "@/components/landing-adjustments.css";
-export default function LandingPage(){return <main className="landing"><header className="public-nav"><Link className="brand" href="/"><span>Y</span>YuppiFacts</Link><nav><a href="#como-funciona">Cómo funciona</a><a href="#beneficios">Funciones</a><a href="#planes">Planes</a><a href="#ia">IA</a></nav><div className="nav-actions"><Link href="/entrar">Entrar</Link><Link className="button small" href="/registro">Contratar</Link></div></header><section className="hero"><div className="hero-copy"><p className="eyebrow"><Sparkles size={15}/> IA que organiza, sugiere y te acompaña</p><h1>Solicita tus<br/>facturas sin<br/>dolores de<br/>cabeza, <em>con IA.</em></h1><p className="lead">YuppiFacts lee tu ticket o QR, prepara los datos que solicita cada proveedor y organiza tus facturas en un solo lugar. Tú mantienes siempre el control.</p><div className="hero-actions"><Link className="button" href="#planes">Ver planes <ArrowRight size={18}/></Link><Link className="button ghost" href="/entrar">Iniciar sesión</Link></div><ul className="proof"><li><Check/> Sin e.firma ni certificados</li><li><Check/> Datos fiscales protegidos</li><li><Check/> Personas, contadores y empresas</li></ul></div><div className="hero-product"><div className="mini-card metric"><small>Facturas organizadas</small><strong>24</strong><span>+8 este mes</span></div><div className="ticket-panel"><div className="ticket-head"><span className="avatar">YF</span><div><b>Solicitud #YF-2084</b><small>Supermercado Norte · En proceso</small></div><span className="status waiting">Revisión</span></div><div className="ticket-steps"><p><span>✓</span> Ticket y QR verificados</p><p><span>✓</span> Perfil fiscal confirmado</p><p className="pending"><span>3</span> Esperando la respuesta del proveedor</p></div><div className="ticket-footer"><FileText size={17}/> PDF/XML se vincularán aquí al recibirse</div></div><div className="mini-card floating"><QrCode/><div><small>Tickets este mes</small><b>48</b></div></div></div></section><Marquee/><HowTimeline/><section id="beneficios" className="features"><p className="eyebrow">FUNCIONES</p><h2>Todo lo necesario para facturar,<br/>nada que comprometa tus datos.</h2><div className="feature-grid"><Feature icon={<QrCode/>} title="QR, ticket o enlace" text="Captura desde móvil o adjunta PDF, PNG y JPG con vista previa."/><Feature icon={<FileText/>} title="Solicitudes trazables" text="Estados explícitos: asistida, pendiente de usuario, enviada y completada."/><Feature icon={<ShieldCheck/>} title="Datos bajo control" text="Aislamiento por cuenta y RFC, URLs temporales y auditoría de accesos."/><Feature icon={<Users/>} title="Hecho para crecer" text="Un RFC para personas físicas, múltiples contribuyentes para despachos y corporativos."/></div></section><PricingSection/><section id="ia" className="cta"><p className="eyebrow">IA EN CADA PASO</p><h2>Tecnología que te ayuda.<br/>Tú decides.</h2><p>La IA propone y organiza; nunca envía datos fiscales ni solicitudes sin tu confirmación.</p><Link className="button" href="/registro">Contratar YuppiFacts <ArrowRight size={18}/></Link></section><footer><Link className="brand" href="/"><span>Y</span>YuppiFacts</Link><p>Gestión de solicitudes de factura para México.</p><div><Link href="/privacidad">Privacidad</Link><Link href="/terminos">Términos</Link><Link href="/entrar">Entrar</Link></div></footer></main>}
-function Feature({icon,title,text}:{icon:React.ReactNode;title:string;text:string}){return <RevealOnScroll><article className="feature"><div className="feature-icon">{icon}</div><h3>{title}</h3><p>{text}</p></article></RevealOnScroll>}
-function Marquee(){const items=["IA para documentos","QR y tickets","Portal de proveedores","XML y PDF","Seguridad por RFC","Datos bajo control"];return <div className="logo-slider" aria-label="Capacidades de YuppiFacts"><div className="marquee-track">{[...items,...items].map((item,index)=><span className="marquee-item" key={`${item}-${index}`}>{item}<i>✦</i></span>)}</div></div>}
+
+export default function LandingPage() {
+  const locale = useLandingLocale();
+  const english = locale === "en";
+  return <main className="landing">
+    <header className="public-nav">
+      <Link className="brand" href="/"><span>Y</span>YuppiFacts</Link>
+      <nav><a href="#como-funciona">{english ? "How it works" : "Cómo funciona"}</a><a href="#beneficios">{english ? "Features" : "Funciones"}</a><a href="#planes">{english ? "Plans" : "Planes"}</a><a href="#ia">AI</a></nav>
+      <div className="nav-actions"><Link href="/entrar">{english ? "Log in" : "Entrar"}</Link><Link className="button small" href="/registro">{english ? "Get started" : "Contratar"}</Link></div>
+    </header>
+
+    <section className="hero">
+      <div className="hero-copy">
+        <p className="eyebrow"><Sparkles size={15} /> {english ? "AI that organizes, suggests and supports you" : "IA que organiza, sugiere y te acompaña"}</p>
+        <h1>{english ? <>Request<br />invoices without<br /><em>the headache</em><span className="hero-title-dot">.</span></> : <>Solicita tus<br />facturas sin<br /><em>dolores de cabeza</em><span className="hero-title-dot">.</span></>}</h1>
+        <p className="lead">{english ? "YuppiFacts reads your receipt or QR code, prepares the information each provider requires, and organizes your invoices in one place. You always remain in control." : "YuppiFacts lee tu ticket o QR, prepara los datos que solicita cada proveedor y organiza tus facturas en un solo lugar. Tú mantienes siempre el control."}</p>
+        <div className="hero-actions"><Link className="button" href="#planes">{english ? "View plans" : "Ver planes"} <ArrowRight size={18} /></Link><Link className="button ghost" href="/entrar">{english ? "Log in" : "Iniciar sesión"}</Link></div>
+        <ul className="proof"><li><Check /> {english ? "No e-signature or certificates" : "Sin e.firma ni certificados"}</li><li><Check /> {english ? "Tax data protected" : "Datos fiscales protegidos"}</li><li><Check /> {english ? "People, accountants and companies" : "Personas, contadores y empresas"}</li></ul>
+      </div>
+      <div className="hero-product">
+        <div className="mini-card metric"><small>Facturas organizadas</small><strong>24</strong><span>+8 este mes</span></div>
+        <div className="ticket-panel">
+          <div className="ticket-head"><span className="avatar">YF</span><div><b>{english ? "Request #YF-2084" : "Solicitud #YF-2084"}</b><small>{english ? "North Market · In progress" : "Supermercado Norte · En proceso"}</small></div><span className="status waiting">{english ? "Review" : "Revisión"}</span></div>
+          <div className="ticket-steps"><p><span>✓</span> {english ? "Receipt and QR verified" : "Ticket y QR verificados"}</p><p><span>✓</span> {english ? "Tax profile confirmed" : "Perfil fiscal confirmado"}</p><p className="pending"><span>3</span> {english ? "Waiting for the provider response" : "Esperando la respuesta del proveedor"}</p></div>
+          <div className="ticket-footer"><FileText size={17} /> {english ? "PDF/XML will be linked here when received" : "PDF/XML se vincularán aquí al recibirse"}</div>
+        </div>
+        <div className="mini-card floating"><QrCode /><div><small>Tickets este mes</small><b>48</b></div></div>
+      </div>
+    </section>
+
+    <Marquee locale={locale} />
+    <HowTimeline locale={locale} />
+
+    <section id="beneficios" className="features">
+      <p className="eyebrow">{english ? "FEATURES" : "FUNCIONES"}</p>
+      <h2>{english ? <><span>All the power of technology,</span><br /><span className="features-title-accent">with the peace of mind of being protected</span><span className="features-title-dot">.</span></> : <><span>Todo el poder de la tecnología,</span><br /><span className="features-title-accent">toda la tranquilidad de estar protegido</span><span className="features-title-dot">.</span></>}</h2>
+      <p className="features-lead">{english ? "Automate your invoicing requests with artificial intelligence, save time and keep your information secure." : "Automatiza tus solicitudes de facturación con inteligencia artificial, ahorra tiempo y mantén tu información segura."}</p>
+      <div className="feature-grid">
+        <Feature icon={<QrCode />} title={english ? "QR, receipt or link" : "QR, ticket o enlace"} text={english ? "Capture from your phone or attach a PDF, PNG or JPG with preview." : "Captura desde móvil o adjunta PDF, PNG y JPG con vista previa."} />
+        <Feature icon={<FileText />} title={english ? "Traceable requests" : "Solicitudes trazables"} text={english ? "Clear statuses: assisted, awaiting user, sent and completed." : "Estados explícitos: asistida, pendiente de usuario, enviada y completada."} />
+        <Feature icon={<ShieldCheck />} title={english ? "Data under control" : "Datos bajo control"} text={english ? "Account and RFC isolation, temporary URLs and access audit trails." : "Aislamiento por cuenta y RFC, URLs temporales y auditoría de accesos."} />
+        <Feature icon={<TrendingUp />} title={english ? "Built to grow" : "Hecho para crecer"} text={english ? "One RFC for individuals, multiple taxpayers for firms and corporations." : "Un RFC para personas físicas, múltiples contribuyentes para despachos y corporativos."} />
+        <Feature icon={<LockKeyhole />} title={english ? "Enterprise-grade security" : "Seguridad de nivel empresarial"} text={english ? "Your tax information is protected with encryption, access controls and technology designed to keep data secure." : "Protección de tu información fiscal mediante cifrado, controles de acceso y tecnología diseñada para mantener tus datos seguros."} />
+        <Feature icon={<Sparkles />} title={english ? "Integrated artificial intelligence" : "Inteligencia artificial integrada"} text={english ? "Simplify information capture, reduce repetitive work and speed up invoice requests with intelligent technology." : "Simplifica la captura de información, reduce tareas repetitivas y agiliza tus solicitudes de facturación con tecnología inteligente."} />
+        <Feature icon={<BarChart3 />} title={english ? "Control and traceability" : "Control y trazabilidad"} text={english ? "Check request status, organize receipts and maintain an operation history in one place." : "Consulta el estado de tus solicitudes, organiza tus comprobantes y mantén un historial de tus operaciones en un solo lugar."} />
+        <Feature icon={<TrendingUp />} title={english ? "Technology that grows with you" : "Tecnología que crece contigo"} text={english ? "A platform for people, companies and accounting firms that need to manage invoicing efficiently." : "Una plataforma diseñada para personas, empresas y despachos contables que necesitan gestionar su facturación de manera eficiente."} />
+      </div>
+    </section>
+
+    <PricingSection locale={locale} />
+
+    <section id="ia" className="cta">
+      <p className="eyebrow">{english ? "AI AT EVERY STEP" : "IA EN CADA PASO"}</p>
+      <h2>{english ? <>YuppiFacts AI does the work,<br /><span className="cta-title-accent">you stay in control</span><span className="cta-title-dot">.</span></> : <>YuppiFacts IA hace el trabajo,<br /><span className="cta-title-accent">tú tienes el control</span><span className="cta-title-dot">.</span></>}</h2>
+      <p>{english ? "Turn your purchase receipts into invoices without complications. Our artificial intelligence speeds up your requests, organizes your receipts, and helps you avoid missed tax deductions by forgetting to request an invoice." : "Convierte tus tickets de compra en facturas sin complicaciones. Nuestra inteligencia artificial agiliza tus solicitudes, organiza tus comprobantes y te ayuda a no perder oportunidades de deducción fiscal por olvidar pedir una factura."}</p>
+      <Link className="button" href="/registro">{english ? "Get YuppiFacts" : "Contratar YuppiFacts"} <ArrowRight size={18} /></Link>
+    </section>
+
+    <LandingFooter />
+  </main>;
+}
+
+function Feature({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
+  return <RevealOnScroll><article className="feature"><div className="feature-icon">{icon}</div><h3>{title}</h3><p>{text}</p></article></RevealOnScroll>;
+}
+
+function Marquee({ locale }: { locale: "es" | "en" }) {
+  const items = locale === "en" ? ["AI for documents", "QR and receipts", "Provider portal", "XML and PDF", "RFC security", "Data under control"] : ["IA para documentos", "QR y tickets", "Portal de proveedores", "XML y PDF", "Seguridad por RFC", "Datos bajo control"];
+  return <div className="logo-slider" aria-label="Capacidades de YuppiFacts"><div className="marquee-track">{[...items, ...items].map((item, index) => <span className="marquee-item" key={`${item}-${index}`}>{item}<i>✦</i></span>)}</div></div>;
+}

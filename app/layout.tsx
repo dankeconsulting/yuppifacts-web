@@ -4,6 +4,7 @@ import "@/components/public.css";
 import "@/components/preregistration.css";
 import "@/components/access.css";
 import "@/components/wizard.css";
+import ConsentLayer from "@/components/consent-layer";
 
 export const metadata: Metadata = {
   title: "YuppiFacts | Solicita y organiza tus facturas",
@@ -11,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es-MX"><body>{children}</body></html>;
+  return <html lang="es-MX"><body>{children}<ConsentLayer /></body></html>;
 }
