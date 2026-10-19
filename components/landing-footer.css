@@ -46,7 +46,7 @@ footer.landing-footer { display: block; }
 .landing-footer address { color: #d4d8e5; font-size: 15px; font-style: normal; line-height: 1.7; }
 .landing-footer address span { display: block; }
 .landing-footer-contact-lines { flex-direction: column; gap: 14px; margin-top: 25px; }
-.landing-footer-contact-lines a { align-items: center; color: #f0eff6; display: inline-flex; font-size: 14px; font-weight: 700; gap: 11px; width: fit-content; }
+.landing-footer-contact-lines a { align-items: center; color: #f0eff6; display: inline-flex; font-size: 14px; font-weight: 500; gap: 11px; width: fit-content; }
 .landing-footer-contact-lines a svg { color: #c4b5fd; }
 .landing-footer-cta { align-items: center; background: #8f63f6; border-radius: 999px; color: #fff; display: flex; font-size: 15px; font-weight: 500; gap: 9px; margin-top: 25px; padding: 14px 22px; text-decoration: none; transition: transform .2s ease, background .2s ease; width: fit-content; }
 .landing-footer-cta svg { flex: 0 0 auto; }
@@ -76,9 +76,9 @@ footer.landing-footer { display: block; }
 .landing-footer-bottom p { color: #7e879d; font-size: 13px; margin: 0; text-align: right; }
 .landing-footer-legal a { color: #7e879d; font-weight: 650; text-decoration: none; white-space: nowrap; }
 .landing-footer-legal a:hover { color: #a9b0c4; }
-.landing-footer-language { background: rgba(255,255,255,.055); border-radius: 999px; display: flex; padding: 4px; width: fit-content; }
-.landing-footer-language button { background: transparent; border: 0; border-radius: 999px; color: #8f98ae; cursor: pointer; font-size: 12px; font-weight: 750; min-width: 40px; padding: 8px 10px; }
-.landing-footer-language button.active { background: #f1eff7; color: #242033; }
+.landing-footer-language { background: #1b1d36; border-radius: 999px; display: flex; padding: 5px; width: fit-content; }
+.landing-footer-language button { background: transparent; border: 0; border-radius: 999px; color: #8f98ae; cursor: pointer; font-size: 14px; font-weight: 600; min-width: 56px; padding: 9px 12px; }
+.landing-footer-language button.active { background: #5b5d70; color: #fff; }
 .landing-footer-top-button { align-items: center; background: rgba(255,255,255,.06); border: 0; border-radius: 50%; color: #f7f5ff; cursor: pointer; display: flex; height: 56px; justify-content: center; position: absolute; right: max(24px, calc((100% - 1530px) / 2)); top: 180px; transition: background .2s ease, transform .2s ease; width: 56px; }
 .landing-footer-top-button:hover { background: #8f63f6; color: #170d2e; transform: translateY(-2px); }
 
