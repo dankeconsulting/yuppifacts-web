@@ -126,14 +126,17 @@
   position: absolute;
   top: 22px;
   right: 22px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  padding: 0;
+  aspect-ratio: 1;
   border: 0;
-  border-radius: 999px;
+  border-radius: 50%;
   background: #a78bfa;
   color: #fff;
-  padding: 13px 16px;
   font: inherit;
   font-weight: 500;
   cursor: pointer;
@@ -306,10 +309,13 @@
     top: calc(env(safe-area-inset-top) + 22px);
     right: 24px;
     z-index: 2;
-    padding: 14px 18px;
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    padding: 0;
   }
 
-  .landing-modal-close span { display: inline; }
+  .landing-modal-close span { display: none; }
   .landing-modal-label {
     padding: 9px 15px;
     font-size: 10px;

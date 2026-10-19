@@ -119,7 +119,11 @@ export default function ConsentLayer() {
               />
             </div>
             <div className="landing-modal-copy">
-              <button className="landing-modal-close" onClick={closeModal}>
+              <button
+                className="landing-modal-close"
+                onClick={closeModal}
+                aria-label={english ? "Close" : "Cerrar"}
+              >
                 <span>{english ? "CLOSE" : "CERRAR"}</span>
                 <X />
               </button>
