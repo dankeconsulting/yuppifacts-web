@@ -3,7 +3,7 @@
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Check, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, Phone, ShieldCheck, TicketCheck, X } from "lucide-react";
 import "./payment-voucher.css";
-import "./voucher-page-footer.css";
+import PublicProcessFooter from "./public-process-footer";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const maxFileSize = 10 * 1024 * 1024;
@@ -155,7 +155,7 @@ export default function PaymentVoucherForm() {
           <button className="voucher-submit" disabled={submitting} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
         </form>
 
-      </section><footer className="voucher-page-footer">© 2024 – 2026 YuppiFacts<sup>®</sup>. Todos los derechos reservados. <a href="/privacidad">| Política de Privacidad</a> <a href="/terminos">| Condiciones de Servicio</a></footer>
+      </section><PublicProcessFooter />
     </main>
   );
 }
