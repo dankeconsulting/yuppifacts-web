@@ -137,11 +137,11 @@ export default function ConsentLayer() {
               <p className="landing-modal-label">
                 {english ? "FROM $899 MXN" : "DESDE $899 MXN"}
               </p>
-              <h2>{title}</h2>
+              <h2>{english ? title : <>Contrata YuppiFacts IA y<br />agiliza la solicitud de tus facturas.</>}</h2>
               <p className="landing-modal-highlight">
                 {english
                   ? "Speed up invoice requests for your company or clients if you are an accountant or accounting firm in Mexico. YuppiFacts AI does it for you."
-                  : "Impulsa la agilidad de solicitar tus facturas de tu empresa o clientes si eres contador o despacho contable en México. YuppiFacts AI lo hace por ti."}
+                  : <>Impulsa la agilidad de solicitar tus facturas de tu empresa<br />o clientes si eres contador o despacho contable<br />en México. YuppiFacts AI lo hace por ti.</>}
               </p>
               <p className="landing-modal-intro">
                 {english
