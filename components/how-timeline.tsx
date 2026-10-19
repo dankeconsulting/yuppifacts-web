@@ -1,0 +1,58 @@
+"use client";
+
+import { FileText, ListChecks, QrCode, Sparkles } from "lucide-react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
+import styles from "./how-timeline.module.css";
+
+const steps = [
+  { number: "01", icon: QrCode, title: "Carga tu ticket o escanea el QR", description: "Sube un JPG, PNG, PDF o pega el enlace oficial de facturación." },
+  { number: "02", icon: ListChecks, title: "Elige tu perfil fiscal", description: "YuppiFacts utiliza solo los datos del RFC que autorizaste para esa solicitud." },
+  { number: "03", icon: Sparkles, title: "La IA prepara, tú confirmas", description: "Detectamos requisitos del proveedor, proponemos el llenado y señalamos lo que falta." },
+  { number: "04", icon: FileText, title: "Recibe y organiza tus facturas", description: "Vincula XML y PDF al ticket, contribuyente y periodo correcto." },
+];
+
+export default function HowTimeline() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [activeStep, setActiveStep] = useState(-1);
+  const progress = activeStep < 0 ? 0 : activeStep / (steps.length - 1);
+
+  useEffect(() => {
+    let frame = 0;
+    const updateProgress = () => {
+      frame = 0;
+      const section = sectionRef.current;
+      if (!section) return;
+      const nodes = Array.from(section.querySelectorAll<HTMLElement>(`[data-timeline-step]`));
+      const threshold = window.innerHeight * 0.62;
+      const isBeforeSection = section.getBoundingClientRect().top > threshold;
+      const nextStep = isBeforeSection ? -1 : nodes.reduce((last, node, index) => node.getBoundingClientRect().top <= threshold ? index : last, -1);
+      setActiveStep(current => current === nextStep ? current : nextStep);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateProgress);
+    };
+    updateProgress();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return <section id="como-funciona" className={styles.how} ref={sectionRef}>
+    <p className="eyebrow">CÓMO FUNCIONA</p>
+    <h2>Lo repetitivo lo hace YuppiFacts.<br />La decisión sigue siendo tuya.</h2>
+    <div className={styles.stepList} style={{ "--timeline-progress": progress } as CSSProperties}>
+      {steps.map(({ number, icon: Icon, title, description }, index) => <article className={`${styles.step} ${index <= activeStep ? styles.active : ""}`} data-timeline-step key={number}>
+        <span className={styles.stepIcon}><Icon size={24} /></span>
+        <div className={styles.stepContent}>
+          <span className={styles.stepNumber}>Paso&nbsp; {number}</span>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </div>
+      </article>)}
+    </div>
+  </section>;
+}
