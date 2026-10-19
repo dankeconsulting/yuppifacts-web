@@ -61,7 +61,7 @@
   border-radius: 50%;
   color: #697383;
   background: #11131a;
-  box-shadow: 0 0 0 8px #090a0d;
+  box-shadow: 0 10px 22px #00000045;
   transition: color 300ms ease, border-color 300ms ease, background 300ms ease, box-shadow 300ms ease;
 }
 
@@ -69,7 +69,7 @@
   border-color: #a78bfa;
   color: #c8bbff;
   background: #181526;
-  box-shadow: 0 0 0 8px #090a0d, 0 0 25px #9c7af638;
+  box-shadow: 0 10px 22px #00000045, 0 0 25px #9c7af638;
 }
 
 .stepContent {
@@ -160,7 +160,7 @@
   .stepIcon {
     width: 58px;
     height: 58px;
-    box-shadow: 0 0 0 6px #090a0d;
+    box-shadow: 0 8px 18px #00000045;
   }
 
   .stepIcon svg {
