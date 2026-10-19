@@ -8,6 +8,26 @@
   padding: clamp(72px, 9vw, 156px) max(24px, calc((100% - 1340px) / 2)) 28px;
 }
 
+/* Isolate this component from the legacy generic footer rules. */
+footer.landing-footer { display: block; }
+.landing-footer-inner,
+.landing-footer-intro,
+.landing-footer-office,
+.landing-footer-column { display: block; }
+.landing-footer .landing-footer-intro,
+.landing-footer .landing-footer-office,
+.landing-footer .landing-footer-column { color: inherit; gap: 0; }
+.landing-footer .landing-footer-brand { display: inline-flex; }
+.landing-footer .landing-footer-cta { display: inline-flex; }
+.landing-footer .landing-footer-top,
+.landing-footer .landing-footer-nav,
+.landing-footer .landing-footer-bottom { display: grid; }
+.landing-footer .landing-footer-controls,
+.landing-footer .landing-footer-language,
+.landing-footer .landing-footer-country-trigger,
+.landing-footer .landing-footer-link,
+.landing-footer .landing-footer-top-button { display: flex; }
+
 .landing-footer-inner { max-width: 1340px; margin: 0 auto; }
 .landing-footer-top { display: grid; grid-template-columns: minmax(310px, .9fr) minmax(600px, 1.45fr); gap: clamp(62px, 9vw, 170px); }
 .landing-footer-brand { display: inline-flex; font-size: 30px; margin-bottom: 58px; }

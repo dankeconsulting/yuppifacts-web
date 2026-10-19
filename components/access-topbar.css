@@ -1,0 +1,24 @@
+.access-form-wrap {
+  position: relative;
+}
+
+.access-topbar {
+  align-items: center;
+  color: #9fa9ba;
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  left: clamp(28px, 6vw, 106px);
+  position: absolute;
+  right: clamp(28px, 6vw, 106px);
+  top: 46px;
+}
+
+.access-topbar a { color: inherit; text-decoration: none; }
+.access-topbar b { color: #c6b8ff; font-weight: 800; }
+.access-topbar a:last-child:hover b { color: #e2d9ff; }
+
+@media (max-width: 850px) {
+  .access-form-wrap { padding-top: 92px; }
+  .access-topbar { font-size: 13px; left: 24px; right: 24px; top: 28px; }
+}

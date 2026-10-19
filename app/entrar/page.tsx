@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check, FileCheck2, LockKeyhole, QrCode, ShieldCheck } from "lucide-react";
 import "@/components/access-heading.css";
+import "@/components/access-topbar.css";
 
 const highlights = [
   { icon: QrCode, title: "Tickets y QR en un solo lugar", text: "Captura, relaciona y da seguimiento sin perder contexto." },
@@ -16,12 +17,12 @@ export default function SignInPage() {
       <p className="access-stack"><Check size={15} /> Sin e.firma ni certificados <Check size={15} /> Datos bajo tu control</p>
     </section>
     <section className="access-form-wrap">
+      <header className="access-topbar"><Link href="/">Inicio</Link><Link href="/registro">¿Aún no tienes cuenta? <b>Regístrate</b></Link></header>
       <form className="access-card">
         <p className="eyebrow">ACCESO A YUPPIFACTS</p><h2>Bienvenido de vuelta</h2><p className="access-lead">Entra para continuar organizando tus solicitudes y facturas.</p>
         <label>Correo electrónico<input type="email" autoComplete="email" placeholder="tu@empresa.mx" /></label>
         <label>Contraseña<input type="password" autoComplete="current-password" placeholder="Tu contraseña" /></label>
         <button type="button" className="button full">Entrar a mi cuenta <ArrowRight size={18} /></button>
-        <p className="access-register">¿Aún no tienes cuenta? <Link href="/registro">Regístrate</Link></p>
         <p className="access-privacy"><LockKeyhole size={14} /> Tu acceso y tus documentos se mantienen protegidos.</p>
       </form>
     </section>
