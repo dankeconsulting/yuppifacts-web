@@ -146,6 +146,7 @@
 
 .landing-modal-close svg { width: 22px; height: 22px; }
 .landing-modal-close span { display: none; }
+.modal-title-mobile { display: none; }
 
 .landing-modal-label {
   align-self: flex-start;
@@ -286,73 +287,92 @@
   .landing-modal-backdrop {
     display: block;
     padding: 0;
-    overflow-y: auto;
+    overflow: hidden;
   }
 
   .landing-modal {
     display: block;
     width: 100%;
-    height: auto;
-    min-height: 100dvh;
-    max-height: none;
+    height: 100dvh;
+    min-height: 0;
+    max-height: 100dvh;
     border: 0;
     border-radius: 0;
+    overflow: hidden;
   }
 
   .landing-modal-image { display: none; }
 
   .landing-modal-copy {
-    min-height: 100dvh;
-    padding: 122px 40px 54px 34px;
-    overflow: visible;
+    box-sizing: border-box;
+    height: 100dvh;
+    min-height: 0;
+    padding: 94px 28px 18px 28px;
+    overflow: hidden;
   }
 
   .landing-modal-close {
     position: fixed;
-    top: calc(env(safe-area-inset-top) + 22px);
-    right: 24px;
+    top: calc(env(safe-area-inset-top) + 16px);
+    right: 18px;
     z-index: 2;
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    padding: 0;
+    display: inline-flex;
+    width: auto;
+    height: 42px;
+    min-width: 112px;
+    gap: 8px;
+    padding: 0 14px;
+    border-radius: 999px;
+    font-size: 11px;
   }
 
-  .landing-modal-close span { display: none; }
+  .landing-modal-close span { display: inline; }
+  .landing-modal-close svg { width: 18px; height: 18px; }
   .landing-modal-label {
-    padding: 9px 15px;
-    font-size: 10px;
+    padding: 7px 12px;
+    font-size: 9px;
   }
 
   .landing-modal h2 {
-    margin: 22px 0 16px;
-    font-size: clamp(30px, 8.5vw, 38px);
-    letter-spacing: -2.4px;
+    margin: 16px 0 12px;
+    font-size: clamp(29px, 8.1vw, 35px);
+    line-height: 1.08;
+    letter-spacing: -2px;
   }
 
+  .modal-title-desktop { display: none; }
+  .modal-title-mobile { display: inline; }
+
   .landing-modal-highlight {
-    font-size: 14px !important;
-    line-height: 1.38 !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
   }
 
   .landing-modal-copy > p {
-    font-size: 16px;
-    line-height: 1.55;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.38;
   }
 
   .landing-modal-steps {
     display: grid;
-    margin: 33px 0 24px;
+    margin: 20px 0 12px;
+    gap: 8px;
   }
+
+  .landing-modal-steps li { gap: 5px; font-size: 10px; line-height: 1.18; }
+  .landing-modal-steps svg { width: 19px; height: 19px; }
 
   .landing-modal-spots {
     width: 100%;
-    margin: 34px 0 22px;
-    padding: 18px 16px;
+    margin: 12px 0;
+    padding: 12px 13px;
   }
 
-  .landing-modal-spots b { font-size: 17px; }
-  .landing-modal-cta { padding: 16px; font-size: 16px; }
+  .landing-modal-spots b { font-size: 14px; }
+  .landing-modal-spots span { margin-top: 4px; font-size: 11px; line-height: 1.28; }
+  .landing-modal-cta { padding: 12px; font-size: 13px; }
+  .landing-modal-cta svg { width: 18px; height: 18px; }
 
   .landing-modal-tab {
     top: 58%;
