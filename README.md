@@ -14,8 +14,9 @@ MVP de YuppiFacts: SaaS para capturar comprobantes, preparar solicitudes de fact
 - `yuppifacts.com`: sitio público y suscripciones.
 - `app.yuppifacts.com`: panel de clientes, contadores y empresas; el host raíz se resuelve al espacio de trabajo.
 - `admin.yuppifacts.com`: administrador maestro; el host raíz se resuelve a `/admin`.
+- `tickets.yuppifacts.com`: formulario independiente para adjuntar comprobantes de pagos promocionales.
 
-En Vercel, añadir los tres dominios al mismo proyecto y crear los registros DNS solicitados. La aplicación resuelve los hosts mediante `middleware.ts`; la autorización real por rol debe mantenerse también en la API.
+En Vercel, añadir los cuatro dominios al mismo proyecto y crear los registros DNS solicitados. La aplicación resuelve los hosts mediante `proxy.ts`; la autorización real por rol debe mantenerse también en la API.
 
 ## Desarrollo
 

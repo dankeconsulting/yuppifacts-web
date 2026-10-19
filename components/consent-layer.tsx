@@ -9,6 +9,7 @@ import "./consent-layer.css";
 import "./consent-layer-adjustments.css";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
+const ticketsUrl = process.env.NEXT_PUBLIC_TICKETS_URL ?? "https://tickets.yuppifacts.com";
 
 type LandingModal = {
   isEnabled: boolean;
@@ -146,7 +147,7 @@ export default function ConsentLayer() {
                 <b>{english ? <>Only <em>51</em> spots remain</> : <>Solo quedan <em>51</em> espacios disponibles</>}</b>
                 <span>{english ? "Day of the Dead special price for accounting firms.\nFor new subscriptions." : "Precio especial por Día de Muertos para despachos contables.\nAplica para nuevas contrataciones."}</span>
               </div>
-              <Link className="landing-modal-cta" href="/registro" onClick={closeModal}>
+              <Link className="landing-modal-cta" href={ticketsUrl} onClick={closeModal}>
                 {english ? "I want to speed up invoice requests" : "Quiero agilizar solicitudes de facturas"}
                 <Rocket size={21} />
               </Link>

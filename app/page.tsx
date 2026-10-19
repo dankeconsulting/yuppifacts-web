@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Building2, Check, FileText, LockKeyhole, QrCode, ShieldCheck, Sparkles, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Building2, Check, FileText, LockKeyhole, QrCode, ShieldCheck, Sparkles, TicketCheck, TrendingUp, Users } from "lucide-react";
 import PricingSection from "@/components/pricing-section";
 import HowTimeline from "@/components/how-timeline";
 import LandingFooter from "@/components/landing-footer";
@@ -34,7 +34,7 @@ export default function LandingPage() {
           <div className="ticket-steps"><p><span>✓</span> {english ? "Receipt and QR verified" : "Ticket y QR verificados"}</p><p><span>✓</span> {english ? "Tax profile confirmed" : "Perfil fiscal confirmado"}</p><p className="pending"><span>3</span> {english ? "Waiting for the provider response" : "Esperando la respuesta del proveedor"}</p></div>
           <div className="ticket-footer"><FileText size={17} /> {english ? "PDF/XML will be linked here when received" : "PDF/XML se vincularán aquí al recibirse"}</div>
         </div>
-        <div className="mini-card floating"><QrCode /><div><small>Tickets este mes</small><b>48</b></div></div>
+        <div className="hero-brand-badge"><span className="hero-brand-badge-icon"><TicketCheck size={22} /><Sparkles size={12} /></span><p><b>YuppiFacts<sup>®</sup></b><small>{english ? "Built for businesses and accountants" : "Hecho para empresas y contadores"}</small></p></div>
       </div>
     </section>
 

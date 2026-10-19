@@ -6,6 +6,7 @@ export function proxy(request: NextRequest) {
   if (path.startsWith("/_next") || path.includes(".")) return NextResponse.next();
   if (host === "app.yuppifacts.com" && path === "/") return NextResponse.rewrite(new URL("/demo", request.url));
   if (host === "admin.yuppifacts.com" && path === "/") return NextResponse.rewrite(new URL("/admin", request.url));
+  if (host === "tickets.yuppifacts.com" && path === "/") return NextResponse.rewrite(new URL("/tickets", request.url));
   return NextResponse.next();
 }
 
