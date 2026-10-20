@@ -1,0 +1,7 @@
+/* Keep benefit icons full-size when the text wraps in any promotion plan. */
+.promotion-detail li > svg {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+}

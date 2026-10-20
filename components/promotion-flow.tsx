@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Building2, Check, CreditCard, Handshake, Landmark, ShieldCheck, UsersRound } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import "./promotion-flow.css";
+import "./promotion-flow-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
 
 type Profile = "accountant" | "company" | "corporate";
