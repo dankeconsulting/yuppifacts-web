@@ -31,7 +31,7 @@ async function request<T>(path: string, options: RequestInit = {}) {
   return body as T;
 }
 
-export default function LoginFlow() {
+export default function LoginFlow({ returnTo = "/panel" }: { returnTo?: string }) {
   const [step, setStep] = useState<Step>("phone");
   const [country, setCountry] = useState<Country>(countries[1]);
   const [countryOpen, setCountryOpen] = useState(false);
@@ -75,7 +75,7 @@ export default function LoginFlow() {
     try {
       const result = await request<{ accessToken: string }>("/v1/access/pin", { method: "POST", body: JSON.stringify({ challengeId, verificationToken, pin }) });
       sessionStorage.setItem("yuppifacts.access", result.accessToken);
-      window.location.assign("/panel");
+      window.location.assign(returnTo);
     } catch (error) { setNotice(error instanceof Error ? error.message : "No fue posible entrar."); } finally { setBusy(false); }
   };
   const updateOtp = (index: number, value: string) => {
