@@ -5,6 +5,7 @@ import { BadgeCheck, CheckCircle2, ClipboardList, LayoutDashboard, Settings, Use
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import "./admin-shell.css";
+import YuppiFactsLogo from "./yuppifacts-logo";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const navigation = [
@@ -42,7 +43,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
 
   return <div className="admin-shell">
     <aside className="admin-shell-sidebar">
-      <Link href="/admin" className="admin-shell-brand"><span>Y</span>YuppiFacts</Link>
+      <Link href="/admin" className="admin-shell-brand"><YuppiFactsLogo />YuppiFacts</Link>
       <p className="admin-shell-caption">ADMINISTRADOR MAESTRO</p>
       <nav aria-label="Menú administrativo">
         {navigation.map(({ href, label, icon: Icon }, index) => <div key={href}>

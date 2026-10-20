@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUp, ChevronDown, Instagram, Linkedin, Mail, Phone, You
 import { useEffect, useState } from "react";
 import "./landing-footer.css";
 import "./landing-footer-adjustments.css";
+import YuppiFactsLogo from "./yuppifacts-logo";
 
 type Locale = "es" | "en";
 
@@ -108,7 +109,7 @@ export default function LandingFooter() {
         <div className="landing-footer-top">
           <div className="landing-footer-intro">
             <Link className="brand landing-footer-brand" href="/" aria-label="YuppiFacts">
-              <span>Y</span>YuppiFacts
+              <YuppiFactsLogo />YuppiFacts
             </Link>
             <h2>
               {locale === "es" ? <><span>Facturación organizada,</span><br /><em>sin fricción</em><i>.</i></> : <><span>Organized invoicing,</span><br /><em>without friction</em><i>.</i></>}

@@ -5,6 +5,7 @@ import { Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail
 import "./payment-voucher.css";
 import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
+import YuppiFactsLogo from "./yuppifacts-logo";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const maxFileSize = 10 * 1024 * 1024;
@@ -128,7 +129,7 @@ export default function PaymentVoucherForm() {
       <section className="voucher-shell" aria-labelledby="voucher-title">
         <header className="voucher-header">
           <a className="voucher-brand" href="https://yuppifacts.com" aria-label="Ir a YuppiFacts">
-            <span>Y</span> YuppiFacts<sup>®</sup>
+            <YuppiFactsLogo /> YuppiFacts<sup>®</sup>
           </a>
           <p>Comprobación de pago</p>
         </header>

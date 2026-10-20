@@ -7,6 +7,7 @@ import HowTimeline from "@/components/how-timeline";
 import LandingFooter from "@/components/landing-footer";
 import RevealOnScroll from "@/components/reveal-on-scroll";
 import { useLandingLocale } from "@/components/use-landing-locale";
+import YuppiFactsLogo from "@/components/yuppifacts-logo";
 import "@/components/landing-adjustments.css";
 
 export default function LandingPage() {
@@ -14,7 +15,7 @@ export default function LandingPage() {
   const english = locale === "en";
   return <main className="landing">
     <header className="public-nav">
-      <Link className="brand" href="/"><span>Y</span>YuppiFacts</Link>
+      <Link className="brand" href="/"><YuppiFactsLogo />YuppiFacts</Link>
       <nav><a href="#como-funciona">{english ? "How it works" : "Cómo funciona"}</a><a href="#beneficios">{english ? "Features" : "Funciones"}</a><a href="#planes">{english ? "Plans" : "Planes"}</a><a href="#ia">AI</a></nav>
       <div className="nav-actions"><Link href="/entrar">{english ? "Log in" : "Entrar"}</Link><Link className="button small" href="/registro">{english ? "Get started" : "Contratar"}</Link></div>
     </header>
