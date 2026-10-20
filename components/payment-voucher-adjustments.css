@@ -30,6 +30,18 @@
   gap: 9px;
 }
 
+/* Chrome/Android applies a light system fill to saved form values unless it is overridden. */
+.voucher-form input:-webkit-autofill,
+.voucher-form input:-webkit-autofill:hover,
+.voucher-form input:-webkit-autofill:focus,
+.voucher-form input:-webkit-autofill:active {
+  -webkit-text-fill-color: #f5f6fa !important;
+  caret-color: #f5f6fa;
+  -webkit-box-shadow: 0 0 0 1000px #181b23 inset !important;
+  box-shadow: 0 0 0 1000px #181b23 inset !important;
+  transition: background-color 9999s ease-out 0s;
+}
+
 .phone-help {
   margin-top: -2px;
   color: #9da8ba;
