@@ -19,7 +19,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [allowed, setAllowed] = useState(false);
-  const isPublicRoute = pathname === "/admin/entrar" || pathname === "/admin/activar";
+  const isPublicRoute = pathname === "/" || pathname === "/admin/entrar" || pathname === "/admin/activar";
 
   useEffect(() => {
     if (isPublicRoute) return;
