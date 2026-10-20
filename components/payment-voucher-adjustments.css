@@ -1,0 +1,55 @@
+.voucher-dropzone > svg {
+  width: 26px;
+  height: 26px;
+  color: #a78bfa;
+}
+
+.voucher-upload-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 5px;
+}
+
+.voucher-upload-options button {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid #7660b7;
+  background: #211a36;
+  color: #eee8ff;
+  font: 500 13px inherit;
+  cursor: pointer;
+}
+
+.voucher-upload-options button:first-child {
+  border-color: #a78bfa;
+  background: #a78bfa;
+  color: #171225;
+}
+
+.voucher-upload-options button svg {
+  width: 17px;
+  height: 17px;
+  color: currentColor;
+}
+
+.voucher-upload-help {
+  margin-top: 1px;
+}
+
+@media (max-width: 640px) {
+  .voucher-upload-options {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .voucher-upload-options button {
+    width: 100%;
+  }
+}

@@ -1,8 +1,9 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, Phone, ShieldCheck, TicketCheck, X } from "lucide-react";
+import { Camera, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Images, Mail, Phone, ShieldCheck, TicketCheck, X } from "lucide-react";
 import "./payment-voucher.css";
+import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
@@ -28,7 +29,8 @@ async function sha256(file: File) {
 }
 
 export default function PaymentVoucherForm() {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const galleryInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
   const [countryCode, setCountryCode] = useState<CountryCode>("MX");
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -53,7 +55,7 @@ export default function PaymentVoucherForm() {
   };
 
   const onFileInput = (event: ChangeEvent<HTMLInputElement>) => selectFile(event.target.files?.[0]);
-  const onDrop = (event: DragEvent<HTMLButtonElement>) => {
+  const onDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragging(false);
     selectFile(event.dataTransfer.files?.[0]);
@@ -129,13 +131,19 @@ export default function PaymentVoucherForm() {
         <form className="voucher-form" onSubmit={submit} noValidate>
           <fieldset>
             <legend>Comprobante de pago</legend>
-            <button className={`voucher-dropzone ${isDragging ? "is-dragging" : ""}`} type="button" onClick={() => inputRef.current?.click()} onDragOver={(event) => { event.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={onDrop}>
+            <div className={`voucher-dropzone ${isDragging ? "is-dragging" : ""}`} onDragOver={(event) => { event.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={onDrop}>
               {file ? <FileCheck2 aria-hidden="true" /> : <FileUp aria-hidden="true" />}
-              <span>{file ? file.name : "Selecciona tu comprobante o arrástralo aquí"}</span>
-              <small>{file ? `${Math.ceil(file.size / 1024)} KB · listo para enviar` : "PDF, PNG o JPG · máximo 10 MB"}</small>
-            </button>
-            <input ref={inputRef} className="voucher-file-input" type="file" accept="application/pdf,image/jpeg,image/png" onChange={onFileInput} />
-            {file && <button className="voucher-remove-file" type="button" onClick={() => { setFile(null); if (inputRef.current) inputRef.current.value = ""; }}><X size={15} /> Quitar comprobante</button>}
+              <span>{file ? file.name : "Adjunta tu comprobante de pago"}</span>
+              <small>{file ? `${Math.ceil(file.size / 1024)} KB · listo para enviar` : "Elige cómo quieres agregarlo."}</small>
+              {!file && <div className="voucher-upload-options">
+                <button type="button" onClick={() => cameraInputRef.current?.click()}><Camera aria-hidden="true" />Tomar foto</button>
+                <button type="button" onClick={() => galleryInputRef.current?.click()}><Images aria-hidden="true" />Elegir de galería o archivos</button>
+              </div>}
+              {!file && <small className="voucher-upload-help">Fotos JPG/PNG o PDF · máximo 10 MB</small>}
+            </div>
+            <input ref={cameraInputRef} className="voucher-file-input" type="file" accept="image/jpeg,image/png" capture="environment" onChange={onFileInput} />
+            <input ref={galleryInputRef} className="voucher-file-input" type="file" accept="application/pdf,image/jpeg,image/png" onChange={onFileInput} />
+            {file && <button className="voucher-remove-file" type="button" onClick={() => { setFile(null); if (galleryInputRef.current) galleryInputRef.current.value = ""; if (cameraInputRef.current) cameraInputRef.current.value = ""; }}><X size={15} /> Quitar comprobante</button>}
           </fieldset>
 
           <fieldset>
