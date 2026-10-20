@@ -93,10 +93,21 @@
 .phone-field > svg:last-child {
   right: 16px;
   left: auto !important;
-  width: 21px !important;
-  height: 21px !important;
-  color: #36d27e !important;
 }
+
+.whatsapp-icon {
+  position: absolute;
+  right: 16px;
+  width: 21px;
+  height: 21px;
+  background: #c7cede;
+  mask: url("/icons/whatsapp.svg") center / contain no-repeat;
+  -webkit-mask: url("/icons/whatsapp.svg") center / contain no-repeat;
+  pointer-events: none;
+  transition: background-color .16s ease;
+}
+
+.phone-field:has(input:not(:placeholder-shown)) .whatsapp-icon { background: #cbbcff; }
 
 .select-control {
   position: relative;
