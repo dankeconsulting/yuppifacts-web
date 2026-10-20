@@ -42,6 +42,7 @@ export default function PaymentVoucherForm() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [receiptOpen, setReceiptOpen] = useState(false);
+  const [duplicateOpen, setDuplicateOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const currentCountry = countries[countryCode];
@@ -52,6 +53,7 @@ export default function PaymentVoucherForm() {
   const selectFile = (nextFile?: File) => {
     setError(null);
     setReceiptOpen(false);
+    setDuplicateOpen(false);
     if (!nextFile) return;
     if (!fileIsAllowed(nextFile)) {
       setFile(null);
@@ -73,6 +75,7 @@ export default function PaymentVoucherForm() {
     event.preventDefault();
     setError(null);
     setReceiptOpen(false);
+    setDuplicateOpen(false);
     const form = new FormData(event.currentTarget);
     if (!file) {
       setError("Adjunta el comprobante de tu pago para continuar.");
@@ -105,9 +108,13 @@ export default function PaymentVoucherForm() {
         method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(payload),
       });
       const createdBody = await created.json().catch(() => ({}));
+      if (created.status === 409) {
+        setDuplicateOpen(true);
+        return;
+      }
       if (!created.ok) throw new Error(createdBody.error ?? "No fue posible preparar tu comprobante.");
       const upload = createdBody as UploadResponse;
-      const uploadResponse = await fetch(upload.uploadUrl, { method: "PUT", headers: { "content-type": file.type }, body: file });
+      const uploadResponse = await fetch(upload.uploadUrl, { method: "PUT", headers: { "content-type": file.type, "x-amz-server-side-encryption": "AES256" }, body: file });
       if (!uploadResponse.ok) throw new Error("No fue posible cargar el comprobante. Inténtalo de nuevo.");
       const submitted = await fetch(`${api}/v1/promotion-vouchers/${upload.voucherId}/submit`, { method: "POST" });
       const submittedBody = await submitted.json().catch(() => ({}));
@@ -118,7 +125,8 @@ export default function PaymentVoucherForm() {
       setStateName("");
       setFile(null);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Ocurrió un error al enviar tu comprobante.");
+      const message = reason instanceof Error ? reason.message : "";
+      setError(message && message !== "Failed to fetch" ? message : "No fue posible conectar para enviar tu comprobante. Inténtalo nuevamente.");
     } finally {
       setSubmitting(false);
     }
@@ -169,7 +177,7 @@ export default function PaymentVoucherForm() {
           <button className="voucher-submit" disabled={submitting} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
         </form>
 
-      </section><PublicProcessFooter />{receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}{picker&&<div className="voucher-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-picker-title"><section className="voucher-picker"><header><div><p>{picker === "country" ? "SELECCIONA TU PAÍS" : "SELECCIONA TU ESTADO"}</p><h2 id="voucher-picker-title">{picker === "country" ? "País y código" : "Estado o departamento"}</h2></div><button type="button" aria-label="Cerrar selector" onClick={() => setPicker(null)}><X aria-hidden="true" /></button></header><div className="voucher-picker-options">{picker === "country" ? (Object.keys(countries) as CountryCode[]).map((code)=><button type="button" key={code} className={countryCode===code?"selected":""} onClick={() => chooseCountry(code)}><CountryFlag code={code} /><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode===code&&<Check aria-hidden="true" />}</button>) : stateOptions.map((state)=><button type="button" key={state} className={stateName===state?"selected":""} onClick={() => { setStateName(state); setPicker(null); }}><b>{state}</b>{stateName===state&&<Check aria-hidden="true" />}</button>)}</div></section></div>}
+      </section><PublicProcessFooter />{receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}{duplicateOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-duplicate-title"><section className="voucher-receipt voucher-duplicate"><CircleAlert aria-hidden="true" /><p>VOUCHER EN REVISIÓN</p><h2 id="voucher-duplicate-title">Ya recibimos tu voucher.</h2><span>Aún estamos procesando tu suscripción. Una vez verificado tu pago procederemos a activar tu cuenta.</span><button type="button" onClick={()=>setDuplicateOpen(false)}>De acuerdo</button></section></div>}{picker&&<div className="voucher-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-picker-title"><section className="voucher-picker"><header><div><p>{picker === "country" ? "SELECCIONA TU PAÍS" : "SELECCIONA TU ESTADO"}</p><h2 id="voucher-picker-title">{picker === "country" ? "País y código" : "Estado o departamento"}</h2></div><button type="button" aria-label="Cerrar selector" onClick={() => setPicker(null)}><X aria-hidden="true" /></button></header><div className="voucher-picker-options">{picker === "country" ? (Object.keys(countries) as CountryCode[]).map((code)=><button type="button" key={code} className={countryCode===code?"selected":""} onClick={() => chooseCountry(code)}><CountryFlag code={code} /><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode===code&&<Check aria-hidden="true" />}</button>) : stateOptions.map((state)=><button type="button" key={state} className={stateName===state?"selected":""} onClick={() => { setStateName(state); setPicker(null); }}><b>{state}</b>{stateName===state&&<Check aria-hidden="true" />}</button>)}</div></section></div>}
     </main>
   );
 }
