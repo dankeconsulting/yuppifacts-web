@@ -4,6 +4,11 @@
   color: #a78bfa;
 }
 
+.voucher-dropzone {
+  border-style: dashed;
+  border-radius: 10px;
+}
+
 .voucher-form fieldset {
   gap: 18px;
 }
@@ -195,7 +200,14 @@
 
 .voucher-picker header > button svg { width: 18px; }
 
-.voucher-picker-options { overflow-y: auto; padding: 9px; }
+.voucher-picker-options {
+  overflow-y: auto;
+  padding: 9px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.voucher-picker-options::-webkit-scrollbar { display: none; }
 
 .voucher-picker-options > button {
   width: 100%;
