@@ -17,7 +17,7 @@ export default function LandingPage() {
     <header className="public-nav">
       <Link className="brand" href="/"><YuppiFactsLogo />YuppiFacts</Link>
       <nav><a href="#como-funciona">{english ? "How it works" : "Cómo funciona"}</a><a href="#beneficios">{english ? "Features" : "Funciones"}</a><a href="#planes">{english ? "Plans" : "Planes"}</a><a href="#ia">AI</a></nav>
-      <div className="nav-actions"><Link href="/entrar">{english ? "Log in" : "Entrar"}</Link><Link className="button small" href="/registro">{english ? "Get started" : "Contratar"}</Link></div>
+      <div className="nav-actions"><Link href="https://app.yuppifacts.com/">{english ? "My account" : "Mi Cuenta"}</Link><Link className="button small" href="https://promo.yuppifacts.com">{english ? "Get started" : "Contratar"} <ArrowRight size={16} /></Link></div>
     </header>
 
     <section className="hero">

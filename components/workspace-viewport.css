@@ -1,0 +1,126 @@
+/* Viewport contract: the workspace always occupies one screen without browser scrollbars. */
+html:has(.yf-panel),
+body:has(.yf-panel) {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.yf-panel {
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.yf-panel * { min-width: 0; }
+
+.yf-sidebar {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.yf-main,
+.yf-activity {
+  height: 100%;
+  max-height: 100dvh;
+  scrollbar-width: none;
+}
+
+.yf-main::-webkit-scrollbar,
+.yf-activity::-webkit-scrollbar { display: none; }
+
+.yf-panel.is-locked .yf-main,
+.yf-panel.is-locked .yf-activity {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.yf-activation-overlay,
+.yf-avatar-overlay {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  padding: clamp(12px, 2.5vw, 24px);
+  touch-action: none;
+}
+
+.yf-activation {
+  width: min(620px, calc(100vw - clamp(24px, 5vw, 48px)));
+  max-width: 100%;
+  max-height: calc(100dvh - clamp(24px, 5vw, 48px));
+  overflow: hidden;
+  padding: clamp(24px, 5dvh, 45px) clamp(22px, 4vw, 42px) clamp(20px, 4dvh, 36px);
+}
+
+@media (max-width: 760px) {
+  .yf-panel {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+
+  .yf-sidebar { width: min(272px, 86vw); }
+
+  .yf-main {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+
+  .yf-activation-overlay,
+  .yf-avatar-overlay {
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .yf-activation {
+    width: min(100%, 520px);
+    max-height: calc(100dvh - 32px);
+    padding: clamp(20px, 5dvh, 34px) clamp(18px, 6vw, 28px) clamp(18px, 4dvh, 26px);
+    border-radius: 20px;
+  }
+
+  .yf-activation-settings { top: 12px; right: 12px; }
+  .yf-activation-icon { width: 44px; height: 44px; flex-basis: 44px; border-radius: 14px; }
+  .yf-activation h2 { margin: 13px 24px 8px; font-size: clamp(21px, 6vw, 25px); line-height: 1.15; }
+  .yf-activation p { margin: 6px auto; font-size: clamp(11px, 3.3vw, 13px); line-height: 1.5; }
+  .yf-activation small { margin: 13px 0 10px; padding: 8px; font-size: 10px; }
+  .yf-activation-action { padding: 12px; font-size: 13px; }
+}
+
+@media (max-height: 560px) and (min-width: 761px) {
+  .yf-activation { width: min(560px, calc(100vw - 48px)); padding: 20px 28px 18px; border-radius: 20px; }
+  .yf-activation-settings { top: 11px; right: 11px; width: 32px; height: 32px; }
+  .yf-activation-icon { width: 38px; height: 38px; flex-basis: 38px; border-radius: 12px; }
+  .yf-activation-icon svg { width: 21px; }
+  .yf-activation h2 { margin: 9px 0 6px; font-size: 21px; }
+  .yf-activation p { margin: 4px auto; font-size: 11px; line-height: 1.45; }
+  .yf-activation small { margin: 10px 0 8px; padding: 7px; font-size: 10px; }
+  .yf-activation-action { padding: 10px; font-size: 12px; }
+}
+
+@media (max-height: 520px) and (max-width: 760px) {
+  .yf-activation-overlay,
+  .yf-avatar-overlay { padding: 10px; }
+
+  .yf-activation { max-height: calc(100dvh - 20px); padding: 16px 18px 14px; }
+  .yf-activation-icon { width: 36px; height: 36px; flex-basis: 36px; border-radius: 11px; }
+  .yf-activation-icon svg { width: 20px; }
+  .yf-activation h2 { margin: 8px 20px 5px; font-size: 20px; }
+  .yf-activation p { margin: 3px auto; font-size: 10px; line-height: 1.35; }
+  .yf-activation small { margin: 8px 0 7px; padding: 6px; font-size: 9px; }
+  .yf-activation-action { padding: 9px; font-size: 12px; }
+}

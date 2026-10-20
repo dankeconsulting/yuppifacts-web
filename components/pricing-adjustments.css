@@ -8,3 +8,12 @@
 }
 
 .billing-control button.active { font-weight: 600; }
+
+.billing-control small {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.plan-price small {
+  font-size: 13px;
+}
