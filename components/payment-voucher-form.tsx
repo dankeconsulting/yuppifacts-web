@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Camera, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Images, Mail, Phone, ShieldCheck, TicketCheck, X } from "lucide-react";
+import { Camera, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Images, Mail, ShieldCheck, Smartphone, TicketCheck, Trash2 } from "lucide-react";
 import "./payment-voucher.css";
 import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
@@ -143,17 +143,17 @@ export default function PaymentVoucherForm() {
             </div>
             <input ref={cameraInputRef} className="voucher-file-input" type="file" accept="image/jpeg,image/png" capture="environment" onChange={onFileInput} />
             <input ref={galleryInputRef} className="voucher-file-input" type="file" accept="application/pdf,image/jpeg,image/png" onChange={onFileInput} />
-            {file && <button className="voucher-remove-file" type="button" onClick={() => { setFile(null); if (galleryInputRef.current) galleryInputRef.current.value = ""; if (cameraInputRef.current) cameraInputRef.current.value = ""; }}><X size={15} /> Quitar comprobante</button>}
+            {file && <button className="voucher-remove-file" type="button" onClick={() => { setFile(null); if (galleryInputRef.current) galleryInputRef.current.value = ""; if (cameraInputRef.current) cameraInputRef.current.value = ""; }}><Trash2 size={16} /> Quitar comprobante</button>}
           </fieldset>
 
           <fieldset>
-            <legend>Tus datos</legend>
+            <legend>Tu información</legend>
             <label>Nombre completo<input name="fullName" autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
+            <label>Número de celular<span className="phone-field"><select value={countryCode} onChange={(event) => setCountryCode(event.target.value as CountryCode)} aria-label="País y código de celular">{(Object.keys(countries) as CountryCode[]).map((code)=><option key={code} value={code}>{countries[code].flag} {countries[code].dial}</option>)}</select><ChevronDown aria-hidden="true" /><input name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="Tu número de celular" required minLength={8} maxLength={14} /><Smartphone aria-hidden="true" /></span><small className="phone-help">Usaremos este número para mantenerte al tanto de tu suscripción.</small></label>
             <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
-            <label>Número de WhatsApp<span className="phone-field"><span>{currentCountry.flag} {currentCountry.dial}<ChevronDown size={15} /></span><Phone aria-hidden="true" /><input name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="Número de WhatsApp" required minLength={8} maxLength={14} /></span></label>
             <div className="voucher-select-grid">
-              <label>País<select value={countryCode} onChange={(event) => setCountryCode(event.target.value as CountryCode)} aria-label="País"><option value="MX">🇲🇽 México</option><option value="CO">🇨🇴 Colombia</option><option value="CR">🇨🇷 Costa Rica</option></select></label>
-              <label>Estado o departamento<select name="state" defaultValue="" required key={countryCode}><option value="" disabled>Selecciona</option>{stateOptions.map((state) => <option key={state}>{state}</option>)}</select></label>
+              <label>País<span className="select-control"><select value={countryCode} onChange={(event) => setCountryCode(event.target.value as CountryCode)} aria-label="País">{(Object.keys(countries) as CountryCode[]).map((code)=><option key={code} value={code}>{countries[code].flag} {countries[code].name}</option>)}</select><ChevronDown aria-hidden="true" /></span></label>
+              <label>Estado o departamento<span className="select-control"><select name="state" defaultValue="" required key={countryCode}><option value="" disabled>Selecciona</option>{stateOptions.map((state) => <option key={state}>{state}</option>)}</select><ChevronDown aria-hidden="true" /></span></label>
             </div>
           </fieldset>
 

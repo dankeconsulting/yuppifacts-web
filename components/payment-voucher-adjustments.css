@@ -53,3 +53,117 @@
     width: 100%;
   }
 }
+
+.voucher-form fieldset {
+  gap: 18px;
+}
+
+.voucher-form fieldset + fieldset {
+  margin-top: 12px;
+}
+
+.voucher-form legend {
+  margin-bottom: 7px;
+  color: #f4f5f8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+}
+
+.voucher-form label {
+  gap: 9px;
+}
+
+.phone-help {
+  margin-top: -2px;
+  color: #9da8ba;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.phone-field {
+  height: 52px;
+  overflow: hidden;
+  border: 1px solid #333947;
+  border-radius: 9px;
+  background: #181b23;
+}
+
+.phone-field:focus-within {
+  border-color: #a78bfa;
+}
+
+.phone-field select {
+  width: 112px;
+  height: 34px;
+  margin-left: 8px;
+  padding: 0 24px 0 8px;
+  appearance: none;
+  border: 0;
+  border-right: 1px solid #363b49;
+  border-radius: 0;
+  background: transparent;
+  color: #f5f6fa;
+  font: 500 14px inherit;
+  cursor: pointer;
+}
+
+.phone-field input {
+  height: 50px !important;
+  min-width: 0;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0 46px 0 14px !important;
+}
+
+.phone-field > svg {
+  position: absolute !important;
+  width: 16px !important;
+  height: 16px !important;
+  color: #aeb8c8 !important;
+}
+
+.phone-field > svg:nth-of-type(1) {
+  left: 94px !important;
+}
+
+.phone-field > svg:last-child {
+  right: 16px;
+  left: auto !important;
+}
+
+.select-control {
+  position: relative;
+  display: block;
+}
+
+.select-control select {
+  width: 100%;
+  appearance: none;
+  padding-right: 46px !important;
+  cursor: pointer;
+}
+
+.select-control > svg {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  color: #c7cede;
+  pointer-events: none;
+}
+
+.voucher-remove-file {
+  justify-self: end;
+  margin: -7px 0 2px;
+  color: #cbbcff;
+}
+
+.voucher-remove-file svg {
+  color: currentColor;
+}
