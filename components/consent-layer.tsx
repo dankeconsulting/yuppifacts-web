@@ -21,23 +21,33 @@ type LandingModal = {
   ctaEn: string;
 };
 
+const defaultLandingModal: LandingModal = {
+  isEnabled: true,
+  titleEs: "Contrata YuppiFacts IA y agiliza la solicitud de tus facturas.",
+  bodyEs: "",
+  ctaEs: "Quiero agilizar solicitudes de facturas",
+  titleEn: "Subscribe to YuppiFacts AI and streamline your invoice requests.",
+  bodyEn: "",
+  ctaEn: "I want to speed up invoice requests"
+};
+
 export default function ConsentLayer() {
   const pathname = usePathname();
-  const [isLanding, setIsLanding] = useState(false);
+  // The promotion belongs to the landing route. Keeping this route-derived
+  // avoids a client-only hostname check that delayed the modal by one render.
+  const isLanding = pathname === "/";
   const [consent, setConsent] = useState<null | boolean>(null);
   const [consentReady, setConsentReady] = useState(false);
-  const [modal, setModal] = useState<LandingModal | null>(null);
+  const [modal, setModal] = useState<LandingModal | null>(defaultLandingModal);
   const [modalClosed, setModalClosed] = useState(false);
   const [locale, setLocale] = useState<"es" | "en">("es");
   const [remainingSpots, setRemainingSpots] = useState(100);
 
   useEffect(() => {
-    const hostname = window.location.hostname.toLowerCase();
-    setIsLanding(pathname === "/" && (hostname === "yuppifacts.com" || hostname === "www.yuppifacts.com"));
-  }, [pathname]);
-
-  useEffect(() => {
     if (!isLanding) return;
+    // Restore the immediate shell when returning to the landing in the same
+    // session; its remote configuration refreshes below without blocking it.
+    setModal(defaultLandingModal);
     const storedConsent = localStorage.getItem("yf-cookie-consent");
     setConsent(storedConsent === "accepted" ? true : storedConsent === "rejected" ? false : null);
     setConsentReady(true);
@@ -46,18 +56,19 @@ export default function ConsentLayer() {
     syncLocale();
     window.addEventListener("yf-language-change", syncLocale);
 
-    if (isLanding) {
-      fetch(`${api}/v1/public/promotion`).then((response) => response.ok ? response.json() : null).then((data: { remaining?: number } | null) => { if (typeof data?.remaining === "number") setRemainingSpots(data.remaining); }).catch(() => null);
-      fetch(`${api}/v1/public/landing-modal`)
-        .then((response) => (response.ok ? response.json() : null))
-        .then((data: LandingModal | null) => {
-          if (!data?.isEnabled) return;
+    // Start the image request at the same time as the API calls.  Previously the
+    // image was only requested after the modal configuration arrived.
+    const modalImage = new window.Image();
+    modalImage.src = "/landing-modal-fiscal-flow.png";
 
-          setModal(data);
-          setModalClosed(Boolean(sessionStorage.getItem("yf-landing-modal-dismissed")));
-        })
-        .catch(() => null);
-    }
+    const dismissed = Boolean(sessionStorage.getItem("yf-landing-modal-dismissed"));
+    setModalClosed(dismissed);
+
+    fetch(`${api}/v1/public/promotion`).then((response) => response.ok ? response.json() : null).then((data: { remaining?: number } | null) => { if (typeof data?.remaining === "number") setRemainingSpots(data.remaining); }).catch(() => null);
+    fetch(`${api}/v1/public/landing-modal`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: LandingModal | null) => setModal(data?.isEnabled ? data : null))
+      .catch(() => null);
 
     return () => window.removeEventListener("yf-language-change", syncLocale);
   }, [isLanding]);
