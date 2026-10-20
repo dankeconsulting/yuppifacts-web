@@ -31,14 +31,14 @@ const defaultLandingModal: LandingModal = {
   ctaEn: "I want to speed up invoice requests"
 };
 
-export default function ConsentLayer() {
+export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingHost: boolean }) {
   const pathname = usePathname();
-  // The promotion belongs to the landing route. Keeping this route-derived
-  // avoids a client-only hostname check that delayed the modal by one render.
-  const isLanding = pathname === "/";
+  // Host is resolved by the server, so other subdomains never receive the
+  // landing campaign shell while the public landing stays instantaneous.
+  const isLanding = isPublicLandingHost && pathname === "/";
   const [consent, setConsent] = useState<null | boolean>(null);
   const [consentReady, setConsentReady] = useState(false);
-  const [modal, setModal] = useState<LandingModal | null>(defaultLandingModal);
+  const [modal, setModal] = useState<LandingModal | null>(() => isPublicLandingHost ? defaultLandingModal : null);
   const [modalClosed, setModalClosed] = useState(false);
   const [locale, setLocale] = useState<"es" | "en">("es");
   const [remainingSpots, setRemainingSpots] = useState(100);

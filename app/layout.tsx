@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
 import "@/components/public.css";
 import "@/components/preregistration.css";
@@ -12,6 +13,12 @@ export const metadata: Metadata = {
   description: "Gestión segura de solicitudes de factura y documentos fiscales."
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es-MX"><body>{children}<ConsentLayer /></body></html>;
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const requestHeaders = await headers();
+  const hostname = (requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "")
+    .split(":")[0]
+    .toLowerCase();
+  const isPublicLandingHost = hostname === "yuppifacts.com" || hostname === "www.yuppifacts.com";
+
+  return <html lang="es-MX"><body>{children}<ConsentLayer isPublicLandingHost={isPublicLandingHost} /></body></html>;
 }
