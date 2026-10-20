@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, ShieldCheck, Smartphone, TicketCheck, Trash2 } from "lucide-react";
+import { Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, ShieldCheck, Smartphone, TicketCheck, Trash2, X } from "lucide-react";
 import "./payment-voucher.css";
 import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
@@ -17,6 +17,7 @@ const countries = {
 
 type CountryCode = keyof typeof countries;
 type UploadResponse = { voucherId: string; uploadUrl: string };
+type Picker = "country" | "state" | null;
 
 function fileIsAllowed(file: File) {
   return ["application/pdf", "image/jpeg", "image/png"].includes(file.type) && file.size <= maxFileSize;
@@ -31,6 +32,8 @@ async function sha256(file: File) {
 export default function PaymentVoucherForm() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [countryCode, setCountryCode] = useState<CountryCode>("MX");
+  const [stateName, setStateName] = useState("");
+  const [picker, setPicker] = useState<Picker>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [receiptOpen, setReceiptOpen] = useState(false);
@@ -59,6 +62,7 @@ export default function PaymentVoucherForm() {
     setIsDragging(false);
     selectFile(event.dataTransfer.files?.[0]);
   };
+  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setStateName(""); setPicker(null); };
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -67,6 +71,10 @@ export default function PaymentVoucherForm() {
     const form = new FormData(event.currentTarget);
     if (!file) {
       setError("Adjunta el comprobante de tu pago para continuar.");
+      return;
+    }
+    if (!stateName) {
+      setError("Selecciona tu estado o departamento para continuar.");
       return;
     }
     if (!api) {
@@ -102,6 +110,7 @@ export default function PaymentVoucherForm() {
       setReceiptOpen(true);
       event.currentTarget.reset();
       setCountryCode("MX");
+      setStateName("");
       setFile(null);
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Ocurrió un error al enviar tu comprobante.");
@@ -133,8 +142,7 @@ export default function PaymentVoucherForm() {
             <button className={`voucher-dropzone ${isDragging ? "is-dragging" : ""}`} type="button" onClick={() => inputRef.current?.click()} onDragOver={(event) => { event.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={onDrop}>
               {file ? <FileCheck2 aria-hidden="true" /> : <FileUp aria-hidden="true" />}
               <span>{file ? file.name : "Adjunta tu comprobante de pago"}</span>
-              <small>{file ? `${Math.ceil(file.size / 1024)} KB · listo para enviar` : "Toca para abrir Cámara, Galería, Google Fotos o Archivos."}</small>
-              {!file && <small className="voucher-upload-help">Fotos JPG/PNG o PDF · máximo 10 MB</small>}
+              <small>{file ? `${Math.ceil(file.size / 1024)} KB · listo para enviar` : "Fotos JPG/PNG o PDF · máximo 10 MB"}</small>
             </button>
             <input ref={inputRef} className="voucher-file-input" type="file" accept="application/pdf,image/jpeg,image/png" onChange={onFileInput} />
             {file && <button className="voucher-remove-file" type="button" onClick={() => { setFile(null); if (inputRef.current) inputRef.current.value = ""; }}><Trash2 size={16} /> Quitar comprobante</button>}
@@ -143,11 +151,11 @@ export default function PaymentVoucherForm() {
           <fieldset>
             <legend>Tu información</legend>
             <label>Nombre completo<input name="fullName" autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
-            <label>Número de celular<span className="phone-field"><select value={countryCode} onChange={(event) => setCountryCode(event.target.value as CountryCode)} aria-label="País y código de celular">{(Object.keys(countries) as CountryCode[]).map((code)=><option key={code} value={code}>{countries[code].flag} {countries[code].dial}</option>)}</select><ChevronDown aria-hidden="true" /><input name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="Tu número de celular" required minLength={8} maxLength={14} /><Smartphone aria-hidden="true" /></span><small className="phone-help">Usaremos este número para mantenerte al tanto de tu suscripción.</small></label>
+            <label>Número de celular<span className="phone-field"><button type="button" className="phone-country-trigger" onClick={() => setPicker("country")} aria-label="Cambiar país y código de celular">{currentCountry.flag} {currentCountry.dial}<ChevronDown aria-hidden="true" /></button><input name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="Tu número de celular" required minLength={8} maxLength={14} /><Smartphone aria-hidden="true" /></span><small className="phone-help">Usaremos este número para mantenerte al tanto de tu suscripción.</small></label>
             <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
             <div className="voucher-select-grid">
-              <label>País<span className="select-control"><select value={countryCode} onChange={(event) => setCountryCode(event.target.value as CountryCode)} aria-label="País">{(Object.keys(countries) as CountryCode[]).map((code)=><option key={code} value={code}>{countries[code].flag} {countries[code].name}</option>)}</select><ChevronDown aria-hidden="true" /></span></label>
-              <label>Estado o departamento<span className="select-control"><select name="state" defaultValue="" required key={countryCode}><option value="" disabled>Selecciona</option>{stateOptions.map((state) => <option key={state}>{state}</option>)}</select><ChevronDown aria-hidden="true" /></span></label>
+              <label>País<span className="select-control"><button type="button" onClick={() => setPicker("country")}><span>{currentCountry.flag} {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button></span></label>
+              <label>Estado o departamento<span className="select-control"><button type="button" onClick={() => setPicker("state")}><span className={stateName ? "" : "select-placeholder"}>{stateName || "Selecciona"}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="state" value={stateName} /></label>
             </div>
           </fieldset>
 
@@ -156,7 +164,7 @@ export default function PaymentVoucherForm() {
           <button className="voucher-submit" disabled={submitting} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
         </form>
 
-      </section><PublicProcessFooter />{receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}
+      </section><PublicProcessFooter />{receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}{picker&&<div className="voucher-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-picker-title"><section className="voucher-picker"><header><div><p>{picker === "country" ? "SELECCIONA TU PAÍS" : "SELECCIONA TU ESTADO"}</p><h2 id="voucher-picker-title">{picker === "country" ? "País y código" : "Estado o departamento"}</h2></div><button type="button" aria-label="Cerrar selector" onClick={() => setPicker(null)}><X aria-hidden="true" /></button></header><div className="voucher-picker-options">{picker === "country" ? (Object.keys(countries) as CountryCode[]).map((code)=><button type="button" key={code} className={countryCode===code?"selected":""} onClick={() => chooseCountry(code)}><span>{countries[code].flag}</span><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode===code&&<Check aria-hidden="true" />}</button>) : stateOptions.map((state)=><button type="button" key={state} className={stateName===state?"selected":""} onClick={() => { setStateName(state); setPicker(null); }}><b>{state}</b>{stateName===state&&<Check aria-hidden="true" />}</button>)}</div></section></div>}
     </main>
   );
 }
