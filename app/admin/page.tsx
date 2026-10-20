@@ -1,3 +1,5 @@
-import Workspace from "@/components/workspace";
-import AdminPromoCard from "@/components/admin-promo-card";
-export default function AdminPage(){return <><AdminPromoCard/><Workspace mode="admin"/></>}
+import { redirect } from "next/navigation";
+
+export default function AdminPage() {
+  redirect("/admin/configuracion");
+}
