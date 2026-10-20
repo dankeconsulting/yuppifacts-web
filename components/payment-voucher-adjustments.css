@@ -83,7 +83,7 @@
 }
 
 .voucher-country-flag-mx {
-  background: linear-gradient(90deg, #006847 0 33.33%, #fff 33.33% 66.66%, #ce1126 66.66%);
+  background: #fff url("https://flagcdn.com/mx.svg") center / cover no-repeat;
 }
 
 .voucher-country-flag-co {
