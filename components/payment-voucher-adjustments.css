@@ -46,14 +46,14 @@
 }
 
 .phone-country-trigger {
-  width: 112px;
+  width: 116px;
   height: 34px;
   margin-left: 8px;
   display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 6px;
-  padding: 0 8px;
+  padding: 0 10px;
   border: 0;
   border-right: 1px solid #363b49;
   border-radius: 0;
@@ -88,6 +88,9 @@
 .phone-field > svg:last-child {
   right: 16px;
   left: auto !important;
+  width: 21px !important;
+  height: 21px !important;
+  color: #36d27e !important;
 }
 
 .select-control {

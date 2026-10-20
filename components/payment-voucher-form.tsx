@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, ShieldCheck, Smartphone, TicketCheck, Trash2, X } from "lucide-react";
+import { Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, ShieldCheck, TicketCheck, Trash2, X } from "lucide-react";
 import "./payment-voucher.css";
 import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
@@ -18,6 +18,10 @@ const countries = {
 type CountryCode = keyof typeof countries;
 type UploadResponse = { voucherId: string; uploadUrl: string };
 type Picker = "country" | "state" | null;
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return <svg className={className} viewBox="0 0 32 32" fill="none" aria-hidden="true"><path fill="currentColor" d="M27.1 4.9A15.8 15.8 0 0 0 16 0C7.2 0 0 7.2 0 16c0 2.8.7 5.5 2.1 7.9L0 32l8.3-2.2A15.9 15.9 0 0 0 16 32h.1c8.8 0 15.9-7.2 15.9-16 0-4.3-1.7-8.2-4.9-11.1ZM16 29.3c-2.4 0-4.7-.6-6.7-1.9l-.5-.3-4.9 1.3 1.3-4.8-.3-.5A13.2 13.2 0 0 1 2.8 16C2.8 8.7 8.7 2.8 16 2.8c3.5 0 6.8 1.4 9.3 3.9a13 13 0 0 1 3.9 9.3c0 7.3-5.9 13.3-13.2 13.3Zm7.3-9.9c-.4-.2-2.2-1.1-2.6-1.2-.3-.1-.6-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.3-.4.3-.7.1-2-.9-3.3-1.6-4.6-3.7-.4-.7.4-.6 1.1-2 .1-.3 0-.5 0-.7-.1-.2-.8-2-.9-2.3-.1-.4-.3-.3-.5-.3h-.7c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.2 0 1.9 1.4 3.7 1.6 4 .2.3 2.7 4.2 6.6 5.8.9.4 1.7.6 2.2.8.9.3 1.8.2 2.5.1.8-.1 2.2-.9 2.5-1.8.3-.9.3-1.7.2-1.8-.1-.2-.3-.3-.7-.5Z" /></svg>;
+}
 
 function fileIsAllowed(file: File) {
   return ["application/pdf", "image/jpeg", "image/png"].includes(file.type) && file.size <= maxFileSize;
@@ -151,11 +155,11 @@ export default function PaymentVoucherForm() {
           <fieldset>
             <legend>Tu información</legend>
             <label>Nombre completo<input name="fullName" autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
-            <label>Número de celular<span className="phone-field"><button type="button" className="phone-country-trigger" onClick={() => setPicker("country")} aria-label="Cambiar país y código de celular">{currentCountry.flag} {currentCountry.dial}<ChevronDown aria-hidden="true" /></button><input name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="Tu número de celular" required minLength={8} maxLength={14} /><Smartphone aria-hidden="true" /></span><small className="phone-help">Usaremos este número para mantenerte al tanto de tu suscripción.</small></label>
+            <label>Número de WhatsApp<span className="phone-field"><button type="button" className="phone-country-trigger" onClick={() => setPicker("country")} aria-label="Cambiar país y código de WhatsApp">{currentCountry.flag} {currentCountry.dial}<ChevronDown aria-hidden="true" /></button><input name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="Tu número de WhatsApp" required minLength={8} maxLength={14} /><WhatsAppIcon /></span><small className="phone-help">Usaremos este número para mantenerte al tanto de tu suscripción.</small></label>
             <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
             <div className="voucher-select-grid">
               <label>País<span className="select-control"><button type="button" onClick={() => setPicker("country")}><span>{currentCountry.flag} {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button></span></label>
-              <label>Estado o departamento<span className="select-control"><button type="button" onClick={() => setPicker("state")}><span className={stateName ? "" : "select-placeholder"}>{stateName || "Selecciona"}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="state" value={stateName} /></label>
+              <label>Estado o departamento<span className="select-control"><button type="button" onClick={() => setPicker("state")}><span className={stateName ? "" : "select-placeholder"}>{stateName || "Selecciona estado o departamento"}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="state" value={stateName} /></label>
             </div>
           </fieldset>
 
