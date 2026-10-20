@@ -44,7 +44,7 @@ export default function LandingPage() {
 
     <section id="beneficios" className="features">
       <p className="eyebrow">{english ? "FEATURES" : "FUNCIONES"}</p>
-      <h2>{english ? <><span>All the power of technology,</span><br /><span className="features-title-accent">with the peace of mind of being protected</span><span className="features-title-dot">.</span></> : <><span>Todo el poder de la tecnología,</span><br /><span className="features-title-accent">toda la tranquilidad de estar protegido</span><span className="features-title-dot">.</span></>}</h2>
+      <h2>{english ? <><span>All the power of technology,</span><br /><span className="features-title-accent">with the peace of mind of being protected</span><span className="features-title-dot">.</span></> : <><span>Todo el poder de la<br className="mobile-features-break" /> tecnología,</span><br className="desktop-features-break" /><span className="features-title-accent"><br className="mobile-features-break" />toda la<br className="mobile-features-break" /> tranquilidad de<br className="mobile-features-break" /> estar protegido</span><span className="features-title-dot">.</span></>}</h2>
       <p className="features-lead">{english ? "Automate your invoicing requests with artificial intelligence, save time and keep your information secure." : "Automatiza tus solicitudes de facturación con inteligencia artificial, ahorra tiempo y mantén tu información segura."}</p>
       <div className="feature-grid">
         <Feature icon={<QrCode />} title={english ? "QR, receipt or link" : "QR, ticket o enlace"} text={english ? "Capture from your phone or attach a PDF, PNG or JPG with preview." : "Captura desde móvil o adjunta PDF, PNG y JPG con vista previa."} />
