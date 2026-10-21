@@ -86,7 +86,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   return <div className={`admin-shell${collapsed ? " is-collapsed" : ""}${lightMode ? " is-light" : ""}`}>
     <aside className="admin-shell-sidebar">
       <div className="admin-shell-navigation">
-        <Link href="/admin" className="admin-shell-brand"><YuppiFactsLogo />YuppiFacts</Link>
+        <Link href="/admin" className="admin-shell-brand"><YuppiFactsLogo /><span className="yuppifacts-logo-name">YuppiFacts</span></Link>
         <p className="admin-shell-caption">ADMINISTRADOR MAESTRO</p>
         <nav aria-label="Menú administrativo">
           {navigation.map(({ href, label, icon: Icon }, index) => {

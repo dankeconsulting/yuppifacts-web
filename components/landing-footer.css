@@ -35,7 +35,7 @@ footer.landing-footer { display: block; }
 .landing-footer-inner { max-width: 1340px; margin: 0 auto; }
 .landing-footer-top { display: grid; grid-template-columns: minmax(310px, .9fr) minmax(600px, 1.45fr); gap: clamp(62px, 9vw, 170px); }
 .landing-footer-brand { display: inline-flex; font-size: 30px; margin-bottom: 58px; }
-.landing-footer-brand span { width: 58px; height: 58px; border-radius: 18px; }
+.landing-footer-brand > .yuppifacts-logo-mark { width: 58px; height: 58px; border-radius: 18px; }
 .landing-footer-intro h2 { max-width: 440px; color: #f7f5ff; font-size: clamp(28px, 2.4vw, 42px); letter-spacing: -.045em; line-height: 1.07; margin: 0 0 22px; }
 .landing-footer-intro h2 span { color: #f7f5ff; }
 .landing-footer-intro h2 em { color: var(--purple); font-style: normal; }
@@ -92,7 +92,7 @@ footer.landing-footer { display: block; }
 @media (max-width: 640px) {
   .landing-footer { padding: 32px 24px 24px; }
   .landing-footer-brand { font-size: 25px; margin-bottom: 48px; }
-  .landing-footer-brand span { border-radius: 15px; height: 48px; width: 48px; }
+  .landing-footer-brand > .yuppifacts-logo-mark { border-radius: 15px; height: 48px; width: 48px; }
   .landing-footer-intro h2 { font-size: 31px; max-width: 320px; }
   .landing-footer-office { margin-top: 45px; }
   .landing-footer-nav { gap: 40px 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }

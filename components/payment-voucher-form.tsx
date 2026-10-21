@@ -170,7 +170,7 @@ export default function PaymentVoucherForm() {
       <section className="voucher-shell" aria-labelledby="voucher-title">
         <header className="voucher-header">
           <a className="voucher-brand" href="https://yuppifacts.com" aria-label="Ir a YuppiFacts">
-            <YuppiFactsLogo /> YuppiFacts<sup>®</sup>
+            <YuppiFactsLogo /><span className="yuppifacts-logo-name">YuppiFacts<sup>®</sup></span>
           </a>
           <p>Comprobación de pago</p>
         </header>

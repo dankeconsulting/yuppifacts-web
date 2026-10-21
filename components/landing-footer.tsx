@@ -109,7 +109,7 @@ export default function LandingFooter() {
         <div className="landing-footer-top">
           <div className="landing-footer-intro">
             <Link className="brand landing-footer-brand" href="/" aria-label="YuppiFacts">
-              <YuppiFactsLogo />YuppiFacts
+              <YuppiFactsLogo /><span className="yuppifacts-logo-name">YuppiFacts</span>
             </Link>
             <h2>
               {locale === "es" ? <><span>Facturación organizada,</span><br /><em>sin fricción</em><i>.</i></> : <><span>Organized invoicing,</span><br /><em>without friction</em><i>.</i></>}
