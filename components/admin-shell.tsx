@@ -15,6 +15,8 @@ const navigation = [
   { href: "/admin/usuarios", label: "Usuarios", icon: Users },
   { href: "/admin/configuracion", label: "Configuración", icon: Settings },
 ];
+type UserStage = "new" | "review" | "active";
+type UserCounts = Record<UserStage, number>;
 const countries = [
   { name: "México", flag: "🇲🇽" },
   { name: "Colombia", flag: "🇨🇴" },
@@ -30,6 +32,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   const [lightMode, setLightMode] = useState(false);
   const [countryOpen, setCountryOpen] = useState(false);
   const [country, setCountry] = useState(countries[0]);
+  const [userCounts, setUserCounts] = useState<UserCounts>({ new: 0, review: 0, active: 0 });
   const isPublicRoute = pathname === "/" || pathname === "/admin/entrar" || pathname === "/admin/activar";
 
   useEffect(() => {
@@ -48,6 +51,33 @@ export default function AdminShell({ children }: { children: ReactNode }) {
       .catch(() => router.replace("/admin/entrar"));
   }, [isPublicRoute, router]);
 
+  useEffect(() => {
+    if (!allowed || !apiOrigin) return;
+    const token = sessionStorage.getItem("yuppifacts.access");
+    if (!token) return;
+    let cancelled = false;
+    const stages: UserStage[] = ["new", "review", "active"];
+    const loadUserCounts = () => {
+      void Promise.all(stages.map(async (stage) => {
+        const response = await fetch(`${apiOrigin}/v1/admin/subscribers?stage=${stage}`, { headers: { "x-application-token": token } });
+        const body = await response.json().catch(() => ({})) as { subscribers?: unknown[] };
+        return [stage, response.ok && Array.isArray(body.subscribers) ? body.subscribers.length : 0] as const;
+      })).then((entries) => {
+        if (!cancelled) setUserCounts(Object.fromEntries(entries) as UserCounts);
+      }).catch(() => {
+        if (!cancelled) setUserCounts({ new: 0, review: 0, active: 0 });
+      });
+    };
+    loadUserCounts();
+    window.addEventListener("focus", loadUserCounts);
+    window.addEventListener("admin-subscriber-counts-changed", loadUserCounts);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("focus", loadUserCounts);
+      window.removeEventListener("admin-subscriber-counts-changed", loadUserCounts);
+    };
+  }, [allowed, pathname]);
+
   if (isPublicRoute) return <>{children}</>;
   if (!allowed) return <main className="admin-loading">Validando acceso administrativo…</main>;
 
@@ -59,10 +89,13 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         <Link href="/admin" className="admin-shell-brand"><YuppiFactsLogo />YuppiFacts</Link>
         <p className="admin-shell-caption">ADMINISTRADOR MAESTRO</p>
         <nav aria-label="Menú administrativo">
-          {navigation.map(({ href, label, icon: Icon }, index) => <div key={href}>
+          {navigation.map(({ href, label, icon: Icon }, index) => {
+            const count = href === "/admin/usuarios-nuevos" ? userCounts.new : href === "/admin/usuarios-revision" ? userCounts.review : href === "/admin/usuarios" ? userCounts.active : null;
+            return <div key={href}>
             {index === 1 || index === 4 ? <hr /> : null}
-            <Link href={href} className={pathname === href ? "active" : ""}><Icon size={18} />{label}</Link>
-          </div>)}
+            <Link href={href} className={pathname === href ? "active" : ""}><Icon size={18} /><span>{label}</span>{count !== null && count > 0 ? <i className="admin-nav-count" aria-label={`${count} ${label}`}>{count > 99 ? "99+" : count}</i> : null}</Link>
+          </div>;
+          })}
         </nav>
       </div>
       <div className="admin-shell-sidebar-fixed">

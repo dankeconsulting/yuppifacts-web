@@ -8,10 +8,28 @@ import "@/components/form-field-adjustments.css";
 import "@/components/wizard.css";
 import ConsentLayer from "@/components/consent-layer";
 
-export const metadata: Metadata = {
-  title: "YuppiFacts | Solicita y organiza tus facturas",
-  description: "Gestión segura de solicitudes de factura y documentos fiscales."
+const landingMetadata: Metadata = {
+  title: "Promoción | YuppiFacts®",
+  description: "Ecosistema inteligente para la solicitud y gestión de facturas de negocios y proveedores.",
+  openGraph: {
+    title: "Promoción | YuppiFacts®",
+    description: "Ecosistema inteligente para la solicitud y gestión de facturas de negocios y proveedores.",
+    url: "https://yuppifacts.com",
+    siteName: "YuppiFacts",
+    type: "website",
+  },
 };
+
+const defaultMetadata: Metadata = {
+  title: "YuppiFacts | Solicita y organiza tus facturas",
+  description: "Gestión segura de solicitudes de factura y documentos fiscales.",
+};
+
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const hostname = (requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host") ?? "").split(":")[0].toLowerCase();
+  return hostname === "yuppifacts.com" || hostname === "www.yuppifacts.com" ? landingMetadata : defaultMetadata;
+}
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const requestHeaders = await headers();

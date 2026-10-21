@@ -17,3 +17,15 @@
 .plan-price small {
   font-size: 13px;
 }
+
+.plan-grid-scroll { scrollbar-width: none; }
+.plan-grid-scroll::-webkit-scrollbar { display: none; }
+.plan-title-block { min-height: 128px; }
+.plan-title-block > b { display:block; min-height:22px; color:#b797ff; font-size:15px; margin-top:4px; }
+.plan-price .price-from { display:inline; margin-right:9px; font-size:15px; color:#c9c3d7; font-weight:600; }
+.plan-note { font-size:15px; }
+
+@media (min-width: 981px) {
+  .plan-grid-scroll { display:flex; overflow-x:auto; gap:24px; scroll-snap-type:x proximity; padding-bottom:8px; }
+  .plan-grid-scroll .plan { min-width:390px; scroll-snap-align:start; }
+}

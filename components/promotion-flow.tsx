@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Building2, Check, ChevronDown, CreditCard, Hands
 import { useEffect, useMemo, useState } from "react";
 import "./promotion-flow.css";
 import "./promotion-flow-adjustments.css";
+import "./promotion-regular-price.css";
 import PublicProcessFooter from "./public-process-footer";
 import YuppiFactsLogo from "./yuppifacts-logo";
 
