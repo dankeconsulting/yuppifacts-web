@@ -295,3 +295,4 @@
   .voucher-picker-backdrop { place-items: end center; padding: 0; }
   .voucher-picker { width: 100%; max-height: min(74dvh, 630px); border-radius: 19px 19px 0 0; border-bottom: 0; }
 }
+.voucher-modal-actions{display:flex;gap:10px;width:100%}.voucher-modal-actions button{flex:1}.voucher-modal-actions button+button{background:transparent;border:1px solid #645c71;color:#eee8f7}

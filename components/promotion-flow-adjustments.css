@@ -5,3 +5,4 @@
   height: 18px;
   margin-top: 1px;
 }
+.promotion-phone{display:grid;gap:8px;margin-top:18px;color:#d8d1e8;font-size:13px;font-weight:600}.promotion-phone>div{display:flex;align-items:center;gap:10px;max-width:360px;border:1px solid #4a415a;border-radius:11px;background:#17151d;padding:0 14px}.promotion-phone b{color:#b99aff}.promotion-phone input{width:100%;border:0;outline:0;background:transparent;padding:13px 0;color:#fff;font:inherit}
