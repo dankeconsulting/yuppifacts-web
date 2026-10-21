@@ -15,10 +15,12 @@
 }
 
 .access-topbar a { color: inherit; text-decoration: none; }
+.access-topbar a:hover { color: #c6b8ff; }
 .access-topbar b { color: #c6b8ff; font-weight: 500; }
 .access-topbar a:last-child:hover b { color: #e2d9ff; }
 
 @media (max-width: 850px) {
   .access-form-wrap { padding-top: 92px; }
-  .access-topbar { font-size: 13px; left: 24px; right: 24px; top: 28px; }
+  .access-topbar { display: grid; grid-template-columns: max-content minmax(0, 1fr); column-gap: 16px; font-size: 13px; left: 24px; right: 24px; top: 28px; }
+  .access-topbar a:last-child { text-align: right; }
 }

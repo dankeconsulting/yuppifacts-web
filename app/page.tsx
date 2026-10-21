@@ -15,9 +15,9 @@ export default function LandingPage() {
   const english = locale === "en";
   return <main className="landing">
     <header className="public-nav">
-      <Link className="brand" href="/"><YuppiFactsLogo />YuppiFacts</Link>
+      <Link className="brand" href="/"><YuppiFactsLogo /><span className="public-brand-name">YuppiFacts</span></Link>
       <nav><a href="#como-funciona">{english ? "How it works" : "Cómo funciona"}</a><a href="#beneficios">{english ? "Features" : "Funciones"}</a><a href="#planes">{english ? "Plans" : "Planes"}</a><a href="#ia">AI</a></nav>
-      <div className="nav-actions"><Link href="https://app.yuppifacts.com/">{english ? "My account" : "Mi Cuenta"}</Link><Link className="button small" href="https://promo.yuppifacts.com">{english ? "Get started" : "Contratar"} <ArrowRight size={16} /></Link></div>
+      <div className="nav-actions"><Link href="https://app.yuppifacts.com/">{english ? "My account" : "Mi Cuenta"}</Link><Link className="button small" href="https://promo.yuppifacts.com">{english ? "Subscribe" : "Suscríbete"} <ArrowRight size={16} /></Link></div>
     </header>
 
     <section className="hero">
@@ -64,7 +64,7 @@ export default function LandingPage() {
       <p className="eyebrow">{english ? "AI AT EVERY STEP" : "IA EN CADA PASO"}</p>
       <h2>{english ? <>YuppiFacts AI does the work,<br /><span className="cta-title-accent">you stay in control</span><span className="cta-title-dot">.</span></> : <>YuppiFacts IA hace el trabajo,<br /><span className="cta-title-accent">tú tienes el control</span><span className="cta-title-dot">.</span></>}</h2>
       <p>{english ? "Turn your purchase receipts into invoices without complications. Our artificial intelligence speeds up your requests, organizes your receipts, and helps you avoid missed tax deductions by forgetting to request an invoice." : "Convierte tus tickets de compra en facturas sin complicaciones. Nuestra inteligencia artificial agiliza tus solicitudes, organiza tus comprobantes y te ayuda a no perder oportunidades de deducción fiscal por olvidar pedir una factura."}</p>
-      <Link className="button" href="/registro">{english ? "Get YuppiFacts" : "Contratar YuppiFacts"} <ArrowRight size={18} /></Link>
+      <Link className="button" href="https://promo.yuppifacts.com">{english ? "Subscribe" : "Suscríbete"} <ArrowRight size={18} /></Link>
     </section>
 
     <LandingFooter />
