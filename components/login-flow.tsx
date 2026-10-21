@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ChevronDown, LockKeyhole, Phone, ShieldCheck, UserPlus, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, Phone, ShieldCheck, UserPlus, X } from "lucide-react";
 import "./access-login.css";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
@@ -104,7 +104,6 @@ export default function LoginFlow({ returnTo = "/panel" }: { returnTo?: string }
       <div className="access-login-actions"><button type="button" onClick={goBack}><ArrowLeft size={17} /> Regresar</button><button type="button" className="button" disabled={busy || pin.length !== 4} onClick={enter}>{busy ? "Entrando…" : "Entrar"}<ArrowRight size={18} /></button></div>
     </>}
     {notice && <p className="access-login-error" role="alert">{notice}</p>}
-    {step !== "code" && <p className="access-privacy"><LockKeyhole size={14} /> El código y el PIN se validan en el servidor; no se guardan en este dispositivo.</p>}
     {missingAccount && <div className="access-missing-backdrop" role="dialog" aria-modal="true" aria-labelledby="access-missing-title"><section className="access-missing-modal"><header><span>CUENTA YUPPIFACTS</span><button type="button" aria-label="Cerrar" onClick={() => setMissingAccount(false)}><X size={25} /></button></header><div><span className="access-missing-icon"><UserPlus size={35} /></span><h3 id="access-missing-title">Aún no tienes una cuenta</h3><p>Puedes crearla ahora o continuar después con tu registro.</p><footer><Link className="button" href="/registro">Registrarme <ArrowRight size={19} /></Link><button type="button" onClick={() => setMissingAccount(false)}>Volver después</button></footer></div></section></div>}
   </div>;
 }

@@ -23,5 +23,5 @@ export default function AccessPanel() {
   }, []);
   if (state === "loading") return <main className="access-panel-state">Validando tu acceso…</main>;
   if (state === "invalid") return <main className="access-panel-state"><h1>Tu sesión no está disponible.</h1><p>Inicia sesión nuevamente para continuar.</p><Link className="button" href="/entrar">Ir a iniciar sesión</Link></main>;
-  return <Workspace userName={account?.fullName} profile="individual" />;
+  return <Workspace userName={account?.fullName} profile="individual" showActivationOverlay={false} accessToken={sessionStorage.getItem("yuppifacts.access") ?? undefined} />;
 }

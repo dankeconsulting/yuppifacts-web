@@ -1,2 +1,5 @@
-import ActivationGate from "@/components/activation-gate";
-export default function DemoPage(){return <ActivationGate/>}
+import Workspace from "@/components/workspace";
+
+export default function DemoPage() {
+  return <Workspace userName="Claudia Cruz" profile="independent_accountant" />;
+}

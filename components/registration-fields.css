@@ -3,3 +3,36 @@
   grid-template-columns: 1fr;
   gap: 0;
 }
+
+.signup-secret-field {
+  display: flex;
+  align-items: center;
+  border: 1px solid #30343e;
+  border-radius: 10px;
+  background: #161920;
+}
+
+.signup-secret-field:focus-within {
+  border-color: #aa8eff;
+  box-shadow: 0 0 0 4px #a78bfa1b;
+}
+
+.signup-fields .signup-secret-field input {
+  border: 0;
+  box-shadow: none;
+}
+
+.signup-secret-field button {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: #b9a4ff;
+  cursor: pointer;
+}
+
+.signup-secret-field button:hover { color: #e5ddff; }
+.signup-pin-field small { min-height: 16px; }

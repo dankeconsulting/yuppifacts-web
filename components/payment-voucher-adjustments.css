@@ -4,6 +4,8 @@
   color: #a78bfa;
 }
 
+.voucher-divider{width:100%;margin:0;border:0;border-top:1px solid #303541}.voucher-pin-fields{grid-template-columns:1fr 1fr!important}.voucher-pin-fields legend{grid-column:1/-1}.voucher-secret{position:relative;display:block}.voucher-secret input{padding-right:48px}.voucher-secret button{position:absolute;top:50%;right:13px;display:grid;place-items:center;border:0;background:transparent;color:#bca9ff;transform:translateY(-50%);cursor:pointer}.voucher-secret svg{width:18px;height:18px}@media(max-width:640px){.voucher-pin-fields{grid-template-columns:1fr!important}}
+
 .voucher-dropzone {
   border-style: dashed;
   border-radius: 10px;

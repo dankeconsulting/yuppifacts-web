@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Check, CheckCircle2, ChevronDown, CircleAlert, FileCheck2, FileUp, Mail, ShieldCheck, TicketCheck, Trash2, X } from "lucide-react";
+import { Check, CheckCircle2, ChevronDown, CircleAlert, Eye, EyeOff, FileCheck2, FileUp, Mail, ShieldCheck, TicketCheck, Trash2, X } from "lucide-react";
 import "./payment-voucher.css";
 import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
@@ -18,7 +18,8 @@ const countries = {
 
 type CountryCode = keyof typeof countries;
 type UploadResponse = { voucherId: string; uploadUrl: string };
-type Picker = "country" | "state" | null;
+type Picker = "country" | "state" | "city" | null;
+const citiesByState: Record<string, string[]> = { "Baja California": ["Tijuana", "Mexicali", "Ensenada", "Tecate", "Playas de Rosarito"], "Ciudad de México": ["Álvaro Obregón", "Benito Juárez", "Coyoacán", "Cuauhtémoc", "Iztapalapa", "Miguel Hidalgo"], Jalisco: ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá", "Puerto Vallarta"], "Nuevo León": ["Monterrey", "San Pedro Garza García", "Guadalupe", "Apodaca", "Santa Catarina"], "Estado de México": ["Ecatepec", "Naucalpan", "Nezahualcóyotl", "Toluca", "Tlalnepantla"], Puebla: ["Puebla", "Tehuacán", "San Martín Texmelucan", "Atlixco"], Querétaro: ["Querétaro", "San Juan del Río", "Corregidora", "El Marqués"], "San José": ["San José", "Escazú", "Desamparados"], Antioquia: ["Medellín", "Bello", "Envigado", "Rionegro"], "Bogotá, D.C.": ["Bogotá"] };
 
 function CountryFlag({ code }: { code: CountryCode }) {
   return <span className={`voucher-country-flag voucher-country-flag-${code.toLowerCase()}`} aria-hidden="true" />;
@@ -38,6 +39,8 @@ export default function PaymentVoucherForm() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [countryCode, setCountryCode] = useState<CountryCode>("MX");
   const [stateName, setStateName] = useState("");
+  const [cityName, setCityName] = useState("");
+  const [showPin, setShowPin] = useState(false); const [showPinConfirmation, setShowPinConfirmation] = useState(false);
   const [picker, setPicker] = useState<Picker>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -48,6 +51,7 @@ export default function PaymentVoucherForm() {
   const currentCountry = countries[countryCode];
   const [promotion, setPromotion] = useState<{promotionId:string;promotionToken:string}|null>(null);
   const stateOptions = useMemo(() => currentCountry.states, [currentCountry]);
+  const cityOptions = useMemo(() => citiesByState[stateName] ?? [], [stateName]);
   useEffect(() => { const value=new URLSearchParams(window.location.hash.slice(1)).get("promo");const [promotionId,promotionToken]=value?.split(".")??[];if(promotionId&&promotionToken)setPromotion({promotionId,promotionToken}); }, []);
 
   const selectFile = (nextFile?: File) => {
@@ -69,7 +73,7 @@ export default function PaymentVoucherForm() {
     setIsDragging(false);
     selectFile(event.dataTransfer.files?.[0]);
   };
-  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setStateName(""); setPicker(null); };
+  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setStateName(""); setCityName(""); setPicker(null); };
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -81,7 +85,7 @@ export default function PaymentVoucherForm() {
       setError("Adjunta el comprobante de tu pago para continuar.");
       return;
     }
-    if (!stateName) {
+    if (!stateName || !cityName) {
       setError("Selecciona tu estado o departamento para continuar.");
       return;
     }
@@ -98,6 +102,9 @@ export default function PaymentVoucherForm() {
         phoneE164: `${currentCountry.dial}${phone}`,
         countryCode,
         stateName: String(form.get("state") ?? ""),
+        cityName: String(form.get("city") ?? ""),
+        pin: String(form.get("pin") ?? ""),
+        pinConfirmation: String(form.get("pinConfirmation") ?? ""),
         filename: file.name,
         contentType: file.type,
         byteSize: file.size,
@@ -122,7 +129,7 @@ export default function PaymentVoucherForm() {
       setReceiptOpen(true);
       event.currentTarget.reset();
       setCountryCode("MX");
-      setStateName("");
+      setStateName(""); setCityName("");
       setFile(null);
     } catch (reason) {
       const message = reason instanceof Error ? reason.message : "";
@@ -169,9 +176,11 @@ export default function PaymentVoucherForm() {
             <div className="voucher-select-grid">
               <label>País<span className="select-control"><button type="button" onClick={() => setPicker("country")}><span className="country-option"><CountryFlag code={countryCode} /> {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button></span></label>
               <label>Estado o departamento<span className="select-control"><button type="button" onClick={() => setPicker("state")}><span className={stateName ? "" : "select-placeholder"}>{stateName || "Selecciona estado o departamento"}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="state" value={stateName} /></label>
+               <label>Ciudad / municipio / delegación<input name="city" value={cityName} disabled={!stateName} onChange={(event) => setCityName(event.target.value)} placeholder={stateName ? "Escribe tu ciudad o municipio" : "Selecciona primero un estado"} list="voucher-cities" /><datalist id="voucher-cities">{cityOptions.map((city) => <option key={city} value={city} />)}</datalist></label>
             </div>
           </fieldset>
-
+          <hr className="voucher-divider" />
+          <fieldset className="voucher-pin-fields"><legend>PIN de seguridad</legend><label>PIN de seguridad<span className="voucher-secret"><input name="pin" type={showPin ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar PIN" onClick={()=>setShowPin(value=>!value)}>{showPin?<EyeOff/>:<Eye/>}</button></span></label><label>Confirmar PIN de seguridad<span className="voucher-secret"><input name="pinConfirmation" type={showPinConfirmation ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar confirmación" onClick={()=>setShowPinConfirmation(value=>!value)}>{showPinConfirmation?<EyeOff/>:<Eye/>}</button></span></label></fieldset>
           <div className="voucher-security"><ShieldCheck aria-hidden="true" /><span>Tu comprobante se almacena de forma privada y se usa únicamente para validar este pago.</span></div>
           {error && <p className="voucher-message error"><CircleAlert aria-hidden="true" />{error}</p>}
           <button className="voucher-submit" disabled={submitting} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
