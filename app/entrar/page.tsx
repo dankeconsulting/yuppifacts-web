@@ -22,7 +22,7 @@ export default function SignInPage() {
     <section className="access-form-wrap">
       <header className="access-topbar"><a href="https://yuppifacts.com">Ir a YuppiFacts.com</a><a href="https://promo.yuppifacts.com">¿Aún no tienes una cuenta YuppiFacts? <b>Suscríbete</b></a></header>
       <LoginFlow />
-      <footer className="access-form-footer"><span>© 2024 – 2026 YuppiFacts<sup>®</sup>. Todos los derechos reservados.</span><nav><Link href="https://yuppifacts.com/privacidad">Política de Privacidad</Link><Link href="https://yuppifacts.com/terminos">Condiciones de Servicio</Link></nav></footer>
+      <footer className="access-form-footer"><span>©2026 YuppiFacts<sup>®</sup>. Todos los derechos reservados.</span>{" "}<nav><Link href="https://yuppifacts.com/privacidad">Política de Privacidad</Link>{" | "}<Link href="https://yuppifacts.com/terminos">Condiciones de Servicio</Link></nav></footer>
     </section>
   </main>;
 }

@@ -189,7 +189,7 @@ export default function LandingFooter() {
               <button type="button" className={locale === "en" ? "active" : ""} onClick={() => chooseLocale("en")} aria-pressed={locale === "en"}>EN</button>
             </div>
           </div>
-          <p className="landing-footer-legal">{text.copyright} <Link href="/privacidad">| {text.links.privacy}</Link> <Link href="/terminos">| {text.links.terms}</Link></p>
+          <p className="landing-footer-legal">{text.copyright} <Link href="/privacidad">{text.links.privacy}</Link> <Link href="/terminos">| {text.links.terms}</Link></p>
         </div>
       </div>
       <button type="button" className="landing-footer-top-button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label={text.top}>
