@@ -39,6 +39,8 @@ export default function PaymentVoucherForm() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [countryCode, setCountryCode] = useState<CountryCode>("MX");
   const [phoneDigits, setPhoneDigits] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   const [accountExists, setAccountExists] = useState(false);
   const [checkingAccount, setCheckingAccount] = useState(false);
   const [stateName, setStateName] = useState("");
@@ -88,6 +90,9 @@ export default function PaymentVoucherForm() {
       const body = await response.json().catch(() => ({}));
       if (response.status === 404 && body.code === "SUBSCRIPTION_NOT_FOUND") { setAccountNotFound(true); return; }
       if (!response.ok) throw new Error(body.error ?? "No fue posible validar tu cuenta.");
+      if (typeof body.fullName === "string") setFullName(body.fullName);
+      if (typeof body.email === "string") setEmail(body.email);
+      if (body.countryCode && body.countryCode in countries) setCountryCode(body.countryCode as CountryCode);
       setAccountExists(true);
     } catch (reason) { setError(reason instanceof Error ? reason.message : "No fue posible validar tu cuenta."); }
     finally { setCheckingAccount(false); }
@@ -114,8 +119,8 @@ export default function PaymentVoucherForm() {
     setSubmitting(true);
     try {
       const payload = {
-        fullName: String(form.get("fullName") ?? ""),
-        email: String(form.get("email") ?? ""),
+        fullName,
+        email,
         phoneE164: `${currentCountry.dial}${phoneDigits}`,
         countryCode,
         stateName: String(form.get("state") ?? ""),
@@ -195,8 +200,8 @@ export default function PaymentVoucherForm() {
 
           <fieldset disabled={!accountExists}>
             <legend>Tu información</legend>
-            <label>Nombre completo<input name="fullName" autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
-            <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
+            <label>Nombre completo<input name="fullName" value={fullName} onChange={(event)=>setFullName(event.target.value)} autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
+            <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" value={email} onChange={(event)=>setEmail(event.target.value)} type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
             <div className="voucher-select-grid">
               <label>País<span className="select-control"><button type="button" onClick={() => setPicker("country")}><span className="country-option"><CountryFlag code={countryCode} /> {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button></span></label>
               <label>Estado o departamento<span className="select-control"><button type="button" onClick={() => setPicker("state")}><span className={stateName ? "" : "select-placeholder"}>{stateName || "Selecciona estado o departamento"}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="state" value={stateName} /></label>
