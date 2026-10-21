@@ -15,7 +15,7 @@ export default function LandingPage() {
   const english = locale === "en";
   return <main className="landing">
     <header className="public-nav">
-      <Link className="brand" href="/"><YuppiFactsLogo /><span className="public-brand-name yuppifacts-logo-name">YuppiFacts</span></Link>
+      <Link className="brand" href="/"><YuppiFactsLogo /><span className="public-brand-name yuppifacts-logo-name">YuppiFacts<sup>®</sup></span></Link>
       <nav><a href="#como-funciona">{english ? "How it works" : "Cómo funciona"}</a><a href="#beneficios">{english ? "Features" : "Funciones"}</a><a href="#planes">{english ? "Plans" : "Planes"}</a><a href="#ia">AI</a></nav>
       <div className="nav-actions"><Link href="https://app.yuppifacts.com/">{english ? "My account" : "Mi Cuenta"}</Link><Link className="button small" href="https://promo.yuppifacts.com">{english ? "Subscribe" : "Suscríbete"} <ArrowRight size={16} /></Link></div>
     </header>
