@@ -2,6 +2,7 @@
 
 import { Check, Pencil, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import "./promotion-plan-matrix.css";
 import "./landing-plan-matrix.css";
 
 type Period="monthly"|"quarterly"|"semiannual"|"annual";
