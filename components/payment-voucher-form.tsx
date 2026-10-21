@@ -38,6 +38,9 @@ async function sha256(file: File) {
 export default function PaymentVoucherForm() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [countryCode, setCountryCode] = useState<CountryCode>("MX");
+  const [phoneDigits, setPhoneDigits] = useState("");
+  const [accountExists, setAccountExists] = useState(false);
+  const [checkingAccount, setCheckingAccount] = useState(false);
   const [stateName, setStateName] = useState("");
   const [cityName, setCityName] = useState("");
   const [showPin, setShowPin] = useState(false); const [showPinConfirmation, setShowPinConfirmation] = useState(false);
@@ -75,7 +78,20 @@ export default function PaymentVoucherForm() {
     setIsDragging(false);
     selectFile(event.dataTransfer.files?.[0]);
   };
-  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setStateName(""); setCityName(""); setPicker(null); };
+  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setPhoneDigits(""); setAccountExists(false); setStateName(""); setCityName(""); setPicker(null); };
+  const validateAccount = async () => {
+    const phoneE164 = `${currentCountry.dial}${phoneDigits}`;
+    if (!/^\+[1-9]\d{7,14}$/.test(phoneE164) || !promotion || !api) return;
+    setCheckingAccount(true); setAccountExists(false); setAccountNotFound(false);
+    try {
+      const response = await fetch(`${api}/v1/promotions/contracts/${promotion.promotionId}/ticket-account`, { method:"POST", headers:{"content-type":"application/json","x-promotion-token":promotion.promotionToken}, body:JSON.stringify({phoneE164}) });
+      const body = await response.json().catch(() => ({}));
+      if (response.status === 404 && body.code === "SUBSCRIPTION_NOT_FOUND") { setAccountNotFound(true); return; }
+      if (!response.ok) throw new Error(body.error ?? "No fue posible validar tu cuenta.");
+      setAccountExists(true);
+    } catch (reason) { setError(reason instanceof Error ? reason.message : "No fue posible validar tu cuenta."); }
+    finally { setCheckingAccount(false); }
+  };
 
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -97,11 +113,10 @@ export default function PaymentVoucherForm() {
     }
     setSubmitting(true);
     try {
-      const phone = String(form.get("phone") ?? "").replace(/\D/g, "");
       const payload = {
         fullName: String(form.get("fullName") ?? ""),
         email: String(form.get("email") ?? ""),
-        phoneE164: `${currentCountry.dial}${phone}`,
+        phoneE164: `${currentCountry.dial}${phoneDigits}`,
         countryCode,
         stateName: String(form.get("state") ?? ""),
         cityName: String(form.get("city") ?? ""),
@@ -163,7 +178,11 @@ export default function PaymentVoucherForm() {
         </div>
 
         <form className="voucher-form" onSubmit={submit} noValidate>
-          <fieldset>
+          <fieldset className="voucher-account-check">
+            <legend>Valida tu cuenta</legend>
+            <label>Número de WhatsApp<span className="phone-field"><button type="button" className="phone-country-trigger" onClick={() => setPicker("country")} aria-label="Cambiar país y código de WhatsApp"><CountryFlag code={countryCode} /><b>{currentCountry.dial}</b><ChevronDown aria-hidden="true" /></button><input value={phoneDigits} onChange={(event) => { setPhoneDigits(event.target.value.replace(/\D/g, "").slice(0, 14)); setAccountExists(false); setAccountNotFound(false); }} onBlur={()=>void validateAccount()} type="tel" inputMode="numeric" autoComplete="tel" placeholder="Número de WhatsApp" required minLength={8} maxLength={14} /><span className="whatsapp-icon" aria-hidden="true" />{checkingAccount ? <small className="voucher-account-status">Verificando…</small> : accountExists ? <CheckCircle2 className="voucher-account-ok" aria-label="Cuenta encontrada" /> : phoneDigits.length >= 8 ? <CircleAlert className="voucher-account-missing" aria-label="Cuenta no encontrada" /> : null}</span><small className="phone-help">Escribe el WhatsApp usado al contratar. Al encontrar tu cuenta se habilitará el formulario.</small></label>
+          </fieldset>
+          <fieldset disabled={!accountExists}>
             <legend>Comprobante de pago</legend>
             <button className={`voucher-dropzone ${isDragging ? "is-dragging" : ""}`} type="button" onClick={() => inputRef.current?.click()} onDragOver={(event) => { event.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={onDrop}>
               {file ? <FileCheck2 aria-hidden="true" /> : <FileUp aria-hidden="true" />}
@@ -174,10 +193,9 @@ export default function PaymentVoucherForm() {
             {file && <button className="voucher-remove-file" type="button" onClick={() => { setFile(null); if (inputRef.current) inputRef.current.value = ""; }}><Trash2 size={16} /> Quitar comprobante</button>}
           </fieldset>
 
-          <fieldset>
+          <fieldset disabled={!accountExists}>
             <legend>Tu información</legend>
             <label>Nombre completo<input name="fullName" autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
-            <label>Número de WhatsApp<span className="phone-field"><button type="button" className="phone-country-trigger" onClick={() => setPicker("country")} aria-label="Cambiar país y código de WhatsApp"><CountryFlag code={countryCode} /><b>{currentCountry.dial}</b><ChevronDown aria-hidden="true" /></button><input name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="Número de WhatsApp" required minLength={8} maxLength={14} /><span className="whatsapp-icon" aria-hidden="true" /></span><small className="phone-help">Usaremos este número para mantenerte al tanto de tu suscripción.</small></label>
             <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
             <div className="voucher-select-grid">
               <label>País<span className="select-control"><button type="button" onClick={() => setPicker("country")}><span className="country-option"><CountryFlag code={countryCode} /> {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button></span></label>
@@ -186,10 +204,10 @@ export default function PaymentVoucherForm() {
             </div>
           </fieldset>
           <hr className="voucher-divider" />
-          <fieldset className="voucher-pin-fields"><legend>PIN de seguridad</legend><label>PIN de seguridad<span className="voucher-secret"><input name="pin" type={showPin ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar PIN" onClick={()=>setShowPin(value=>!value)}>{showPin?<EyeOff/>:<Eye/>}</button></span></label><label>Confirmar PIN de seguridad<span className="voucher-secret"><input name="pinConfirmation" type={showPinConfirmation ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar confirmación" onClick={()=>setShowPinConfirmation(value=>!value)}>{showPinConfirmation?<EyeOff/>:<Eye/>}</button></span></label></fieldset>
+          <fieldset className="voucher-pin-fields" disabled={!accountExists}><legend>PIN de seguridad</legend><label>PIN de seguridad<span className="voucher-secret"><input name="pin" type={showPin ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar PIN" onClick={()=>setShowPin(value=>!value)}>{showPin?<EyeOff/>:<Eye/>}</button></span></label><label>Confirmar PIN de seguridad<span className="voucher-secret"><input name="pinConfirmation" type={showPinConfirmation ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar confirmación" onClick={()=>setShowPinConfirmation(value=>!value)}>{showPinConfirmation?<EyeOff/>:<Eye/>}</button></span></label></fieldset>
           <div className="voucher-security"><ShieldCheck aria-hidden="true" /><span>Tu comprobante se almacena de forma privada y se usa únicamente para validar este pago.</span></div>
           {error && <p className="voucher-message error"><CircleAlert aria-hidden="true" />{error}</p>}
-          <button className="voucher-submit" disabled={submitting} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
+          <button className="voucher-submit" disabled={submitting || !accountExists} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
         </form>
 
       </section><PublicProcessFooter />{receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}{duplicateOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-duplicate-title"><section className="voucher-receipt voucher-duplicate"><CircleAlert aria-hidden="true" /><p>VOUCHER EN REVISIÓN</p><h2 id="voucher-duplicate-title">Ya recibimos tu voucher.</h2><span>Aún estamos procesando tu suscripción. Una vez verificado tu pago procederemos a activar tu cuenta.</span><button type="button" onClick={()=>setDuplicateOpen(false)}>De acuerdo</button></section></div>}{accountNotFound&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-account-title"><section className="voucher-receipt voucher-duplicate"><CircleAlert aria-hidden="true" /><p>CUENTA NO ENCONTRADA</p><h2 id="voucher-account-title">No existe una cuenta con este WhatsApp.</h2><span>Te invitamos a suscribirte en YuppiFacts para crear tu cuenta y continuar con tu comprobante.</span><div className="voucher-modal-actions"><button type="button" onClick={()=>window.location.assign("https://promo.yuppifacts.com")}>Suscribirme</button><button type="button" onClick={()=>setAccountNotFound(false)}>Cancelar</button></div></section></div>}{picker&&<div className="voucher-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-picker-title"><section className="voucher-picker"><header><div><p>{picker === "country" ? "SELECCIONA TU PAÍS" : "SELECCIONA TU ESTADO"}</p><h2 id="voucher-picker-title">{picker === "country" ? "País y código" : "Estado o departamento"}</h2></div><button type="button" aria-label="Cerrar selector" onClick={() => setPicker(null)}><X aria-hidden="true" /></button></header><div className="voucher-picker-options">{picker === "country" ? (Object.keys(countries) as CountryCode[]).map((code)=><button type="button" key={code} className={countryCode===code?"selected":""} onClick={() => chooseCountry(code)}><CountryFlag code={code} /><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode===code&&<Check aria-hidden="true" />}</button>) : stateOptions.map((state)=><button type="button" key={state} className={stateName===state?"selected":""} onClick={() => { setStateName(state); setPicker(null); }}><b>{state}</b>{stateName===state&&<Check aria-hidden="true" />}</button>)}</div></section></div>}
