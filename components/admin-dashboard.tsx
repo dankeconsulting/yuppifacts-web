@@ -1,21 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { BadgeCheck, CircleX, Clock3, FileCheck2, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import "./admin-dashboard.css";
 
-const subscriberSummary = [
-  { label: "Total", icon: Users, tone: "violet" },
-  { label: "Por revisar", icon: Clock3, tone: "amber" },
-  { label: "Activos", icon: BadgeCheck, tone: "green" },
-  { label: "Rechazados", icon: CircleX, tone: "rose" },
-];
+const api=(process.env.NEXT_PUBLIC_API_URL??"").replace(/\/$/,"");
+const subscriberSummary=[{label:"Total",icon:Users,tone:"violet"},{label:"Por revisar",icon:Clock3,tone:"amber"},{label:"Activos",icon:BadgeCheck,tone:"green"},{label:"Rechazados",icon:CircleX,tone:"rose"}];
+type Recent={id:string;fullName:string;email:string;profile:string;registeredAt:string};
 
-export default function AdminDashboard() {
-  return <main className="admin-dashboard">
-    <section className="admin-dashboard-content">
-      <header className="admin-dashboard-header"><div><p className="eyebrow">ADMINISTRADOR MAESTRO</p><h1>Dashboard</h1><p>Administra usuarios, promociones y cobros de YuppiFacts desde un solo lugar.</p></div><Link href="/admin/configuracion" className="admin-dashboard-button">Configuración</Link></header>
-      <section className="admin-dashboard-summary"><div><span>Estado de promociones</span><b>Configuración protegida</b><p>Solo los planes activos se muestran en el registro promocional.</p></div><Link href="/admin/configuracion/promocion">Ver Planes Promo →</Link></section>
-      <section className="admin-subscriber-summary" aria-label="Resumen de suscriptores">{subscriberSummary.map(({label,icon:Icon,tone})=><article key={label}><span className={`admin-summary-icon ${tone}`}><Icon size={21}/></span><small>GLOBAL</small><b>0</b><p>{label}</p></article>)}</section>
-      <section className="admin-next-step"><FileCheck2 size={22} /><div><b>Flujo de activación protegido</b><p>La suscripción solo se activa después de validar el comprobante de pago.</p></div><Link href="/admin/promociones">Ir a comprobantes →</Link></section>
-    </section>
-  </main>;
+export default function AdminDashboard(){
+ const [recent,setRecent]=useState<Recent[]>([]);const [error,setError]=useState("");
+ useEffect(()=>{const load=async()=>{try{const token=sessionStorage.getItem("yuppifacts.access")??"";const response=await fetch(`${api}/v1/admin/dashboard/recent-subscribers`,{cache:"no-store",headers:{"x-application-token":token}});const raw=await response.text();let body:{subscribers?:Recent[];error?:string}={};try{body=raw?JSON.parse(raw):{};}catch{}if(!response.ok)throw new Error(body.error??"No fue posible cargar los registros recientes.");setRecent(body.subscribers??[]);setError("");}catch(reason){setError(reason instanceof Error?reason.message:"No fue posible cargar los registros recientes.");}};void load();},[]);
+ return <main className="admin-dashboard"><section className="admin-dashboard-content"><header className="admin-dashboard-header"><div><p className="eyebrow">ADMINISTRADOR MAESTRO</p><h1>Dashboard</h1><p>Administra usuarios, promociones y cobros de YuppiFacts desde un solo lugar.</p></div><Link href="/admin/configuracion" className="admin-dashboard-button">Configuración</Link></header><section className="admin-dashboard-summary"><div><span>Estado de promociones</span><b>Configuración protegida</b><p>Solo los planes activos se muestran en el registro promocional.</p></div><Link href="/admin/configuracion/promocion">Ver Planes Promo →</Link></section><section className="admin-subscriber-summary" aria-label="Resumen de suscriptores">{subscriberSummary.map(({label,icon:Icon,tone})=><article key={label}><span className={`admin-summary-icon ${tone}`}><Icon size={21}/></span><small>GLOBAL</small><b>0</b><p>{label}</p></article>)}</section><section className="admin-recent-subscribers" aria-labelledby="recent-title"><header><div><p className="eyebrow">REGISTROS RECIENTES</p><h2 id="recent-title">Usuarios nuevos de la última hora</h2><p>Se conserva este bloque hasta que entre un registro nuevo.</p></div><Link href="/admin/usuarios-nuevos">Ver todos →</Link></header>{error?<p className="admin-recent-error">{error}</p>:recent.length?<div className="admin-recent-table"><div className="admin-recent-head"><span>Usuario</span><span>Perfil</span><span>Registro</span></div>{recent.map(item=><Link key={item.id} href={`/admin/usuarios/${item.id}`}><span><b>{item.fullName}</b><small>{item.email}</small></span><span>{item.profile}</span><time dateTime={item.registeredAt}>{new Intl.DateTimeFormat("es-MX",{hour:"2-digit",minute:"2-digit",day:"numeric",month:"short"}).format(new Date(item.registeredAt))}</time></Link>)}</div>:<div className="admin-recent-empty"><Users size={21}/><span>Aún no hay registros recientes.</span></div>}</section><section className="admin-next-step"><FileCheck2 size={22}/><div><b>Flujo de activación protegido</b><p>La suscripción solo se activa después de validar el comprobante de pago.</p></div><Link href="/admin/promociones">Ir a comprobantes →</Link></section></section></main>;
 }
