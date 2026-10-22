@@ -1,2 +1,2 @@
-import PromotionSettings from "@/components/promotion-settings";
-export default function PromotionConfigurationPage(){return <PromotionSettings/>}
+import PromotionPlanMatrix from "@/components/promotion-plan-matrix";
+export default function PromotionConfigurationPage(){return <PromotionPlanMatrix catalog="promotion"/>}
