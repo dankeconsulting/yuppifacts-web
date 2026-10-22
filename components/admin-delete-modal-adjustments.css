@@ -32,3 +32,28 @@
   gap:3px;
   text-align:left;
 }
+
+.admin-delete-input input[type="password"] {
+  text-align:center;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.42em;
+}
+
+.admin-delete-modal footer .danger:not(:disabled) {
+  border-color:#dc2626;
+  background:#dc2626;
+  color:#fff;
+}
+
+.admin-delete-modal footer .danger:not(:disabled):hover {
+  border-color:#ef4444;
+  background:#ef4444;
+}
+
+.admin-delete-modal footer .danger:not(:disabled):active,
+.admin-user-tools button.danger:not(:disabled):active,
+.row-actions button[aria-label="Eliminar"]:active {
+  border-color:#b91c1c;
+  background:#b91c1c;
+  color:#fff;
+}
