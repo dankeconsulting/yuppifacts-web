@@ -22,7 +22,7 @@ export default function AdminUserSection({ stage }: { stage: Stage }) {
   const closeDelete=()=>{if(deleting)return;setDeleteStep(null);setConfirmation("");setPin("");setError("");};
   const startDelete=(ids:string[])=>{setSelected(ids);setConfirmation("");setPin("");setError("");setDeleteStep("confirm");};
   const copyIds=async()=>{try{await navigator.clipboard.writeText(targets.map(item=>item.recordNumber).join(", "));}catch{setError("No fue posible copiar los IDs. Puedes seleccionarlos y copiarlos manualmente.");}};
-  const expectedIds=targets.map(item=>item.recordNumber).sort((a,b)=>a-b);
+  const expectedIds=targets.map(item=>Number(item.recordNumber)).filter(Number.isInteger).sort((a,b)=>a-b);
   const parsedIds=confirmation.split(",").map(value=>Number(value.trim())).filter(value=>Number.isInteger(value)&&value>0).sort((a,b)=>a-b);
   const idsMatch=parsedIds.length===expectedIds.length&&parsedIds.every((value,index)=>value===expectedIds[index]);
   const confirmationLabel=targets.length===1?"Escribe el ID de este usuario":"Escribe los IDs de estos usuarios";

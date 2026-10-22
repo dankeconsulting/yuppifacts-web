@@ -67,7 +67,7 @@ export default function AdminDashboard() {
   useEffect(() => { void load(); }, []);
 
   const targets = recent.filter(item => selected.includes(item.id));
-  const expectedIds = targets.map(item => item.recordNumber).sort((a, b) => a - b);
+  const expectedIds = targets.map(item => Number(item.recordNumber)).filter(Number.isInteger).sort((a, b) => a - b);
   const parsedIds = confirmation.split(",").map(value => Number(value.trim())).filter(value => Number.isInteger(value) && value > 0).sort((a, b) => a - b);
   const idsMatch = parsedIds.length === expectedIds.length && parsedIds.every((value, index) => value === expectedIds[index]);
   const confirmationLabel = targets.length === 1 ? "Escribe el ID de este usuario" : "Escribe los IDs de estos usuarios";
