@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { BadgeCheck, CircleX, Clock3, Copy, Eye, FileCheck2, ShieldAlert, Trash2, UserRound, Users, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import "./admin-dashboard.css";
 import "./admin-user-section.css";
 import "./admin-delete-modal-adjustments.css";
@@ -76,6 +76,13 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => { void load(); }, []);
+  useLayoutEffect(() => {
+    const pinInput = document.querySelector<HTMLInputElement>(".admin-delete-modal input[type='password']");
+    if (pinInput) {
+      pinInput.autocomplete = "one-time-code";
+      pinInput.name = "master-admin-confirmation-code";
+    }
+  }, [deleteStep]);
 
   const tableItems = deleteStep ? tableSnapshot ?? recent : recent;
   const targets = tableItems.filter(item => selected.includes(item.id));
