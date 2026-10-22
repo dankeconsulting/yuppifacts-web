@@ -128,3 +128,11 @@ select:-webkit-autofill {
   outline:2px solid #d2c5ff;
   outline-offset:3px;
 }
+
+/* Brand iso variants: dark interfaces use the Dark asset; light themes swap it. */
+.yuppifacts-logo-mark img { grid-area:1 / 1; }
+.yuppifacts-logo-light { display:none!important; }
+.admin-shell.is-light .yuppifacts-logo-dark,
+.yf-panel.is-light .yuppifacts-logo-dark { display:none!important; }
+.admin-shell.is-light .yuppifacts-logo-light,
+.yf-panel.is-light .yuppifacts-logo-light { display:block!important; }

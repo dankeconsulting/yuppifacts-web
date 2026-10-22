@@ -13,3 +13,11 @@
 .period-selectors input[type=checkbox]:checked{border-color:#9b79f0;background:#9b79f0}
 .period-selectors input[type=checkbox]:checked::after{width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;content:"";transform:rotate(45deg) translate(-1px,-1px)}
 .period-selectors input[type=checkbox]:focus-visible{outline:2px solid #d2c5ff;outline-offset:3px}
+
+/* The shared admin checkbox style must not render alongside this custom switch. */
+.admin-shell .catalog-switch input{display:none}
+.promotion-catalog tbody tr[draggable]{cursor:grab}
+.promotion-catalog tbody tr[draggable]:active{cursor:grabbing}
+.promotion-catalog .landing-drag-handle{display:grid;place-items:center;width:32px;height:32px;border:1px solid #393245;border-radius:8px;color:#bda4ff;background:#17161e;cursor:grab}
+.catalog-form input[type=number]{appearance:textfield;-moz-appearance:textfield}
+.catalog-form input[type=number]::-webkit-inner-spin-button,.catalog-form input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
