@@ -29,3 +29,21 @@
   .plan-grid-scroll { display:flex; overflow-x:auto; gap:24px; scroll-snap-type:x proximity; padding-bottom:8px; }
   .plan-grid-scroll .plan { min-width:390px; scroll-snap-align:start; }
 }
+
+/* Las cuatro periodicidades son una única decisión, incluso en pantallas pequeñas. */
+.billing-control [role="tablist"] {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+}
+
+.billing-control button {
+  min-width: 0;
+  padding-inline: 10px;
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .billing-control [role="tablist"] { gap: 2px; padding: 3px; }
+  .billing-control button { padding-inline: 3px; font-size: 10px; }
+}
