@@ -1,0 +1,10 @@
+.promotion-fields input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.promotion-fields input[type="number"]::-webkit-inner-spin-button,
+.promotion-fields input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
