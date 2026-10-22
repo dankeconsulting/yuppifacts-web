@@ -32,9 +32,10 @@
 
 /* Las cuatro periodicidades son una única decisión, incluso en pantallas pequeñas. */
 .billing-control [role="tablist"] {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  width: 100%;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  grid-auto-flow: column;
 }
 
 .billing-control button {
