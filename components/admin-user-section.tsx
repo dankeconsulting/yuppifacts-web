@@ -19,7 +19,7 @@ export default function AdminUserSection({ stage }: { stage: Stage }) {
   useEffect(()=>{void load();},[stage]);
   const rows=useMemo(()=>items.filter(item=>{const needle=[item.fullName,item.email,item.phone,item.profile,item.city??"",item.recordNumber].join(" ").toLowerCase();return needle.includes(query.toLowerCase())&&(!profile||item.profile===profile);}),[items,query,profile]);
   const targets=useMemo(()=>items.filter(item=>selected.includes(item.id)),[items,selected]);
-  const closeDelete=()=>{if(deleting)return;setDeleteStep(null);setConfirmation("");setPin("");setError("");};
+  const closeDelete=()=>{if(deleting)return;setDeleteStep(null);setConfirmation("");setPin("");setError("");setSelected([]);};
   const startDelete=(ids:string[])=>{setSelected(ids);setConfirmation("");setPin("");setError("");setDeleteStep("confirm");};
   const copyIds=async()=>{try{await navigator.clipboard.writeText(targets.map(item=>item.recordNumber).join(", "));}catch{setError("No fue posible copiar los IDs. Puedes seleccionarlos y copiarlos manualmente.");}};
   const expectedIds=targets.map(item=>Number(item.recordNumber)).filter(Number.isInteger).sort((a,b)=>a-b);

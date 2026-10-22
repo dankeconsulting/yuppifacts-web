@@ -77,6 +77,7 @@ export default function AdminDashboard() {
     setConfirmation("");
     setPin("");
     setError("");
+    setSelected([]);
   };
   const startDelete = (ids: string[]) => {
     setSelected(ids);
