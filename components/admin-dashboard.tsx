@@ -38,7 +38,8 @@ const date = (value: string) => new Intl.DateTimeFormat("es-MX", {
 
 export default function AdminDashboard() {
   const [recent, setRecent] = useState<RecentSubscriber[]>([]);
-  const [error, setError] = useState("");
+  const [loadError, setLoadError] = useState("");
+  const [deleteError, setDeleteError] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
   const [deleteStep, setDeleteStep] = useState<DeleteStep>(null);
   const [confirmation, setConfirmation] = useState("");
@@ -60,10 +61,10 @@ export default function AdminDashboard() {
       const subscribers = Array.isArray(body.subscribers) ? body.subscribers : [];
       setRecent(subscribers);
       setSelected(current => current.filter(id => subscribers.some(item => item.id === id)));
-      setError("");
+      setLoadError("");
     } catch (reason) {
       setRecent([]);
-      setError(reason instanceof Error ? reason.message : "No fue posible cargar los registros recientes.");
+      setLoadError(reason instanceof Error ? reason.message : "No fue posible cargar los registros recientes.");
     }
     try {
       const response = await fetch(`${api}/v1/public/promotion`, { cache: "no-store" });
@@ -87,7 +88,7 @@ export default function AdminDashboard() {
     setDeleteStep(null);
     setConfirmation("");
     setPin("");
-    setError("");
+    setDeleteError("");
     setSelected([]);
     setTableSnapshot(null);
   };
@@ -96,17 +97,17 @@ export default function AdminDashboard() {
     setSelected(ids);
     setConfirmation("");
     setPin("");
-    setError("");
+    setDeleteError("");
     setDeleteStep("confirm");
   };
   const copyIds = async () => {
     try { await navigator.clipboard.writeText(expectedIds.join(", ")); }
-    catch { setError("No fue posible copiar los IDs. Puedes seleccionarlos y copiarlos manualmente."); }
+    catch { setDeleteError("No fue posible copiar los IDs. Puedes seleccionarlos y copiarlos manualmente."); }
   };
   const submitDelete = async () => {
     if (!idsMatch || pin.length !== 4) return;
     setDeleting(true);
-    setError("");
+    setDeleteError("");
     try {
       const token = sessionStorage.getItem("yuppifacts.access") ?? "";
       const response = await fetch(`${api}/v1/admin/subscribers/delete`, {
@@ -124,7 +125,7 @@ export default function AdminDashboard() {
       await load();
       window.dispatchEvent(new Event("admin-subscriber-counts-changed"));
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "No fue posible eliminar los registros.");
+      setDeleteError(reason instanceof Error ? reason.message : "No fue posible eliminar los registros.");
     } finally {
       setDeleting(false);
     }
@@ -136,7 +137,7 @@ export default function AdminDashboard() {
     <section className="admin-subscriber-summary" aria-label="Resumen de suscriptores">{subscriberSummary.map(({ label, icon: Icon, tone }, index) => <article key={label}><span className={`admin-summary-icon ${tone}`}><Icon size={21} /></span><small>{index === 0 ? "PROMO" : "GLOBAL"}</small><b>{index === 0 && promoCapacity.capacity ? `${promoCapacity.used} de ${promoCapacity.capacity}` : "0"}</b><p>{label}</p></article>)}</section>
     <section className="admin-recent-subscribers" aria-labelledby="recent-title">
       <header><div><p className="eyebrow">REGISTROS RECIENTES</p><h2 id="recent-title">Usuarios nuevos de la última hora</h2><p>Se conserva este bloque hasta que entre un registro nuevo.</p></div><Link href="/admin/usuarios-nuevos">Ver todos →</Link></header>
-      {error ? <p className="admin-recent-error">{error}</p> : tableItems.length ? <section className="admin-user-table admin-dashboard-user-table">
+      {loadError ? <p className="admin-recent-error">{loadError}</p> : tableItems.length ? <section className="admin-user-table admin-dashboard-user-table">
         <div className="admin-user-row admin-user-head"><input type="checkbox" aria-label="Seleccionar todos" checked={tableItems.length > 0 && tableItems.every(item => selected.includes(item.id))} onChange={event => setSelected(event.target.checked ? tableItems.map(item => item.id) : [])} /><span>User ID</span><span>Suscriptor</span><span>Rol</span><span>Perfil / modo</span><span>WhatsApp</span><span>Ubicación</span><span>Fecha de registro</span><span>Acciones</span></div>
         {tableItems.map(item => <div className="admin-user-row" key={item.id}>
           <input type="checkbox" aria-label={`Seleccionar registro ${item.recordNumber}`} checked={selected.includes(item.id)} onChange={event => setSelected(current => event.target.checked ? [...current, item.id] : current.filter(id => id !== item.id))} />
@@ -149,5 +150,5 @@ export default function AdminDashboard() {
       </section> : <div className="admin-recent-empty"><Users size={21} /><span>Aún no hay registros recientes.</span></div>}
     </section>
     <section className="admin-next-step"><FileCheck2 size={22} /><div><b>Flujo de activación protegido</b><p>La suscripción solo se activa después de validar el comprobante de pago.</p></div><Link href="/admin/promociones">Ir a comprobantes →</Link></section>
-  </section>{deleteStep && <div className="admin-delete-backdrop" role="presentation"><section className="admin-delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title"><button className="admin-modal-close" onClick={closeDelete} aria-label="Cerrar"><X size={24} /></button>{deleteStep === "confirm" ? <><span className="admin-delete-icon"><ShieldAlert size={23} /></span><h2 id="delete-title">¿Quieres eliminar {targets.length === 1 ? targets[0]?.fullName : `estos ${targets.length} registros`}?</h2><p>Se borrarán de forma permanente la cuenta, contratos, vouchers y archivos relacionados. Esta acción no se puede recuperar.</p><div className="admin-delete-targets"><strong>Registro{targets.length === 1 ? "" : "s"} a eliminar</strong>{targets.map(item => <div key={item.id}><b>{item.fullName || (item.isTemporary ? "Registro temporal sin PIN" : "Usuario")}</b><span>ID {item.recordNumber}</span></div>)}</div><label className="admin-delete-input"><span>{confirmationLabel}</span><div><input autoFocus value={confirmation} onChange={event => setConfirmation(event.target.value.replace(/[^0-9,\s]/g, ""))} placeholder={targets.length === 1 ? "Escribe el ID aquí" : "Escribe los IDs separados por coma"} inputMode="numeric" /><button type="button" onClick={() => void copyIds()} title="Copiar IDs"><Copy size={17} /></button></div>{confirmation && !idsMatch && <em>Los IDs deben coincidir exactamente con los registros seleccionados.</em>}</label><footer><button type="button" onClick={closeDelete}>Cancelar</button><button type="button" className="danger" disabled={!idsMatch} onClick={() => setDeleteStep("pin")}>Continuar</button></footer></> : <><span className="admin-delete-icon"><ShieldAlert size={23} /></span><h2 id="delete-title">PIN del Administrador Maestro</h2><p>Ingresa tu PIN del Administrador Maestro de cuatro dígitos para eliminar {targets.length === 1 ? `el registro ${targets[0]?.recordNumber}` : `los ${targets.length} registros seleccionados`}.</p><label className="admin-delete-input"><span>PIN del Administrador Maestro</span><div><input autoFocus type="password" maxLength={4} value={pin} onChange={event => setPin(event.target.value.replace(/\D/g, "").slice(0, 4))} inputMode="numeric" placeholder="••••" /></div></label>{error && <p className="admin-modal-error">{error}</p>}<footer><button type="button" onClick={() => setDeleteStep("confirm")}>Regresar</button><button type="button" className="danger" disabled={pin.length !== 4 || deleting} onClick={() => void submitDelete()}>{deleting ? "Eliminando…" : "Eliminar"}</button></footer></>}</section></div>}</main>;
+  </section>{deleteStep && <div className="admin-delete-backdrop" role="presentation"><section className="admin-delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-title"><button className="admin-modal-close" onClick={closeDelete} aria-label="Cerrar"><X size={24} /></button>{deleteStep === "confirm" ? <><span className="admin-delete-icon"><ShieldAlert size={23} /></span><h2 id="delete-title">¿Quieres eliminar {targets.length === 1 ? targets[0]?.fullName : `estos ${targets.length} registros`}?</h2><p>Se borrarán de forma permanente la cuenta, contratos, vouchers y archivos relacionados. Esta acción no se puede recuperar.</p><div className="admin-delete-targets"><strong>Registro{targets.length === 1 ? "" : "s"} a eliminar</strong>{targets.map(item => <div key={item.id}><b>{item.fullName || (item.isTemporary ? "Registro temporal sin PIN" : "Usuario")}</b><span>ID {item.recordNumber}</span></div>)}</div><label className="admin-delete-input"><span>{confirmationLabel}</span><div><input autoFocus value={confirmation} onChange={event => setConfirmation(event.target.value.replace(/[^0-9,\s]/g, ""))} placeholder={targets.length === 1 ? "Escribe el ID aquí" : "Escribe los IDs separados por coma"} inputMode="numeric" /><button type="button" onClick={() => void copyIds()} title="Copiar IDs"><Copy size={17} /></button></div>{confirmation && !idsMatch && <em>Los IDs deben coincidir exactamente con los registros seleccionados.</em>}</label><footer><button type="button" onClick={closeDelete}>Cancelar</button><button type="button" className="danger" disabled={!idsMatch} onClick={() => setDeleteStep("pin")}>Continuar</button></footer></> : <><span className="admin-delete-icon"><ShieldAlert size={23} /></span><h2 id="delete-title">PIN del Administrador Maestro</h2><p>Ingresa tu PIN del Administrador Maestro de cuatro dígitos para eliminar {targets.length === 1 ? `el registro ${targets[0]?.recordNumber}` : `los ${targets.length} registros seleccionados`}.</p><label className="admin-delete-input"><span>PIN del Administrador Maestro</span><div><input autoFocus type="password" maxLength={4} value={pin} onChange={event => setPin(event.target.value.replace(/\D/g, "").slice(0, 4))} inputMode="numeric" placeholder="••••" /></div></label>{deleteError && <p className="admin-modal-error">{deleteError}</p>}<footer><button type="button" onClick={() => setDeleteStep("confirm")}>Regresar</button><button type="button" className="danger" disabled={pin.length !== 4 || deleting} onClick={() => void submitDelete()}>{deleting ? "Eliminando…" : "Eliminar"}</button></footer></>}</section></div>}</main>;
 }
