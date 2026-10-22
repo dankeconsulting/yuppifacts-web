@@ -81,3 +81,50 @@ body { font-family: Poppins, Arial, sans-serif !important; }
 .landing-footer-brand > .yuppifacts-logo-mark{width:62px!important;height:62px!important}
 .yf-sidebar .yf-brand > .yuppifacts-logo-mark{width:38px!important;height:38px!important;min-width:38px!important;max-width:38px!important;min-height:38px!important;max-height:38px!important;flex-basis:38px!important}
 @media(max-width:720px){.landing-footer-brand > .yuppifacts-logo-mark{width:52px!important;height:52px!important}}
+
+/* Prevent browser credential autofill from replacing the dark field design. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill {
+  -webkit-text-fill-color:#f4f6fa;
+  -webkit-box-shadow:0 0 0 1000px #181b22 inset;
+  box-shadow:0 0 0 1000px #181b22 inset;
+  caret-color:#f4f6fa;
+  transition:background-color 9999s ease-out 0s;
+}
+
+/* Shared administrator checkbox control. Individual pages inherit this rule. */
+.admin-shell input[type="checkbox"] {
+  appearance:none;
+  -webkit-appearance:none;
+  display:grid;
+  place-content:center;
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  margin:0;
+  border:1px solid #697080;
+  border-radius:5px;
+  background:#171a22;
+  cursor:pointer;
+}
+.admin-shell input[type="checkbox"]:checked {
+  border-color:#9b79f0;
+  background:#9b79f0;
+}
+.admin-shell input[type="checkbox"]:checked::after {
+  width:6px;
+  height:11px;
+  border:solid #171225;
+  border-width:0 2px 2px 0;
+  content:"";
+  transform:rotate(45deg) translate(-1px,-1px);
+}
+.admin-shell input[type="checkbox"]:focus-visible {
+  outline:2px solid #d2c5ff;
+  outline-offset:3px;
+}
