@@ -341,7 +341,7 @@
 
   .landing-modal h2 {
     margin: 18px 0 16px;
-    font-size: clamp(28px, 8.1vw, 34px);
+    font-size: clamp(27px, 8.1vw, 33px);
     line-height: 1.08;
     letter-spacing: -2px;
   }
