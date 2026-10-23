@@ -130,10 +130,10 @@ export default function LandingFooter() {
               <a href="mailto:ai@yuppifacts.com"><Mail size={18} aria-hidden="true" />ai@yuppifacts.com</a>
             </div>
 
-            <Link className="landing-footer-cta" href="/registro">
+            <a className="landing-footer-cta" href="https://wa.me/528120809011" target="_blank" rel="noreferrer">
               <WhatsAppIcon />
               {text.contact}
-            </Link>
+            </a>
           </div>
 
           <div className="landing-footer-nav" aria-label={text.explore}>
