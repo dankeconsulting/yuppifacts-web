@@ -165,7 +165,7 @@
 
 .landing-modal h2 {
   margin: 23px 0 16px;
-  font-size: clamp(26px, 2.1vw, 35px);
+  font-size: clamp(26.5px, 2.1vw, 35.5px);
   line-height: 1.23;
   letter-spacing: -3.5px;
 }
@@ -173,7 +173,7 @@
 .landing-modal-highlight {
   color: #ab93ff !important;
   margin: 0 !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   font-weight: 500;
   line-height: 1.35 !important;
 }
@@ -181,7 +181,7 @@
 .landing-modal-copy > p {
   color: #c4cad9;
   margin: 14px 0 0;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 400;
   line-height: 1.5;
 }
@@ -191,7 +191,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 6px;
   padding: 0;
-  margin: 29px 0 20px;
+  margin: 35px 0 20px;
   list-style: none;
 }
 
@@ -201,7 +201,7 @@
   flex-direction: column;
   gap: 10px;
   color: #d9dce7;
-  font-size: 12px;
+  font-size: 12.5px;
   line-height: 1.25;
   font-weight: 500;
 }
@@ -233,6 +233,9 @@
   font-weight: 500;
   white-space: pre-line;
 }
+
+.landing-modal-spots-copy strong { color: #c2b2ff; font-weight: 500; }
+.landing-modal-spots-copy em { color: #c2b2ff; font-style: normal; }
 
 .landing-modal-cta {
   display: flex;
@@ -336,7 +339,7 @@
 
   .landing-modal h2 {
     margin: 18px 0 16px;
-    font-size: clamp(29px, 8.1vw, 35px);
+    font-size: clamp(29.5px, 8.1vw, 35.5px);
     line-height: 1.08;
     letter-spacing: -2px;
   }
@@ -345,23 +348,23 @@
   .modal-title-mobile { display: inline; }
 
   .landing-modal-highlight {
-    font-size: 13px !important;
+    font-size: 14px !important;
     line-height: 1.35 !important;
   }
 
   .landing-modal-copy > p {
     margin-top: 16px;
-    font-size: 13px;
+    font-size: 13.5px;
     line-height: 1.38;
   }
 
   .landing-modal-steps {
     display: grid;
-    margin: 28px 0 20px;
+    margin: 34px 0 20px;
     gap: 12px;
   }
 
-  .landing-modal-steps li { gap: 5px; font-size: 10px; line-height: 1.18; }
+  .landing-modal-steps li { gap: 5px; font-size: 10.5px; line-height: 1.18; }
   .landing-modal-steps svg { width: 19px; height: 19px; }
 
   .landing-modal-spots {

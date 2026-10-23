@@ -11,12 +11,13 @@ const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const maxFileSize = 10 * 1024 * 1024;
 
 const countries = {
-  MX: { name: "México", dial: "+52", flag: "🇲🇽", states: ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Ciudad de México", "Coahuila", "Colima", "Durango", "Estado de México", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"] },
-  CO: { name: "Colombia", dial: "+57", flag: "🇨🇴", states: ["Amazonas", "Antioquia", "Arauca", "Atlántico", "Bogotá, D.C.", "Bolívar", "Boyacá", "Caldas", "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca", "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena", "Meta", "Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia", "Santander", "Sucre", "Tolima", "Valle del Cauca", "Vaupés", "Vichada"] },
-  CR: { name: "Costa Rica", dial: "+506", flag: "🇨🇷", states: ["Alajuela", "Cartago", "Guanacaste", "Heredia", "Limón", "Puntarenas", "San José"] },
+  MX: { name: "México", dial: "+52", flag: "🇲🇽", digits: 10, example: "55 1234 5678", states: ["Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas", "Chihuahua", "Ciudad de México", "Coahuila", "Colima", "Durango", "Estado de México", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Michoacán", "Morelos", "Nayarit", "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí", "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán", "Zacatecas"] },
+  CO: { name: "Colombia", dial: "+57", flag: "🇨🇴", digits: 10, example: "300 123 4567", states: ["Amazonas", "Antioquia", "Arauca", "Atlántico", "Bogotá, D.C.", "Bolívar", "Boyacá", "Caldas", "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca", "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena", "Meta", "Nariño", "Norte de Santander", "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia", "Santander", "Sucre", "Tolima", "Valle del Cauca", "Vaupés", "Vichada"] },
+  CR: { name: "Costa Rica", dial: "+506", flag: "🇨🇷", digits: 8, example: "8888 8888", states: ["Alajuela", "Cartago", "Guanacaste", "Heredia", "Limón", "Puntarenas", "San José"] },
 } as const;
 
 type CountryCode = keyof typeof countries;
+const formatNationalPhone = (value: string, code: CountryCode) => { const groups = code === "MX" ? [2, 4, 4] : code === "CO" ? [3, 3, 4] : [4, 4]; let offset = 0; return groups.map((size) => { const part = value.slice(offset, offset + size); offset += size; return part; }).filter(Boolean).join(" "); };
 type UploadResponse = { voucherId: string; uploadUrl: string };
 type Picker = "country" | "state" | "city" | null;
 const citiesByState: Record<string, string[]> = { "Baja California": ["Tijuana", "Mexicali", "Ensenada", "Tecate", "Playas de Rosarito"], "Ciudad de México": ["Álvaro Obregón", "Benito Juárez", "Coyoacán", "Cuauhtémoc", "Iztapalapa", "Miguel Hidalgo"], Jalisco: ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá", "Puerto Vallarta"], "Nuevo León": ["Monterrey", "San Pedro Garza García", "Guadalupe", "Apodaca", "Santa Catarina"], "Estado de México": ["Ecatepec", "Naucalpan", "Nezahualcóyotl", "Toluca", "Tlalnepantla"], Puebla: ["Puebla", "Tehuacán", "San Martín Texmelucan", "Atlixco"], Querétaro: ["Querétaro", "San Juan del Río", "Corregidora", "El Marqués"], "San José": ["San José", "Escazú", "Desamparados"], Antioquia: ["Medellín", "Bello", "Envigado", "Rionegro"], "Bogotá, D.C.": ["Bogotá"] };
@@ -47,6 +48,7 @@ export default function PaymentVoucherForm() {
   const [cityName, setCityName] = useState("");
   const [showPin, setShowPin] = useState(false); const [showPinConfirmation, setShowPinConfirmation] = useState(false);
   const [picker, setPicker] = useState<Picker>(null);
+  const [countryMenuAnchor, setCountryMenuAnchor] = useState<"phone" | "field" | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [receiptOpen, setReceiptOpen] = useState(false);
@@ -80,7 +82,9 @@ export default function PaymentVoucherForm() {
     setIsDragging(false);
     selectFile(event.dataTransfer.files?.[0]);
   };
-  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setPhoneDigits(""); setAccountExists(false); setStateName(""); setCityName(""); setPicker(null); };
+  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setPhoneDigits(""); setAccountExists(false); setStateName(""); setCityName(""); setCountryMenuAnchor(null); setPicker(null); };
+  const openCountryPicker = (anchor: "phone" | "field") => { if (window.matchMedia("(min-width: 641px)").matches) setCountryMenuAnchor((current) => current === anchor ? null : anchor); else setPicker("country"); };
+  const countryDropdown = <div className="voucher-country-dropdown" role="menu" aria-label="País y código">{(Object.keys(countries) as CountryCode[]).map((code) => <button type="button" role="menuitem" key={code} className={countryCode === code ? "selected" : ""} onClick={() => chooseCountry(code)}><CountryFlag code={code} /><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode === code && <Check aria-hidden="true" />}</button>)}</div>;
   const validateAccount = async () => {
     const phoneE164 = `${currentCountry.dial}${phoneDigits}`;
     if (!/^\+[1-9]\d{7,14}$/.test(phoneE164) || !promotion || !api) return;
@@ -185,7 +189,7 @@ export default function PaymentVoucherForm() {
         <form className="voucher-form" onSubmit={submit} noValidate>
           <fieldset className="voucher-account-check">
             <legend>Valida tu cuenta</legend>
-            <label>Número de WhatsApp<span className="phone-field"><button type="button" className="phone-country-trigger" onClick={() => setPicker("country")} aria-label="Cambiar país y código de WhatsApp"><CountryFlag code={countryCode} /><b>{currentCountry.dial}</b><ChevronDown aria-hidden="true" /></button><input value={phoneDigits} onChange={(event) => { setPhoneDigits(event.target.value.replace(/\D/g, "").slice(0, 14)); setAccountExists(false); setAccountNotFound(false); }} onBlur={()=>void validateAccount()} type="tel" inputMode="numeric" autoComplete="tel" placeholder="Número de WhatsApp" required minLength={8} maxLength={14} /><span className="whatsapp-icon" aria-hidden="true" />{checkingAccount ? <small className="voucher-account-status">Verificando…</small> : accountExists ? <CheckCircle2 className="voucher-account-ok" aria-label="Cuenta encontrada" /> : accountNotFound ? <CircleAlert className="voucher-account-missing" aria-label="Cuenta no encontrada" /> : null}</span><small className="phone-help">Escribe el WhatsApp usado al contratar. Al encontrar tu cuenta se habilitará el formulario.</small></label>
+            <label>Número de WhatsApp<span className="phone-field"><span className="voucher-country-picker"><button type="button" className="phone-country-trigger" onClick={() => openCountryPicker("phone")} aria-expanded={countryMenuAnchor === "phone"} aria-label="Cambiar país y código de WhatsApp"><CountryFlag code={countryCode} /><b>{currentCountry.dial}</b><ChevronDown aria-hidden="true" /></button>{countryMenuAnchor === "phone" && countryDropdown}</span><input value={formatNationalPhone(phoneDigits,countryCode)} onChange={(event) => { setPhoneDigits(event.target.value.replace(/\D/g, "").slice(0, currentCountry.digits)); setAccountExists(false); setAccountNotFound(false); }} onBlur={()=>void validateAccount()} type="tel" inputMode="numeric" autoComplete="tel" placeholder={currentCountry.example} required /><span className="whatsapp-icon" aria-hidden="true" />{checkingAccount ? <small className="voucher-account-status">Verificando…</small> : accountExists ? <CheckCircle2 className="voucher-account-ok" aria-label="Cuenta encontrada" /> : accountNotFound ? <CircleAlert className="voucher-account-missing" aria-label="Cuenta no encontrada" /> : null}</span><small className="phone-help">Escribe el WhatsApp usado al contratar. Al encontrar tu cuenta se habilitará el formulario.</small></label>
           </fieldset>
           <fieldset disabled={!accountExists}>
             <legend>Comprobante de pago</legend>
@@ -203,7 +207,7 @@ export default function PaymentVoucherForm() {
             <label>Nombre completo<input name="fullName" value={fullName} onChange={(event)=>setFullName(event.target.value)} autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
             <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" value={email} onChange={(event)=>setEmail(event.target.value)} type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
             <div className="voucher-select-grid">
-              <label>País<span className="select-control"><button type="button" onClick={() => setPicker("country")}><span className="country-option"><CountryFlag code={countryCode} /> {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button></span></label>
+              <label>País<span className="select-control"><button type="button" onClick={() => openCountryPicker("field")} aria-expanded={countryMenuAnchor === "field"}><span className="country-option"><CountryFlag code={countryCode} /> {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button>{countryMenuAnchor === "field" && countryDropdown}</span></label>
               <label>Estado o departamento<span className="select-control"><button type="button" onClick={() => setPicker("state")}><span className={stateName ? "" : "select-placeholder"}>{stateName || "Selecciona estado o departamento"}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="state" value={stateName} /></label>
                <label>Ciudad / municipio / delegación<input name="city" value={cityName} disabled={!stateName} onChange={(event) => setCityName(event.target.value)} placeholder={stateName ? "Escribe tu ciudad o municipio" : "Selecciona primero un estado"} list="voucher-cities" /><datalist id="voucher-cities">{cityOptions.map((city) => <option key={city} value={city} />)}</datalist></label>
             </div>

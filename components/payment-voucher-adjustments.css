@@ -54,7 +54,7 @@
 
 .phone-field {
   height: 52px;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid #333947;
   border-radius: 9px;
   background: #181b23;
@@ -81,6 +81,54 @@
   font: 500 14px inherit;
   cursor: pointer;
 }
+
+.voucher-country-picker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex: 0 0 auto;
+  margin-left: 0 !important;
+  padding: 0 !important;
+  border-right: 0 !important;
+}
+
+.voucher-country-dropdown {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 236px;
+  display: grid;
+  gap: 3px;
+  padding: 7px;
+  border: 1px solid #55417f;
+  border-radius: 12px;
+  background: #151720;
+  box-shadow: 0 18px 42px rgb(0 0 0 / 42%);
+}
+
+.voucher-country-dropdown button {
+  width: 100%;
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 9px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: #e9edf6;
+  text-align: left;
+  cursor: pointer;
+}
+
+.voucher-country-dropdown button:hover,
+.voucher-country-dropdown button.selected { border-color: #7055ad; background: #211a36; }
+.voucher-country-dropdown button b { font-size: 14px; font-weight: 500; }
+.voucher-country-dropdown button small { color: #aeb8c8; font-size: 12px; }
+.voucher-country-dropdown button svg { width: 16px; color: #bba3ff; }
 
 .phone-country-trigger b {
   font: 500 14px inherit;
@@ -292,6 +340,7 @@
 .voucher-picker-options > button:not(:has(span)) { grid-template-columns: 1fr auto; }
 
 @media (max-width: 640px) {
+  .voucher-country-dropdown { display: none; }
   .voucher-picker-backdrop { place-items: end center; padding: 0; }
   .voucher-picker { width: 100%; max-height: min(74dvh, 630px); border-radius: 19px 19px 0 0; border-bottom: 0; }
 }
@@ -303,3 +352,6 @@
   .voucher-submit{order:1;width:auto;min-width:190px;max-width:100%;justify-self:end;box-sizing:border-box}
   .voucher-security{order:2;justify-self:center;max-width:min(100%,340px);margin:6px auto 0;justify-content:center;text-align:center}
 }
+
+/* Match the desktop legal row to the voucher panel rather than the page width. */
+@media(min-width:761px){.voucher-page>.public-process-footer{width:min(100%,760px);display:grid;justify-items:center}.voucher-page>.public-process-footer p{width:100%;text-align:center}}
