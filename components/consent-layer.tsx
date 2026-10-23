@@ -138,7 +138,10 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
               />
             </div>
             <div className="landing-modal-copy">
-              <YuppiFactsLogo className="landing-modal-mobile-logo" />
+              <div className="landing-modal-mobile-brand" aria-hidden="true">
+                <YuppiFactsLogo className="landing-modal-mobile-logo" />
+                <span>YuppiFacts<sup>®</sup></span>
+              </div>
               <button
                 className="landing-modal-close"
                 onClick={closeModal}

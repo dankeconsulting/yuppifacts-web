@@ -146,7 +146,8 @@
 
 .landing-modal-close svg { width: 22px; height: 22px; }
 .landing-modal-close span { display: none; }
-.landing-modal-mobile-logo { display: none; }
+.landing-modal-mobile-brand { display: none !important; }
+.landing-modal-mobile-logo { display: none !important; }
 .modal-title-mobile { display: none; }
 
 .landing-modal-label {
@@ -333,18 +334,24 @@
     font-size: 11px;
   }
 
-  .landing-modal-mobile-logo {
+  .landing-modal-mobile-brand {
     position: fixed;
     top: calc(env(safe-area-inset-top) + 16px);
     left: 28px;
     z-index: 2;
-    display: inline-grid !important;
-    width: 42px !important;
-    height: 42px !important;
-    place-items: center;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    height: 42px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
   }
 
+  .landing-modal-mobile-logo { display: inline-grid !important; width: 42px !important; height: 42px !important; place-items: center; }
   .landing-modal-mobile-logo img { width: 100%; height: 100%; }
+  .landing-modal-mobile-brand sup { font-size: .45em; line-height: 0; vertical-align: super; }
 
   .landing-modal-close span { display: inline; }
   .landing-modal-close svg { width: 18px; height: 18px; }
