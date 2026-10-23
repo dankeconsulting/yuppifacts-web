@@ -74,6 +74,20 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
     return () => window.removeEventListener("yf-language-change", syncLocale);
   }, [isLanding]);
 
+  useEffect(() => {
+    if (!isLanding || !modal || modalClosed) return;
+
+    const htmlOverflow = document.documentElement.style.overflow;
+    const bodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = htmlOverflow;
+      document.body.style.overflow = bodyOverflow;
+    };
+  }, [isLanding, modal, modalClosed]);
+
   const decideCookies = (value: boolean) => {
     localStorage.setItem("yf-cookie-consent", value ? "accepted" : "rejected");
     setConsent(value);
