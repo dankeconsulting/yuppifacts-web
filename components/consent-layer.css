@@ -321,6 +321,8 @@
     right: 18px;
     z-index: 2;
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     height: 42px;
     min-width: 112px;
