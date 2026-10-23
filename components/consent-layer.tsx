@@ -7,6 +7,7 @@ import { Cookie, FilePenLine, FileText, QrCode, Rocket, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./consent-layer.css";
 import "./consent-layer-adjustments.css";
+import YuppiFactsLogo from "./yuppifacts-logo";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const promoUrl = process.env.NEXT_PUBLIC_PROMO_URL ?? "https://promo.yuppifacts.com";
@@ -137,6 +138,7 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
               />
             </div>
             <div className="landing-modal-copy">
+              <YuppiFactsLogo className="landing-modal-mobile-logo" />
               <button
                 className="landing-modal-close"
                 onClick={closeModal}
