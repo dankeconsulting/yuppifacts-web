@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, DragEvent, FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { Check, CheckCircle2, ChevronDown, CircleAlert, Eye, EyeOff, FileCheck2, FileUp, Mail, ShieldCheck, TicketCheck, Trash2, X } from "lucide-react";
+import { Check, CheckCircle2, ChevronDown, CircleAlert, Eye, EyeOff, FileCheck2, FileUp, Mail, Search, ShieldCheck, TicketCheck, Trash2, X } from "lucide-react";
 import "./payment-voucher.css";
 import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
@@ -48,6 +48,7 @@ export default function PaymentVoucherForm() {
   const [cityName, setCityName] = useState("");
   const [showPin, setShowPin] = useState(false); const [showPinConfirmation, setShowPinConfirmation] = useState(false);
   const [picker, setPicker] = useState<Picker>(null);
+  const [pickerSearch, setPickerSearch] = useState("");
   const [countryMenuAnchor, setCountryMenuAnchor] = useState<"phone" | "field" | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -60,7 +61,19 @@ export default function PaymentVoucherForm() {
   const [promotion, setPromotion] = useState<{promotionId:string;promotionToken:string}|null>(null);
   const stateOptions = useMemo(() => currentCountry.states, [currentCountry]);
   const cityOptions = useMemo(() => citiesByState[stateName] ?? [], [stateName]);
+  const countryOptions = useMemo(() => {
+    const query = pickerSearch.trim().toLocaleLowerCase("es-MX");
+    return (Object.keys(countries) as CountryCode[]).filter((code) => !query || countries[code].name.toLocaleLowerCase("es-MX").includes(query) || countries[code].dial.includes(query));
+  }, [pickerSearch]);
   useEffect(() => { const value=new URLSearchParams(window.location.hash.slice(1)).get("promo");const [promotionId,promotionToken]=value?.split(".")??[];if(promotionId&&promotionToken)setPromotion({promotionId,promotionToken}); }, []);
+  useEffect(() => {
+    if (!picker) return;
+    const htmlOverflow = document.documentElement.style.overflow;
+    const bodyOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    return () => { document.documentElement.style.overflow = htmlOverflow; document.body.style.overflow = bodyOverflow; };
+  }, [picker]);
 
   const selectFile = (nextFile?: File) => {
     setError(null);
@@ -82,8 +95,9 @@ export default function PaymentVoucherForm() {
     setIsDragging(false);
     selectFile(event.dataTransfer.files?.[0]);
   };
-  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setPhoneDigits(""); setAccountExists(false); setStateName(""); setCityName(""); setCountryMenuAnchor(null); setPicker(null); };
-  const openCountryPicker = (anchor: "phone" | "field") => { if (window.matchMedia("(min-width: 641px)").matches) setCountryMenuAnchor((current) => current === anchor ? null : anchor); else setPicker("country"); };
+  const chooseCountry = (nextCountry: CountryCode) => { setCountryCode(nextCountry); setPhoneDigits(""); setAccountExists(false); setStateName(""); setCityName(""); setCountryMenuAnchor(null); setPickerSearch(""); setPicker(null); };
+  const chooseState = (nextState: string) => { setStateName(nextState); setCityName(""); setPicker(null); };
+  const openCountryPicker = (anchor: "phone" | "field") => { if (window.matchMedia("(min-width: 641px)").matches) setCountryMenuAnchor((current) => current === anchor ? null : anchor); else { setPickerSearch(""); setPicker("country"); } };
   const countryDropdown = <div className="voucher-country-dropdown" role="menu" aria-label="País y código">{(Object.keys(countries) as CountryCode[]).map((code) => <button type="button" role="menuitem" key={code} className={countryCode === code ? "selected" : ""} onClick={() => chooseCountry(code)}><CountryFlag code={code} /><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode === code && <Check aria-hidden="true" />}</button>)}</div>;
   const validateAccount = async () => {
     const phoneE164 = `${currentCountry.dial}${phoneDigits}`;
@@ -202,14 +216,14 @@ export default function PaymentVoucherForm() {
             {file && <button className="voucher-remove-file" type="button" onClick={() => { setFile(null); if (inputRef.current) inputRef.current.value = ""; }}><Trash2 size={16} /> Quitar comprobante</button>}
           </fieldset>
 
-          <fieldset disabled={!accountExists}>
+          <fieldset>
             <legend>Tu información</legend>
-            <label>Nombre completo<input name="fullName" value={fullName} onChange={(event)=>setFullName(event.target.value)} autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
-            <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input name="email" value={email} onChange={(event)=>setEmail(event.target.value)} type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
+            <label>Nombre completo<input disabled={!accountExists} name="fullName" value={fullName} onChange={(event)=>setFullName(event.target.value)} autoComplete="name" placeholder="Tu nombre registrado" required minLength={3} /></label>
+            <label>Correo electrónico<span className="field-with-icon"><Mail aria-hidden="true" /><input disabled={!accountExists} name="email" value={email} onChange={(event)=>setEmail(event.target.value)} type="email" autoComplete="email" placeholder="tu@correo.com" required /></span></label>
             <div className="voucher-select-grid">
               <label>País<span className="select-control"><button type="button" onClick={() => openCountryPicker("field")} aria-expanded={countryMenuAnchor === "field"}><span className="country-option"><CountryFlag code={countryCode} /> {currentCountry.name}</span><ChevronDown aria-hidden="true" /></button>{countryMenuAnchor === "field" && countryDropdown}</span></label>
               <label>Estado o departamento<span className="select-control"><button type="button" onClick={() => setPicker("state")}><span className={stateName ? "" : "select-placeholder"}>{stateName || "Selecciona estado o departamento"}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="state" value={stateName} /></label>
-               <label>Ciudad / municipio / delegación<input name="city" value={cityName} disabled={!stateName} onChange={(event) => setCityName(event.target.value)} placeholder={stateName ? "Escribe tu ciudad o municipio" : "Selecciona primero un estado"} list="voucher-cities" /><datalist id="voucher-cities">{cityOptions.map((city) => <option key={city} value={city} />)}</datalist></label>
+              <label>Ciudad / municipio / delegación<span className="select-control"><button type="button" disabled={!stateName} onClick={() => setPicker("city")}><span className={cityName ? "" : "select-placeholder"}>{cityName || (stateName ? "Selecciona ciudad o municipio" : "Selecciona primero un estado")}</span><ChevronDown aria-hidden="true" /></button></span><input type="hidden" name="city" value={cityName} /></label>
             </div>
           </fieldset>
           <hr className="voucher-divider" />
@@ -219,7 +233,11 @@ export default function PaymentVoucherForm() {
           <button className="voucher-submit" disabled={submitting || !accountExists} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>
         </form>
 
-      </section><PublicProcessFooter />{receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}{duplicateOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-duplicate-title"><section className="voucher-receipt voucher-duplicate"><CircleAlert aria-hidden="true" /><p>VOUCHER EN REVISIÓN</p><h2 id="voucher-duplicate-title">Ya recibimos tu voucher.</h2><span>Aún estamos procesando tu suscripción. Una vez verificado tu pago procederemos a activar tu cuenta.</span><button type="button" onClick={()=>setDuplicateOpen(false)}>De acuerdo</button></section></div>}{accountNotFound&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-account-title"><section className="voucher-receipt voucher-duplicate"><CircleAlert aria-hidden="true" /><p>CUENTA NO ENCONTRADA</p><h2 id="voucher-account-title">No existe una cuenta con este WhatsApp.</h2><span>Te invitamos a suscribirte en YuppiFacts para crear tu cuenta y continuar con tu comprobante.</span><div className="voucher-modal-actions"><button type="button" onClick={()=>window.location.assign("https://promo.yuppifacts.com")}>Suscribirme</button><button type="button" onClick={()=>setAccountNotFound(false)}>Cancelar</button></div></section></div>}{picker&&<div className="voucher-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-picker-title"><section className="voucher-picker"><header><div><p>{picker === "country" ? "SELECCIONA TU PAÍS" : "SELECCIONA TU ESTADO"}</p><h2 id="voucher-picker-title">{picker === "country" ? "País y código" : "Estado o departamento"}</h2></div><button type="button" aria-label="Cerrar selector" onClick={() => setPicker(null)}><X aria-hidden="true" /></button></header><div className="voucher-picker-options">{picker === "country" ? (Object.keys(countries) as CountryCode[]).map((code)=><button type="button" key={code} className={countryCode===code?"selected":""} onClick={() => chooseCountry(code)}><CountryFlag code={code} /><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode===code&&<Check aria-hidden="true" />}</button>) : stateOptions.map((state)=><button type="button" key={state} className={stateName===state?"selected":""} onClick={() => { setStateName(state); setPicker(null); }}><b>{state}</b>{stateName===state&&<Check aria-hidden="true" />}</button>)}</div></section></div>}
+      </section><PublicProcessFooter />
+      {receiptOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-receipt-title"><section className="voucher-receipt"><CheckCircle2 aria-hidden="true" /><p>COMPROBANTE RECIBIDO</p><h2 id="voucher-receipt-title">Gracias por tu suscripción.</h2><span>Recibimos tu voucher y revisaremos tu pago. Te enviaremos un correo cuando tengamos una actualización.</span><button type="button" onClick={()=>window.location.assign(`/tickets${window.location.hash}`)}>De acuerdo</button></section></div>}
+      {duplicateOpen&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-duplicate-title"><section className="voucher-receipt voucher-duplicate"><CircleAlert aria-hidden="true" /><p>VOUCHER EN REVISIÓN</p><h2 id="voucher-duplicate-title">Ya recibimos tu voucher.</h2><span>Aún estamos procesando tu suscripción. Una vez verificado tu pago procederemos a activar tu cuenta.</span><button type="button" onClick={()=>setDuplicateOpen(false)}>De acuerdo</button></section></div>}
+      {accountNotFound&&<div className="voucher-receipt-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-account-title"><section className="voucher-receipt voucher-duplicate"><CircleAlert aria-hidden="true" /><p>CUENTA NO ENCONTRADA</p><h2 id="voucher-account-title">No existe una cuenta con este WhatsApp.</h2><span>Te invitamos a suscribirte en YuppiFacts para crear tu cuenta y continuar con tu comprobante.</span><div className="voucher-modal-actions"><button type="button" onClick={()=>window.location.assign("https://promo.yuppifacts.com")}>Suscribirme</button><button type="button" onClick={()=>setAccountNotFound(false)}>Cancelar</button></div></section></div>}
+      {picker&&<div className="voucher-picker-backdrop" role="dialog" aria-modal="true" aria-labelledby="voucher-picker-title"><section className={`voucher-picker ${picker === "country" ? "voucher-picker-country" : ""}`}><header><div><p>{picker === "country" ? "SELECCIONA TU PAÍS" : picker === "state" ? "SELECCIONA TU ESTADO" : "SELECCIONA TU CIUDAD"}</p><h2 id="voucher-picker-title">{picker === "country" ? "País y código" : picker === "state" ? "Estado o departamento" : "Ciudad / municipio / delegación"}</h2></div><button type="button" aria-label="Cerrar selector" onClick={() => { setPickerSearch(""); setPicker(null); }}><X aria-hidden="true" /></button></header>{picker === "country" && <label className="voucher-picker-search"><Search aria-hidden="true" /><input autoFocus type="search" value={pickerSearch} onChange={(event) => setPickerSearch(event.target.value)} placeholder="Buscar país o código" aria-label="Buscar país o código" /></label>}<div className="voucher-picker-options">{picker === "country" ? countryOptions.map((code)=><button type="button" key={code} className={countryCode===code?"selected":""} onClick={() => chooseCountry(code)}><CountryFlag code={code} /><b>{countries[code].name}</b><small>{countries[code].dial}</small>{countryCode===code&&<Check aria-hidden="true" />}</button>) : picker === "state" ? stateOptions.map((state)=><button type="button" key={state} className={stateName===state?"selected":""} onClick={() => chooseState(state)}><b>{state}</b>{stateName===state&&<Check aria-hidden="true" />}</button>) : cityOptions.map((city)=><button type="button" key={city} className={cityName===city?"selected":""} onClick={() => { setCityName(city); setPicker(null); }}><b>{city}</b>{cityName===city&&<Check aria-hidden="true" />}</button>)}</div></section></div>}
     </main>
   );
 }

@@ -259,6 +259,7 @@
   place-items: center;
   padding: 22px;
   background: rgb(5 6 10 / 78%);
+  overscroll-behavior: none;
 }
 
 .voucher-picker {
@@ -271,7 +272,10 @@
   border-radius: 16px;
   background: #11131a;
   box-shadow: 0 26px 72px rgb(0 0 0 / 45%);
+  overscroll-behavior: contain;
 }
+
+.voucher-picker-country { grid-template-rows: auto auto minmax(0, 1fr); }
 
 .voucher-picker header {
   display: flex;
@@ -304,6 +308,23 @@
 }
 
 .voucher-picker header > button svg { width: 18px; }
+
+.voucher-picker-search {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 46px;
+  margin: 12px 22px 2px;
+  padding: 0 14px;
+  border: 1px solid #343846;
+  border-radius: 10px;
+  background: transparent;
+  color: #97a2b5;
+}
+
+.voucher-picker-search svg { width: 19px; flex: 0 0 auto; }
+.voucher-picker-search input { width: 100%; height: 44px; border: 0; outline: 0; background: transparent; color: #f5f3fa; font: 500 14px inherit; }
+.voucher-picker-search input::placeholder { color: #97a2b5; }
 
 .voucher-picker-options {
   overflow-y: auto;
@@ -341,7 +362,7 @@
 
 @media (max-width: 640px) {
   .voucher-country-dropdown { display: none; }
-  .voucher-picker-backdrop { place-items: end center; padding: 0; }
+  .voucher-picker-backdrop { place-items: end center; padding: 0; touch-action: pan-x; }
   .voucher-picker { width: 100%; max-height: min(74dvh, 630px); border-radius: 19px 19px 0 0; border-bottom: 0; }
 }
 .voucher-modal-actions{display:flex;gap:10px;width:100%}.voucher-modal-actions button{flex:1}.voucher-modal-actions button+button{background:transparent;border:1px solid #645c71;color:#eee8f7}
