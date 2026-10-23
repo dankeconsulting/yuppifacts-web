@@ -1,79 +1,15 @@
 "use client";
-
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, Mail, MapPin, Phone, UserRound } from "lucide-react";
-import { useEffect, useState } from "react";
-
-type Subscriber = {
-  id: string;
-  userNumber: number | null;
-  recordNumber: number;
-  isTemporary: boolean;
-  role: string;
-  fullName: string;
-  email: string;
-  phone: string;
-  state: string | null;
-  city: string | null;
-  profile: string;
-  registeredAt: string;
-};
-
-const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
-const formatDate = (value: string) => new Intl.DateTimeFormat("es-MX", {
-  weekday: "long", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit",
-}).format(new Date(value));
-
-export default function AdminUserDetail({ id }: { id: string }) {
-  const [subscriber, setSubscriber] = useState<Subscriber | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    let active = true;
-    const load = async () => {
-      if (!api) {
-        if (active) { setError("No fue posible conectar con el servicio de usuarios."); setLoading(false); }
-        return;
-      }
-      try {
-        const token = sessionStorage.getItem("yuppifacts.access") ?? "";
-        const responses = await Promise.all(["new", "review", "active"].map(async stage => {
-          const response = await fetch(`${api}/v1/admin/subscribers?stage=${stage}`, { cache: "no-store", headers: { "x-application-token": token } });
-          const body = await response.json().catch(() => ({})) as { subscribers?: Subscriber[]; error?: string };
-          if (!response.ok) throw new Error(body.error ?? "No fue posible cargar la ficha del usuario.");
-          return body.subscribers ?? [];
-        }));
-        const item = responses.flat().find(candidate => candidate.id === id) ?? null;
-        if (active) { setSubscriber(item); setError(item ? "" : "No encontramos este usuario. Puede haber sido eliminado."); }
-      } catch (reason) {
-        if (active) setError(reason instanceof Error ? reason.message : "No fue posible cargar la ficha del usuario.");
-      } finally {
-        if (active) setLoading(false);
-      }
-    };
-    void load();
-    return () => { active = false; };
-  }, [id]);
-
-  if (loading) return <main className="admin-user-detail"><p className="admin-user-detail-status">Cargando ficha del usuario…</p></main>;
-  if (!subscriber) return <main className="admin-user-detail"><section className="admin-user-detail-empty"><UserRound size={34}/><h1>Ficha no disponible</h1><p>{error || "No fue posible cargar este usuario."}</p><Link href="/admin/usuarios-nuevos"><ArrowLeft size={17}/>Volver a usuarios nuevos</Link></section></main>;
-
-  const location = subscriber.city ? `${subscriber.city}, ${subscriber.state ?? "México"}` : subscriber.state ?? "México";
-  return <main className="admin-user-detail">
-    <header className="admin-user-detail-header">
-      <div><p className="eyebrow">MÉXICO · ADMINISTRADOR MAESTRO</p><h1>Ficha del usuario</h1><p>Información de la suscripción y datos registrados.</p></div>
-      <Link href="/admin/usuarios-nuevos" className="admin-user-back"><ArrowLeft size={17}/>Volver a usuarios</Link>
-    </header>
-    <section className="admin-user-detail-card">
-      <header><span className="admin-user-detail-avatar"><UserRound size={30}/></span><div><h2>{subscriber.fullName || "Usuario sin nombre"}</h2><p>{subscriber.isTemporary ? "Registro temporal" : subscriber.role}</p></div></header>
-      <dl>
-        <div><dt><Mail size={17}/>Correo electrónico</dt><dd>{subscriber.email || "No registrado"}</dd></div>
-        <div><dt><Phone size={17}/>WhatsApp</dt><dd>{subscriber.phone || "No registrado"}</dd></div>
-        <div><dt><UserRound size={17}/>Perfil / modo</dt><dd>{subscriber.profile || "No registrado"}</dd></div>
-        <div><dt><MapPin size={17}/>Ubicación</dt><dd>{location}</dd></div>
-        <div><dt><CalendarDays size={17}/>Fecha de registro</dt><dd>{formatDate(subscriber.registeredAt)}</dd></div>
-      </dl>
-    </section>
-  </main>;
-}
+import {ArrowLeft,CalendarDays,CheckCircle2,CreditCard,FileImage,FileText,KeyRound,LockKeyhole,Mail,MapPin,Phone,ShieldCheck,UserRound} from "lucide-react";
+import {useEffect,useState,type ReactNode} from "react";
+type Tab="data"|"subscription"|"location"|"pin"|"billing";
+type Subscriber={id:string;recordNumber:number;fullName:string;email:string;phone:string;countryCode:string;state:string|null;city:string|null;profile:string;planId:string;billingPeriod:string;quotedAmountCents:number;subscriptionTag:string;registeredAt:string;renewalAt:string|null;voucher:{id:string|null;filename:string|null};accountStatus:string|null;online:boolean};
+const api=(process.env.NEXT_PUBLIC_API_URL??"").replace(/\/$/,""),date=(v:string|null)=>v?new Intl.DateTimeFormat("es-MX",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(new Date(v)):"Pendiente de activar",money=(c:number)=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN"}).format(c/100),period:Record<string,string>={monthly:"Mensual",quarterly:"Trimestral",semiannual:"Semestral",annual:"Anual"},flags:Record<string,string>={MX:"🇲🇽",CO:"🇨🇴",CR:"🇨🇷"};
+export default function AdminUserDetail({id}:{id:string}){const [item,setItem]=useState<Subscriber|null>(null),[tab,setTab]=useState<Tab>("data"),[loading,setLoading]=useState(true),[error,setError]=useState(""),[opening,setOpening]=useState(false);
+useEffect(()=>{let live=true;void(async()=>{try{const token=sessionStorage.getItem("yuppifacts.access")??"";const r=await fetch(`${api}/v1/admin/subscribers/${id}`,{headers:{"x-application-token":token}}),b=await r.json();if(!r.ok)throw Error(b.error);if(live)setItem(b.subscriber)}catch(e){if(live)setError(e instanceof Error?e.message:"No fue posible cargar la ficha.")}finally{if(live)setLoading(false)}})();return()=>{live=false}},[id]);
+if(loading)return <main className="admin-user-detail"><p className="admin-user-detail-status">Cargando ficha del suscriptor…</p></main>;if(!item)return <main className="admin-user-detail"><section className="admin-user-detail-empty"><h1>Ficha no disponible</h1><p>{error}</p><Link href="/admin/usuarios-nuevos"><ArrowLeft size={17}/>Volver a usuarios nuevos</Link></section></main>;
+const stage=item.online?"Usuario verificado":item.accountStatus==="pending_review"?"Usuario en revisión":"Usuario nuevo",tabs:[Tab,string,typeof UserRound][]=[["data","Datos usuario",UserRound],["subscription","Suscripción",CreditCard],["location","Ubicación",MapPin],["pin","PIN protegido",ShieldCheck],["billing","Facturación",FileText]],location=[item.city,item.state].filter(Boolean).join(", ")||"Sin ubicación registrada";
+const openVoucher=async()=>{if(!item.voucher.id)return;setOpening(true);try{const token=sessionStorage.getItem("yuppifacts.access")??"";const r=await fetch(`${api}/v1/admin/subscribers/${item.id}/voucher-url`,{headers:{"x-application-token":token}}),b=await r.json();if(!r.ok)throw Error(b.error);window.open(b.url,"_blank","noopener,noreferrer")}catch(e){setError(e instanceof Error?e.message:"No fue posible abrir el comprobante.")}finally{setOpening(false)}};
+return <main className="admin-user-detail"><header className="admin-user-detail-header"><div><p className="eyebrow">MÉXICO · ADMINISTRADOR MAESTRO</p><h1>Ficha completa de suscriptor</h1><p>Consulta y administra su registro de contratación.</p></div><Link href="/admin/usuarios-nuevos" className="admin-user-back"><ArrowLeft size={17}/>Volver a usuarios</Link></header><section className="admin-user-detail-card"><header className="admin-user-profile-head"><span className="admin-user-detail-avatar"><UserRound size={30}/></span><div><p className="eyebrow">FICHA COMPLETA DE SUSCRIPTOR</p><h2>{item.fullName}</h2><p>{item.email}</p></div><div className="admin-user-statuses"><b className={item.online?"online":"pending"}>{stage}</b><b className={item.online?"online":"offline"}>{item.online?"En línea":"Fuera de línea"}</b></div></header><nav className="admin-user-detail-tabs">{tabs.map(([key,label,Icon])=><button key={key} className={tab===key?"active":""} onClick={()=>setTab(key)}><Icon size={15}/>{label}</button>)}</nav><div className="admin-user-detail-tabpanel">{tab==="data"&&<Fields values={[[<UserRound/>,"Nombre completo",item.fullName],[<Mail/>,"Correo electrónico",item.email],[<Phone/>,"WhatsApp",item.phone],[<UserRound/>,"Perfil / modo",item.profile],[<CalendarDays/>,"Fecha de registro",date(item.registeredAt)],[<CheckCircle2/>,"Estado de registro",stage]]}/>} {tab==="subscription"&&<Fields values={[[<CreditCard/>,"Plan contratado",item.planId],[<CalendarDays/>,"Periodicidad",period[item.billingPeriod]??item.billingPeriod],[<CreditCard/>,"Monto pagado",money(item.quotedAmountCents)],[<FileText/>,"Referencia",item.subscriptionTag],[<CalendarDays/>,"Próximo pago",date(item.renewalAt)],[<CalendarDays/>,"Fecha de corte",item.online?date(item.registeredAt):"Se asigna al ponerlo en línea"]]}/>} {tab==="location"&&<section className="admin-location"><div className="admin-map-placeholder"><MapPin size={31}/><span>Mapa de ubicación</span></div><Fields values={[[<MapPin/>,"País",`${flags[item.countryCode]??"🌐"} ${item.countryCode==="MX"?"México":item.countryCode}`],[<MapPin/>,"Estado o departamento",item.state??"No registrado"],[<MapPin/>,"Ciudad o municipio",item.city??"No registrado"],[<MapPin/>,"Ubicación",location]]}/></section>} {tab==="pin"&&<section className="admin-user-detail-pin"><span><LockKeyhole size={22}/></span><div><h3>PIN protegido</h3><p>El PIN se guarda cifrado. Se valida contra el PIN que dicte el suscriptor; nunca se muestra.</p><button disabled><KeyRound size={16}/>Validar PIN del suscriptor</button></div></section>} {tab==="billing"&&<Voucher item={item} stage={stage} opening={opening} onOpen={openVoucher}/>}</div></section></main>}
+function Fields({values}:{values:[ReactNode,string,string][]}){return <section className="admin-user-fields">{values.map((v,i)=><label className="admin-user-field" key={i}><span>{v[0]}{v[1]}</span><output>{v[2]||"No registrado"}</output></label>)}</section>}
+function Voucher({item,stage,opening,onOpen}:{item:Subscriber;stage:string;opening:boolean;onOpen:()=>void}){return <section className="admin-billing"><article className="admin-billing-card"><span className="admin-billing-icon">{item.voucher.filename?.toLowerCase().endsWith(".pdf")?<FileText/>:<FileImage/>}</span><div><b>Comprobante de suscripción</b><p>{item.voucher.filename??"No hay comprobante adjunto"}</p><small>Adjuntado: {date(item.registeredAt)}</small></div><div className="admin-billing-meta"><span className={stage==="Usuario nuevo"?"pending":"validated"}>{stage==="Usuario nuevo"?"No validado":"Validado"}</span><button disabled={!item.voucher.id||opening} onClick={onOpen}>{opening?"Abriendo…":"Ver archivo"}</button></div></article></section>}

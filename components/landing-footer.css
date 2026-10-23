@@ -68,7 +68,7 @@ footer.landing-footer { display: block; }
 .landing-footer-country-trigger:hover { border-color: rgba(183, 157, 255, .55); }
 .landing-footer-country-flag { display: inline-grid; place-items: center; width: 20px; height: 20px; overflow: hidden; border-radius: 50%; font-size: 17px; line-height: 1; }
 .country-code { color: #a8b0c7; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: .06em; }
-.landing-footer-country i { background: #31d2bf; border-radius: 50%; display: inline-block; height: 6px; margin-left: 2px; width: 6px; }
+.landing-footer-country i { background: #b99cff; border-radius: 50%; display: inline-block; height: 6px; margin-left: 2px; width: 6px; }
 .landing-footer-country-menu { background: #1b1e3a; border: 1px solid rgba(190, 174, 255, .18); border-radius: 20px; bottom: calc(100% + 12px); box-shadow: 0 18px 46px rgba(0, 0, 0, .38); display: block !important; min-width: 220px; padding: 10px; position: absolute; z-index: 3; }
 .landing-footer-country-menu button { align-items: center; background: transparent; border: 0; border-radius: 12px; color: #77829b; cursor: pointer; display: grid; font-size: 15px; gap: 11px; grid-template-columns: 28px 1fr auto; padding: 13px 12px; text-align: left; width: 100%; }
 .landing-footer-country-menu button:hover, .landing-footer-country-menu button.active { background: rgba(255, 255, 255, .055); color: #f7f5ff; }

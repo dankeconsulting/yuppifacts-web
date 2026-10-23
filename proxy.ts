@@ -8,6 +8,8 @@ export function proxy(request: NextRequest) {
   if (host === "admin.yuppifacts.com" && path === "/") return NextResponse.rewrite(new URL("/admin/entrar", request.url));
   if (host === "tickets.yuppifacts.com" && path === "/") return NextResponse.rewrite(new URL("/tickets", request.url));
   if (host === "promo.yuppifacts.com" && path === "/") return NextResponse.rewrite(new URL("/promo", request.url));
+  const promoOnlyDocuments = new Set(["/terminos-condiciones", "/alcance-membresia", "/renovaciones-cancelaciones"]);
+  if (promoOnlyDocuments.has(path) && host !== "promo.yuppifacts.com" && host !== "localhost") return NextResponse.redirect(new URL(path, "https://promo.yuppifacts.com"));
   return NextResponse.next();
 }
 
