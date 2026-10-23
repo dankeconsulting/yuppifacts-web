@@ -166,8 +166,8 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
               </button>
               <p className="landing-modal-label">
                 {english
-                  ? "SPECIAL PROMOTION — FROM $599 MXN"
-                  : "PROMOCIÓN ESPECIAL — DESDE $599 MXN"}
+                  ? "SPECIAL PROMOTION — FROM $599 MXN/MONTH"
+                  : "PROMOCIÓN ESPECIAL — DESDE $599 MXN/MES"}
               </p>
               <h2>{english ? title : <><span className="modal-title-desktop">Contrata YuppiFacts AI<sup>®</sup> y<br />agiliza la solicitud de tus facturas.</span><span className="modal-title-mobile">Contrata YuppiFacts AI<sup>®</sup><br />y agiliza la solicitud<br />de tus facturas.</span></>}</h2>
               <p className="landing-modal-highlight">
