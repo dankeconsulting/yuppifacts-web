@@ -91,7 +91,7 @@
   display: grid;
   grid-template-columns: minmax(0, 43fr) minmax(0, 57fr);
   width: min(920px, calc(100% - 64px));
-  height: min(820px, calc(100dvh - 16px));
+  height: min(900px, calc(100dvh - 32px));
   overflow: hidden;
   border: 1px solid #554183;
   border-radius: 30px;
