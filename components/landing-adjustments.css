@@ -91,6 +91,13 @@
   color: var(--text);
 }
 
+.cta-title-mobile { display: none; }
+
+@media (max-width: 600px) {
+  .cta-title-desktop { display: none; }
+  .cta-title-mobile { display: inline; white-space: nowrap; }
+}
+
 .landing .features-lead {
   color: var(--muted);
   font-size: 17px;

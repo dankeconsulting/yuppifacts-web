@@ -5,12 +5,14 @@
 }
 
 .how h2 {
-  max-width: 1000px;
+  max-width: none;
   margin: 21px 0 78px;
-  font-size: clamp(43px, 5vw, 70px);
+  font-size: clamp(40px, 4.6vw, 64px);
   letter-spacing: -4.7px;
   line-height: 1.04;
 }
+
+.desktopTitle { white-space: nowrap; }
 
 .mobileTitle {
   display: none;

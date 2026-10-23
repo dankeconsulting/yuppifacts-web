@@ -66,6 +66,7 @@ footer.landing-footer { display: block; }
 .landing-footer-country { position: relative; }
 .landing-footer-country-trigger { align-items: center; background: transparent; border: 1px solid var(--footer-line); border-radius: 999px; color: #d8dbea; cursor: pointer; display: inline-flex; font-size: 12px; font-weight: 600; gap: 7px; padding: 8px 11px; }
 .landing-footer-country-trigger:hover { border-color: rgba(183, 157, 255, .55); }
+.landing-footer-country-flag { display: inline-grid; place-items: center; width: 20px; height: 20px; overflow: hidden; border-radius: 50%; font-size: 17px; line-height: 1; }
 .country-code { color: #a8b0c7; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: .06em; }
 .landing-footer-country i { background: #31d2bf; border-radius: 50%; display: inline-block; height: 6px; margin-left: 2px; width: 6px; }
 .landing-footer-country-menu { background: #1b1e3a; border: 1px solid rgba(190, 174, 255, .18); border-radius: 20px; bottom: calc(100% + 12px); box-shadow: 0 18px 46px rgba(0, 0, 0, .38); display: block !important; min-width: 220px; padding: 10px; position: absolute; z-index: 3; }
@@ -97,10 +98,10 @@ footer.landing-footer { display: block; }
   .landing-footer-office { margin-top: 45px; }
   .landing-footer-nav { gap: 40px 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .landing-footer-column:last-child { grid-column: span 2; }
-  .landing-footer-bottom { align-items: center; gap: 18px; grid-template-columns: 1fr auto; margin-top: 56px; }
-  .landing-footer-social { grid-column: span 2; }
-  .landing-footer-controls { gap: 10px; }
-  .landing-footer-bottom p { font-size: 11px; grid-column: span 2; line-height: 1.6; text-align: center; }
+  .landing-footer .landing-footer-bottom { align-items: center; display: flex; flex-direction: column; gap: 18px; margin-top: 56px; }
+  .landing-footer-social { justify-content: center; }
+  .landing-footer-controls { gap: 10px; justify-content: center; }
+  .landing-footer-bottom p { font-size: 11px; line-height: 1.6; text-align: center; }
   .landing-footer-legal a { display: inline-block; }
-  .landing-footer-top-button { display: none; }
+  .landing-footer .landing-footer-top-button { display: flex; right: 24px; top: 28px; }
 }
