@@ -2,13 +2,13 @@ import PromotionFlow from "@/components/promotion-flow";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Promoción | YuppiFacts®",
+  title: "Promoción | YuppiFacts AI®",
   description: "Ecosistema inteligente para la solicitud y gestión de facturas de negocios y proveedores.",
   openGraph: {
-    title: "Promoción | YuppiFacts®",
+    title: "Promoción | YuppiFacts AI®",
     description: "Ecosistema inteligente para la solicitud y gestión de facturas de negocios y proveedores.",
     url: "https://promo.yuppifacts.com",
-    siteName: "YuppiFacts",
+    siteName: "YuppiFacts AI®",
     type: "website",
   },
 };

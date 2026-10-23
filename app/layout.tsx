@@ -9,19 +9,19 @@ import "@/components/wizard.css";
 import ConsentLayer from "@/components/consent-layer";
 
 const landingMetadata: Metadata = {
-  title: "Promoción | YuppiFacts®",
+  title: "Promoción | YuppiFacts AI®",
   description: "Ecosistema inteligente para la solicitud y gestión de facturas de negocios y proveedores.",
   openGraph: {
-    title: "Promoción | YuppiFacts®",
+    title: "Promoción | YuppiFacts AI®",
     description: "Ecosistema inteligente para la solicitud y gestión de facturas de negocios y proveedores.",
     url: "https://yuppifacts.com",
-    siteName: "YuppiFacts",
+    siteName: "YuppiFacts AI®",
     type: "website",
   },
 };
 
 const defaultMetadata: Metadata = {
-  title: "YuppiFacts | Solicita y organiza tus facturas",
+  title: "YuppiFacts AI® | Solicita y organiza tus facturas",
   description: "Gestión segura de solicitudes de factura y documentos fiscales.",
 };
 

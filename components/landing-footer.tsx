@@ -17,7 +17,7 @@ const copy = {
   es: {
     statement: "Facturación organizada, sin fricción.",
     description:
-      "YuppiFacts reúne tickets, solicitudes y facturas para que tu información fiscal siempre esté en orden.",
+      "YuppiFacts AI® reúne tickets, solicitudes y facturas para que tu información fiscal siempre esté en orden.",
     office: "OFICINA COMERCIAL",
     address: [
       "Calz. Gral. Mariano Escobedo 476, Piso 12,",
@@ -42,13 +42,13 @@ const copy = {
       data: "Protección de datos",
       access: "Acceso al panel",
     },
-    copyright: "© 2024 – 2026 YuppiFacts®. Todos los derechos reservados.",
+    copyright: "© 2024 – 2026 YuppiFacts AI®. Todos los derechos reservados.",
     top: "Volver arriba",
   },
   en: {
     statement: "Organized invoicing, without friction.",
     description:
-      "YuppiFacts brings together tickets, requests and invoices so your tax information stays in order.",
+      "YuppiFacts AI® brings together tickets, requests and invoices so your tax information stays in order.",
     office: "COMMERCIAL OFFICE",
     address: [
       "476 Calz. Gral. Mariano Escobedo, Floor 12,",
@@ -73,7 +73,7 @@ const copy = {
       data: "Data protection",
       access: "Panel access",
     },
-    copyright: "© 2024 – 2026 YuppiFacts®. All rights reserved.",
+    copyright: "© 2024 – 2026 YuppiFacts AI®. All rights reserved.",
     top: "Back to top",
   },
 } as const;
@@ -109,7 +109,7 @@ export default function LandingFooter() {
         <div className="landing-footer-top">
           <div className="landing-footer-intro">
             <Link className="brand landing-footer-brand" href="/" aria-label="YuppiFacts">
-              <YuppiFactsLogo /><span className="yuppifacts-logo-name">YuppiFacts<sup>®</sup></span>
+              <YuppiFactsLogo /><span className="yuppifacts-logo-name">YuppiFacts AI<sup>®</sup></span>
             </Link>
             <h2>
               {locale === "es" ? <><span>Facturación organizada,</span><br /><em>sin fricción</em><i>.</i></> : <><span>Organized invoicing,</span><br /><em>without friction</em><i>.</i></>}

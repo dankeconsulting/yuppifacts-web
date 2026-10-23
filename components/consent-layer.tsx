@@ -23,10 +23,10 @@ type LandingModal = {
 
 const defaultLandingModal: LandingModal = {
   isEnabled: true,
-  titleEs: "Contrata YuppiFacts IA y agiliza la solicitud de tus facturas.",
+  titleEs: "Contrata YuppiFacts AI® y agiliza la solicitud de tus facturas.",
   bodyEs: "",
   ctaEs: "Quiero agilizar solicitudes de facturas",
-  titleEn: "Subscribe to YuppiFacts AI and streamline your invoice requests.",
+  titleEn: "Subscribe to YuppiFacts AI® and streamline your invoice requests.",
   bodyEn: "",
   ctaEn: "I want to speed up invoice requests"
 };
@@ -150,20 +150,20 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
                   ? "SPECIAL PROMOTION — FROM $899 MXN"
                   : "PROMOCIÓN ESPECIAL — DESDE $899 MXN"}
               </p>
-              <h2>{english ? title : <><span className="modal-title-desktop">Contrata YuppiFacts IA y<br />agiliza la solicitud de tus facturas.</span><span className="modal-title-mobile">Contrata YuppiFacts<br />IA y agiliza la solicitud<br />de tus facturas.</span></>}</h2>
+              <h2>{english ? title : <><span className="modal-title-desktop">Contrata YuppiFacts AI<sup>®</sup> y<br />agiliza la solicitud de tus facturas.</span><span className="modal-title-mobile">Contrata YuppiFacts AI<sup>®</sup><br />y agiliza la solicitud<br />de tus facturas.</span></>}</h2>
               <p className="landing-modal-highlight">
                 {english
-                  ? "Speed up invoice requests for your company or clients if you are an accountant or accounting firm in Mexico. YuppiFacts AI does it for you."
-                  : <>Impulsa la agilidad de solicitar tus facturas de tu<br />empresa o clientes si eres contador o despacho<br />contable en México. YuppiFacts AI lo hace por ti.</>}
+                  ? "Speed up invoice requests for your company or clients if you are an accountant or accounting firm in Mexico. YuppiFacts AI® does it for you."
+                  : <>Impulsa la agilidad de solicitar tus facturas de tu<br />empresa o clientes si eres contador o despacho<br />contable en México. YuppiFacts AI<sup>®</sup> lo hace por ti.</>}
               </p>
               <p className="landing-modal-intro">
                 {english
-                  ? "Leave repetitive forms behind: YuppiFacts turns your tickets into clear, organized invoice requests."
-                  : "Deja atrás los formularios repetitivos: YuppiFacts convierte tus tickets en solicitudes de factura claras y ordenadas."}
+                  ? "Leave repetitive forms behind: YuppiFacts AI® turns your tickets into clear, organized invoice requests."
+                  : <>Deja atrás los formularios repetitivos: YuppiFacts AI<sup>®</sup> convierte tus tickets en solicitudes de factura claras y ordenadas.</>}
               </p>
               <ol className="landing-modal-steps">
                 <li><QrCode aria-hidden="true" /><span>{english ? <>Scan your ticket<br />or QR code.</> : <>Escanea tu ticket<br />o código QR.</>}</span></li>
-                <li><FilePenLine aria-hidden="true" /><span>{english ? <>YuppiFacts prepares<br />the request.</> : <>YuppiFacts prepara<br />la solicitud.</>}</span></li>
+                <li><FilePenLine aria-hidden="true" /><span>{english ? <>YuppiFacts AI<sup>®</sup> prepares<br />the request.</> : <>YuppiFacts AI<sup>®</sup> prepara<br />la solicitud.</>}</span></li>
                 <li><FileText aria-hidden="true" /><span>{english ? <>Receive and organize<br />your invoices.</> : <>Recibe y organiza<br />tus facturas.</>}</span></li>
               </ol>
               <div className="landing-modal-spots">
