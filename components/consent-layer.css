@@ -341,13 +341,13 @@
 
   .landing-modal h2 {
     margin: 18px 0 16px;
-    font-size: clamp(27px, 8.1vw, 33px);
+    font-size: clamp(24px, 7vw, 30px);
     line-height: 1.08;
     letter-spacing: -2px;
   }
 
   .modal-title-desktop { display: none; }
-  .modal-title-mobile { display: inline; }
+  .modal-title-mobile { display: inline; white-space: nowrap; }
 
   .landing-modal-highlight {
     font-size: 14px !important;
