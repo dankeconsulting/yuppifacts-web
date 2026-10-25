@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+console.info(`YuppiFacts web Node.js runtime ${process.version}`);
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   devIndicators: false,
