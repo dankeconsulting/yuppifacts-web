@@ -108,7 +108,8 @@
 
 @media (max-width: 760px) {
   .landing .logo-slider {
-    margin-top: 18px;
+    /* Deja respirar el banner del hero antes de iniciar el marquee. */
+    margin-top: 34px;
   }
 
   .landing .metric {
