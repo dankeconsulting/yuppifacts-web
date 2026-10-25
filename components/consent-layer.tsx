@@ -60,7 +60,7 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
     // Start the image request at the same time as the API calls.  Previously the
     // image was only requested after the modal configuration arrived.
     const modalImage = new window.Image();
-    modalImage.src = "/landing-modal-fiscal-flow.png";
+    modalImage.src = "/landing-modal-yuppifacts-vertical.png";
 
     const dismissed = Boolean(sessionStorage.getItem("yf-landing-modal-dismissed"));
     setModalClosed(dismissed);
@@ -144,8 +144,8 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
           <section className="landing-modal">
             <div className="landing-modal-image">
               <Image
-                src="/landing-modal-fiscal-flow.png"
-                alt={english ? "Person using YuppiFacts while shopping" : "Persona usando YuppiFacts al realizar una compra"}
+                src="/landing-modal-yuppifacts-vertical.png"
+                alt={english ? "YuppiFacts AI® scanning a receipt on a phone" : "YuppiFacts AI® escaneando un ticket en un teléfono"}
                 fill
                 sizes="(max-width: 800px) 0px, 45vw"
                 priority
