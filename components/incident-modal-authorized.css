@@ -10,7 +10,7 @@
 .incident-catalog-v5 .priority-control>div button{font-weight:500}
 .incident-catalog-v5 .incident-v4-modal .close{display:grid;place-items:center;top:20px;right:20px;width:46px;height:46px;border:1px solid #464166;border-radius:50%;background:#2a2947;color:#d4bcff}
 .incident-catalog-v5 .incident-v4-modal .close:hover{border-color:#8b6cd3;background:#353057;color:#f0e8ff}
-.incident-catalog-v5 .incident-v4-modal footer{justify-content:flex-end;margin-top:22px;padding-top:18px;padding-bottom:0}
+.incident-catalog-v5 .incident-v4-modal footer{box-sizing:border-box;width:100%;justify-content:flex-end;align-self:stretch;margin:22px 0 0!important;padding:18px 0 0!important}
 .incident-catalog-v5 .incident-v4-modal footer button{min-height:40px;padding:8px 14px;border-color:#7650b7;background:#191721;color:#cfbcff;font-weight:500}
 .incident-catalog-v5 .incident-v4-modal footer button:hover{border-color:#9c7af2;background:#9c7af2;color:#160f22}
 .incident-catalog-v5 .incident-v4-modal footer .save{border-color:#7650b7;background:#191721;color:#cfbcff}
