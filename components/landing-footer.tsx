@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import "./landing-footer.css";
 import "./landing-footer-adjustments.css";
 import YuppiFactsLogo from "./yuppifacts-logo";
+import CountryFlag from "./country-flag";
 
 type Locale = "es" | "en";
 
@@ -93,11 +94,7 @@ export default function LandingFooter() {
   const [country, setCountry] = useState("MX");
   const text = copy[locale];
   const countries = [
-    { code: "MX", name: "México", flag: "🇲🇽" },
-    { code: "CO", name: "Colombia", flag: "🇨🇴" },
-    { code: "ES", name: "España", flag: "🇪🇸" },
-    { code: "CR", name: "Costa Rica", flag: "🇨🇷" },
-    { code: "PA", name: "Panamá", flag: "🇵🇦" },
+    { code: "MX", name: "México" }, { code: "CO", name: "Colombia" }, { code: "ES", name: "España" }, { code: "CR", name: "Costa Rica" }, { code: "PA", name: "Panamá" },
   ];
   const selectedCountry = countries.find((item) => item.code === country) ?? countries[0];
   useEffect(() => { setLocale(localStorage.getItem("yf-language") === "en" ? "en" : "es"); }, []);
@@ -169,7 +166,7 @@ export default function LandingFooter() {
           <div className="landing-footer-controls">
             <div className="landing-footer-country">
               <button type="button" className="landing-footer-country-trigger" onClick={() => setCountryOpen((open) => !open)} aria-expanded={countryOpen}>
-                <span className="landing-footer-country-flag" aria-hidden="true">{selectedCountry.flag}</span>
+                <CountryFlag className="landing-footer-country-flag" code={selectedCountry.code} />
                 <span>{selectedCountry.name}</span>
                 <i aria-hidden="true" />
                 <ChevronDown size={15} aria-hidden="true" />
@@ -178,7 +175,7 @@ export default function LandingFooter() {
                 <div className="landing-footer-country-menu" role="menu" aria-label="País">
                   {countries.map((item) => (
                     <button key={item.code} type="button" role="menuitem" className={item.code === country ? "active" : ""} onClick={() => { setCountry(item.code); setCountryOpen(false); }}>
-                      <span className="landing-footer-country-flag" aria-hidden="true">{item.flag}</span><span>{item.name}</span><i aria-hidden="true" />
+                      <CountryFlag className="landing-footer-country-flag" code={item.code} /><span>{item.name}</span><i aria-hidden="true" />
                     </button>
                   ))}
                 </div>

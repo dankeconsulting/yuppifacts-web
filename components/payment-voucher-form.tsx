@@ -6,6 +6,7 @@ import "./payment-voucher.css";
 import "./payment-voucher-adjustments.css";
 import PublicProcessFooter from "./public-process-footer";
 import YuppiFactsLogo from "./yuppifacts-logo";
+import CountryFlagIcon from "./country-flag";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const maxFileSize = 10 * 1024 * 1024;
@@ -22,9 +23,7 @@ type UploadResponse = { voucherId: string; uploadUrl: string };
 type Picker = "country" | "state" | "city" | null;
 const citiesByState: Record<string, string[]> = { "Baja California": ["Tijuana", "Mexicali", "Ensenada", "Tecate", "Playas de Rosarito"], "Ciudad de México": ["Álvaro Obregón", "Benito Juárez", "Coyoacán", "Cuauhtémoc", "Iztapalapa", "Miguel Hidalgo"], Jalisco: ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá", "Puerto Vallarta"], "Nuevo León": ["Monterrey", "San Pedro Garza García", "Guadalupe", "Apodaca", "Santa Catarina"], "Estado de México": ["Ecatepec", "Naucalpan", "Nezahualcóyotl", "Toluca", "Tlalnepantla"], Puebla: ["Puebla", "Tehuacán", "San Martín Texmelucan", "Atlixco"], Querétaro: ["Querétaro", "San Juan del Río", "Corregidora", "El Marqués"], "San José": ["San José", "Escazú", "Desamparados"], Antioquia: ["Medellín", "Bello", "Envigado", "Rionegro"], "Bogotá, D.C.": ["Bogotá"] };
 
-function CountryFlag({ code }: { code: CountryCode }) {
-  return <span className={`voucher-country-flag voucher-country-flag-${code.toLowerCase()}`} aria-hidden="true" />;
-}
+function CountryFlag({ code }: { code: CountryCode }) { return <CountryFlagIcon className="voucher-country-flag" code={code} />; }
 
 function fileIsAllowed(file: File) {
   return ["application/pdf", "image/jpeg", "image/png"].includes(file.type) && file.size <= maxFileSize;

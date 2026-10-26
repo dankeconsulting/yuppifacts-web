@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, ChevronDown, ShieldCheck, UserPlus, X } from "lucide-react";
 import "./access-login.css";
+import CountryFlag from "./country-flag";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const countries = [
@@ -19,9 +20,7 @@ function WhatsAppIcon({ size = 24 }: { size?: number }) {
   return <svg className="access-whatsapp-icon" width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L4 20l1.2-3.8a8.2 8.2 0 1 1 15-4.5Z"/><path d="M9.2 8.1c.2-.5.5-.5.8-.5h.4c.3 0 .5.1.6.4l.7 1.7c.1.3.1.5-.1.7l-.5.6c.6 1.1 1.5 1.9 2.6 2.5l.6-.5c.2-.2.5-.2.7-.1l1.7.7c.3.1.4.3.4.6v.4c0 .3-.1.6-.5.8-.5.2-1 .3-1.5.2-2.9-.6-5.5-3.2-6.1-6.1-.1-.5 0-1 .2-1.5Z"/></svg>;
 }
 
-function Flag({ code }: { code: string }) {
-  return <span className={`access-flag access-flag-${code.toLowerCase()}`} aria-hidden="true">{code === "MX" && <svg viewBox="0 0 24 24"><path fill="#765426" d="M12 5.2c1.8.1 2.8 1.1 3.4 2.2l2-.6-1.2 1.8 1.8.8-2 .2c.2 1.4-.4 2.7-1.5 3.5l.2 2.7-1.3-1.1-1.4 1.1.2-2.7c-1.2-.8-1.8-2.1-1.6-3.5l-2-.2 1.8-.8-1.2-1.8 2 .6C9.3 6.3 10.3 5.3 12 5.2Z" /><path fill="none" stroke="#3f6638" strokeWidth="1.3" strokeLinecap="round" d="M8.8 15.5c1.7 1.1 4.7 1.1 6.4 0M10.1 16.6l1.1-1m1.7 1 1.1-1" /></svg>}</span>;
-}
+function Flag({ code }: { code: string }) { return <CountryFlag className="access-flag" code={code} />; }
 
 async function request<T>(path: string, options: RequestInit = {}) {
   if (!apiOrigin) throw new Error("El acceso todavía no está disponible. Intenta de nuevo en unos minutos.");

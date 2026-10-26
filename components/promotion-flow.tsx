@@ -8,6 +8,7 @@ import "./promotion-flow-adjustments.css";
 import "./promotion-regular-price.css";
 import PublicProcessFooter from "./public-process-footer";
 import YuppiFactsLogo from "./yuppifacts-logo";
+import CountryFlagIcon from "./country-flag";
 
 type Profile = "accountant" | "company" | "corporate";
 type Mode = "individual"|"independent_accountant"|"accounting_firm"|"company"|"corporate";
@@ -28,7 +29,7 @@ const countries={MX:{name:"México",dial:"+52",flag:"🇲🇽",digits:10,example
 const legalDocuments=[{title:"Términos y Condiciones",href:"https://promo.yuppifacts.com/terminos-condiciones"},{title:"Alcance de la membresía y módulos",href:"https://promo.yuppifacts.com/alcance-membresia"},{title:"Política de Renovaciones y Cancelaciones",href:"https://promo.yuppifacts.com/renovaciones-cancelaciones"}];
 type CountryCode=keyof typeof countries;
 const formatNationalPhone=(value:string,code:CountryCode)=>{const groups=code==="MX"?[2,4,4]:code==="CO"?[3,3,4]:[4,4];let offset=0;return groups.map(size=>{const part=value.slice(offset,offset+size);offset+=size;return part;}).filter(Boolean).join(" ");};
-function CountryFlag({code}:{code:CountryCode}){return <span className={`promotion-country-flag promotion-country-flag-${code.toLowerCase()}`} aria-hidden="true"/>}
+function CountryFlag({code}:{code:CountryCode}){return <CountryFlagIcon className="promotion-country-flag" code={code}/>}
 
 export default function PromotionFlow(){
   const[step,setStep]=useState(1);const[legalAccepted,setLegalAccepted]=useState(false);const[profile,setProfile]=useState<Mode|null>(null);const[planId,setPlanId]=useState<string|null>(null);const[period,setPeriod]=useState<Period>("monthly");const[countryCode,setCountryCode]=useState<CountryCode>("MX");const[countryOpen,setCountryOpen]=useState(false);const[phone,setPhone]=useState("");const[fullName,setFullName]=useState("");const[email,setEmail]=useState("");const[notice,setNotice]=useState("");const[available,setAvailable]=useState<boolean|null>(null);const[plans,setPlans]=useState<Plan[]>([]);const[creating,setCreating]=useState(false);const[contract,setContract]=useState<{id:string;accessToken:string}|null>(null);const[commissionBps,setCommissionBps]=useState(350);const country=countries[countryCode];const visualStep=step===0?4:step;
