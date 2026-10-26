@@ -166,7 +166,7 @@ export default function LandingFooter() {
           <div className="landing-footer-controls">
             <div className="landing-footer-country">
               <button type="button" className="landing-footer-country-trigger" onClick={() => setCountryOpen((open) => !open)} aria-expanded={countryOpen}>
-                <CountryFlag className="landing-footer-country-flag" code={selectedCountry.code} />
+                <CountryFlag className="landing-footer-country-flag" code={selectedCountry.code} official />
                 <span>{selectedCountry.name}</span>
                 <i aria-hidden="true" />
                 <ChevronDown size={15} aria-hidden="true" />
@@ -175,7 +175,7 @@ export default function LandingFooter() {
                 <div className="landing-footer-country-menu" role="menu" aria-label="País">
                   {countries.map((item) => (
                     <button key={item.code} type="button" role="menuitem" className={item.code === country ? "active" : ""} onClick={() => { setCountry(item.code); setCountryOpen(false); }}>
-                      <CountryFlag className="landing-footer-country-flag" code={item.code} /><span>{item.name}</span><i aria-hidden="true" />
+                      <CountryFlag className="landing-footer-country-flag" code={item.code} official /><span>{item.name}</span><i aria-hidden="true" />
                     </button>
                   ))}
                 </div>

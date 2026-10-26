@@ -1,0 +1,3 @@
+/* Readability adjustment requested for FAQ answers. */
+.landing-faq-answer>div{font-size:15.5px}
+@media(max-width:760px){.landing-faq-answer>div{font-size:14.5px}}

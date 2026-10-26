@@ -1,7 +1,7 @@
 type CountryFlagProps = { code: string; className?: string; official?: boolean };
 
 const emoji: Record<string, string> = { co: "🇨🇴", cr: "🇨🇷", es: "🇪🇸", pa: "🇵🇦" };
-const officialFlags: Record<string, string> = { mx: "/flag-mx-official.svg", co: "/flag-co-official.svg", cr: "/flag-cr-official.svg" };
+const officialFlags: Record<string, string> = { mx: "/flag-mx-official.svg", co: "/flag-co-official.svg", cr: "/flag-cr-official.svg", es: "/flag-es-official.svg", pa: "/flag-pa-official.svg" };
 
 /** The official SVG treatment is intentionally opt-in for the administrator only. */
 export default function CountryFlag({ code, className = "", official = false }: CountryFlagProps) {

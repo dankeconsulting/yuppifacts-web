@@ -3,6 +3,7 @@
 import { ChevronDown, CircleHelp } from "lucide-react";
 import { useId, useState } from "react";
 import "./faq-section.css";
+import "./faq-answer-size-adjustment.css";
 
 type Faq = { question: string; answer: React.ReactNode };
 
