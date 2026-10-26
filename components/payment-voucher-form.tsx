@@ -19,7 +19,7 @@ const countries = {
 
 type CountryCode = keyof typeof countries;
 const formatNationalPhone = (value: string, code: CountryCode) => { const groups = code === "MX" ? [2, 4, 4] : code === "CO" ? [3, 3, 4] : [4, 4]; let offset = 0; return groups.map((size) => { const part = value.slice(offset, offset + size); offset += size; return part; }).filter(Boolean).join(" "); };
-type UploadResponse = { voucherId: string; uploadUrl: string };
+type UploadResponse = { voucherId: string; uploadUrl: string; uploadHeaders?: Record<string, string> };
 type Picker = "country" | "state" | "city" | null;
 const citiesByState: Record<string, string[]> = { "Baja California": ["Tijuana", "Mexicali", "Ensenada", "Tecate", "Playas de Rosarito"], "Ciudad de México": ["Álvaro Obregón", "Benito Juárez", "Coyoacán", "Cuauhtémoc", "Iztapalapa", "Miguel Hidalgo"], Jalisco: ["Guadalajara", "Zapopan", "Tlaquepaque", "Tonalá", "Puerto Vallarta"], "Nuevo León": ["Monterrey", "San Pedro Garza García", "Guadalupe", "Apodaca", "Santa Catarina"], "Estado de México": ["Ecatepec", "Naucalpan", "Nezahualcóyotl", "Toluca", "Tlalnepantla"], Puebla: ["Puebla", "Tehuacán", "San Martín Texmelucan", "Atlixco"], Querétaro: ["Querétaro", "San Juan del Río", "Corregidora", "El Marqués"], "San José": ["San José", "Escazú", "Desamparados"], Antioquia: ["Medellín", "Bello", "Envigado", "Rionegro"], "Bogotá, D.C.": ["Bogotá"] };
 
@@ -164,7 +164,7 @@ export default function PaymentVoucherForm() {
       }
       if (!created.ok) throw new Error(createdBody.error ?? "No fue posible preparar tu comprobante.");
       const upload = createdBody as UploadResponse;
-      const uploadResponse = await fetch(upload.uploadUrl, { method: "PUT", headers: { "content-type": file.type, "x-amz-server-side-encryption": "AES256" }, body: file });
+      const uploadResponse = await fetch(upload.uploadUrl, { method: "PUT", headers: upload.uploadHeaders ?? { "content-type": file.type }, body: file });
       if (!uploadResponse.ok) throw new Error("No fue posible cargar el comprobante. Inténtalo de nuevo.");
       const submitted = await fetch(`${api}/v1/promotion-vouchers/${upload.voucherId}/submit`, { method: "POST" });
       const submittedBody = await submitted.json().catch(() => ({}));
