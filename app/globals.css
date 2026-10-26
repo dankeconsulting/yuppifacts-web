@@ -52,7 +52,7 @@ body { font-family: Poppins, Arial, sans-serif !important; }
 /* Keep the account action available beside the promotion CTA on mobile. */
 @media (max-width: 600px) {
   .public-nav { gap: 8px; padding-inline: 12px; }
-  .nav-actions { gap: 6px; }
+  .nav-actions { gap: 12px; }
   .nav-actions > a:first-child { display: inline-flex; width:20px;height:20px;margin-right:0;white-space: nowrap; }
   .nav-account { font-size: 13px; white-space: nowrap; }
   .nav-actions .button.small { gap:6px;padding:10px 11px;font-size:13px;white-space:nowrap; }
