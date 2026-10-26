@@ -56,7 +56,7 @@ footer.landing-footer { display: block; }
 .landing-footer-link { align-items: center; border-top: 1px solid var(--footer-line); color: #f2f1f7; display: flex; font-size: 14px; font-weight: 500; gap: 12px; justify-content: space-between; min-height: 56px; text-decoration: none; transition: color .2s ease, padding .2s ease; }
 .landing-footer-link:last-child { border-bottom: 1px solid var(--footer-line); }
 .landing-footer-link svg { color: #9d9bb1; flex: 0 0 auto; }
-.landing-footer-link:hover { color: #b69aff; padding-left: 4px; }
+.landing-footer-link:hover { color: #b69aff; }
 .landing-footer-link:hover svg { color: #b69aff; }
 .landing-footer-bottom { align-items: center; border-top: 1px solid var(--footer-line); display: grid; gap: 24px; grid-template-columns: auto auto minmax(360px, 1fr); margin-top: 105px; padding-top: 26px; }
 .landing-footer-social { align-items: center; gap: 12px; }
@@ -64,7 +64,7 @@ footer.landing-footer { display: block; }
 .landing-footer-social a:hover { background: #20193a; border-color: #a78bfa; color: #bda9ff; }
 .landing-footer-controls { align-items: center; display: flex; gap: 18px; }
 .landing-footer-country { position: relative; }
-.landing-footer-country-trigger { align-items: center; background: transparent; border: 1px solid var(--footer-line); border-radius: 999px; color: #d8dbea; cursor: pointer; display: inline-flex; font-size: 12px; font-weight: 600; gap: 7px; padding: 8px 11px; }
+.landing-footer-country-trigger { align-items: center; background: transparent; border: 1px solid var(--footer-line); border-radius: 999px; color: #d8dbea; cursor: pointer; display: inline-flex; font-size: 12.5px; font-weight: 600; gap: 7px; height: 43px; padding: 0 11px; }
 .landing-footer-country-trigger:hover { border-color: rgba(183, 157, 255, .55); }
 .landing-footer-country-flag { display: inline-grid; place-items: center; width: 20px; height: 20px; overflow: hidden; border-radius: 50%; font-size: 17px; line-height: 1; }.landing-footer-country-flag img { display:block; width:100%; height:100%; object-fit:fill; }
 .country-code { color: #a8b0c7; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: .06em; }

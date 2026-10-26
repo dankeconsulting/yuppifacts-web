@@ -1,0 +1,12 @@
+/* Solo escritorio: los subtítulos ganan legibilidad sin alterar el diseño responsive. */
+@media (min-width: 761px) {
+  .landing .lead,
+  .landing .features-lead,
+  .landing .plans-lead,
+  .landing .landing-faq-heading > p:last-child,
+  .landing .cta > p,
+  .landing .landing-footer-intro > p,
+  .landing .stepContent p {
+    font-size: calc(1em + 1.5px);
+  }
+}

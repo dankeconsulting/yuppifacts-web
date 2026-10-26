@@ -11,6 +11,7 @@ import RevealOnScroll from "@/components/reveal-on-scroll";
 import { useLandingLocale } from "@/components/use-landing-locale";
 import YuppiFactsLogo from "@/components/yuppifacts-logo";
 import "@/components/landing-adjustments.css";
+import "@/components/landing-desktop-subtitle-adjustments.css";
 
 export default function LandingPage() {
   const locale = useLandingLocale();

@@ -144,8 +144,8 @@ export default function LandingFooter() {
             </div>
             <div className="landing-footer-column">
               <p className="landing-footer-label">{text.account}</p>
-              <FooterLink href="/registro">{text.links.register}</FooterLink>
-              <FooterLink href="/entrar">{text.links.login}</FooterLink>
+              <FooterLink href="https://promo.yuppifacts.com">{text.links.register}</FooterLink>
+              <FooterLink href="https://app.yuppifacts.com">{text.links.login}</FooterLink>
             </div>
             <div className="landing-footer-column">
               <p className="landing-footer-label">{text.resources}</p>
