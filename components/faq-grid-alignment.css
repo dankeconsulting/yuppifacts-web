@@ -1,0 +1,11 @@
+/* El encabezado y el divisor de FAQ comparten el ancho del grid de planes. */
+@media (min-width: 761px) {
+  .landing-faq {
+    width: min(1340px, calc(100% - 52px));
+  }
+
+  .landing-faq-list {
+    width: min(1060px, 100%);
+    margin-inline: auto;
+  }
+}
