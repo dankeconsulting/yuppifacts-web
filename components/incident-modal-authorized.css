@@ -8,8 +8,8 @@
 .incident-catalog-v5 .incident-v4-modal input,.incident-catalog-v5 .incident-v4-modal textarea,.incident-catalog-v5 .priority-control>button{font-weight:500}
 .incident-catalog-v5 .incident-v4-modal input::placeholder,.incident-catalog-v5 .incident-v4-modal textarea::placeholder,.incident-catalog-v5 .priority-control>button.placeholder{color:#9194a2;font-weight:500}
 .incident-catalog-v5 .priority-control>div button{font-weight:500}
-.incident-catalog-v5 .incident-v4-modal .close{display:grid;place-items:center;top:20px;right:20px;width:38px;height:38px;border:1px solid #4c3a70;border-radius:50%;background:#292039;color:#cbb5ff}
-.incident-catalog-v5 .incident-v4-modal .close:hover{border-color:#a980ff;background:#36284e;color:#e4d8ff}
+.incident-catalog-v5 .incident-v4-modal .close{display:grid;place-items:center;top:20px;right:20px;width:46px;height:46px;border:1px solid #464166;border-radius:50%;background:#2a2947;color:#d4bcff}
+.incident-catalog-v5 .incident-v4-modal .close:hover{border-color:#8b6cd3;background:#353057;color:#f0e8ff}
 .incident-catalog-v5 .incident-v4-modal footer{justify-content:flex-end;margin-top:22px;padding-top:18px;padding-bottom:0}
 .incident-catalog-v5 .incident-v4-modal footer button{min-height:40px;padding:8px 14px;border-color:#7650b7;background:#191721;color:#cfbcff;font-weight:500}
 .incident-catalog-v5 .incident-v4-modal footer button:hover{border-color:#9c7af2;background:#9c7af2;color:#160f22}
