@@ -101,8 +101,8 @@ export default function AdminShell({ children }: { children: ReactNode }) {
       <div className="admin-shell-sidebar-fixed">
         <button type="button" className="admin-theme-switch" onClick={() => setLightMode(value => !value)} aria-label={lightMode ? "Activar modo oscuro" : "Activar modo claro"}><span>{lightMode ? <Sun size={18} /> : <Moon size={18} />}</span><b>{lightMode ? "Modo claro" : "Modo oscuro"}</b><i className={lightMode ? "active" : ""}><em /></i></button>
         <div className="admin-country-picker">
-          <button type="button" className="admin-country-trigger" onClick={() => setCountryOpen(value => !value)} aria-expanded={countryOpen}><CountryFlag className="admin-country-flag" code={country.code}/><b>{country.name}</b><i /><ChevronDown size={16} /></button>
-          {countryOpen && <div className="admin-country-menu">{countries.map((option) => <button key={option.name} type="button" className={option.name === country.name ? "selected" : ""} onClick={() => { setCountry(option); setCountryOpen(false); }}><CountryFlag className="admin-country-flag" code={option.code}/><b>{option.name}</b><i>{option.name === country.name ? "✓" : ""}</i></button>)}</div>}
+          <button type="button" className="admin-country-trigger" onClick={() => setCountryOpen(value => !value)} aria-expanded={countryOpen}><CountryFlag className="admin-country-flag" code={country.code} official/><b>{country.name}</b><i /><ChevronDown size={16} /></button>
+          {countryOpen && <div className="admin-country-menu">{countries.map((option) => <button key={option.name} type="button" className={option.name === country.name ? "selected" : ""} onClick={() => { setCountry(option); setCountryOpen(false); }}><CountryFlag className="admin-country-flag" code={option.code} official/><b>{option.name}</b><i>{option.name === country.name ? "✓" : ""}</i></button>)}</div>}
         </div>
         <div className="admin-master-note"><BadgeCheck size={19} /><span><b>Admin Maestro</b><small>Acceso global y exclusivo.</small></span></div>
       </div>

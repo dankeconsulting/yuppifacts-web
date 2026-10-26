@@ -1,6 +1,6 @@
 /* Modal de incidencias: tokens visuales autorizados de YuppiFacts AI®. */
 .incident-catalog-v5 .incident-v4-modal{border-color:#7650b7;background:#17171f;box-shadow:0 28px 76px rgba(0,0,0,.62)}
-.incident-catalog-v5 .incident-v4-modal:not(.compact){width:min(500px,100%);padding:30px 34px 24px}
+.incident-catalog-v5 .incident-v4-modal:not(.compact){width:min(500px,100%);padding:30px 34px 12px}
 .incident-catalog-v5 .incident-v4-modal h2{margin:0 48px 24px 0;font-size:28px;font-weight:600;letter-spacing:-.035em}
 .incident-catalog-v5 .incident-v4-modal>label{display:block;margin-top:18px;font-size:14px;font-weight:600}
 .incident-catalog-v5 .incident-v4-modal>label>.required{display:inline;margin:0 0 0 5px;color:#f095bb;font-size:inherit;font-weight:600}
@@ -10,13 +10,13 @@
 .incident-catalog-v5 .priority-control>div button{font-weight:500}
 .incident-catalog-v5 .incident-v4-modal .close{display:grid;place-items:center;top:20px;right:20px;width:38px;height:38px;border:1px solid #4c3a70;border-radius:50%;background:#292039;color:#cbb5ff}
 .incident-catalog-v5 .incident-v4-modal .close:hover{border-color:#a980ff;background:#36284e;color:#e4d8ff}
-.incident-catalog-v5 .incident-v4-modal footer button{min-height:40px;padding:8px 14px;border-color:#7650b7;background:#211937;color:#cbb5ff;font-weight:500}
-.incident-catalog-v5 .incident-v4-modal footer{margin-top:22px;padding-top:18px}
-.incident-catalog-v5 .incident-v4-modal footer button:hover{border-color:#a980ff;background:#302247;color:#e4d8ff}
-.incident-catalog-v5 .incident-v4-modal footer .save{border-color:#9c7af2;background:#9c7af2;color:#160f22}
-.incident-catalog-v5 .incident-v4-modal footer .save:hover{border-color:#ae91f5;background:#ae91f5;color:#160f22}
+.incident-catalog-v5 .incident-v4-modal footer{justify-content:flex-end;margin-top:22px;padding-top:18px;padding-bottom:0}
+.incident-catalog-v5 .incident-v4-modal footer button{min-height:40px;padding:8px 14px;border-color:#7650b7;background:#191721;color:#cfbcff;font-weight:500}
+.incident-catalog-v5 .incident-v4-modal footer button:hover{border-color:#9c7af2;background:#9c7af2;color:#160f22}
+.incident-catalog-v5 .incident-v4-modal footer .save{border-color:#7650b7;background:#191721;color:#cfbcff}
+.incident-catalog-v5 .incident-v4-modal footer .save:hover{border-color:#9c7af2;background:#9c7af2;color:#160f22}
 .incident-catalog-v5 .incident-v4-modal footer .critical{border-color:#a84c62;background:#371c28;color:#f4adbf}
-.incident-catalog-v5 .incident-title>button{min-height:40px;padding:9px 14px;border-color:#9c7af2;background:#9c7af2;color:#160f22;font-size:14px;font-weight:500}
+.incident-catalog-v5 .incident-title>button{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:9px 14px;border:1px solid #9c7af2;border-radius:10px;background:#9c7af2;color:#160f22;font:500 14px/1 var(--font-sans,Poppins,Arial,sans-serif);letter-spacing:0;box-shadow:none}
 .incident-catalog-v5 .incident-title>button:hover{border-color:#ae91f5;background:#ae91f5;color:#160f22}
 .incident-catalog-v5 .incident-search .filters{min-height:40px;padding:9px 13px;background:#191721;color:#cfbcff;border-color:#7650b7;font-weight:500}
 .incident-catalog-v5 .incident-search .delete{width:40px;height:40px;padding:0;background:#191721;color:#e691a9;border-color:#643640}
