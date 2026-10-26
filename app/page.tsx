@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Building2, Check, FileText, LockKeyhole, QrCode, ShieldCheck, Sparkles, TicketCheck, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Building2, Check, FileText, LockKeyhole, Menu, QrCode, ShieldCheck, Sparkles, TicketCheck, TrendingUp, Users, X } from "lucide-react";
+import { useState } from "react";
 import PricingSection from "@/components/pricing-section";
 import HowTimeline from "@/components/how-timeline";
+import FaqSection from "@/components/faq-section";
 import LandingFooter from "@/components/landing-footer";
 import RevealOnScroll from "@/components/reveal-on-scroll";
 import { useLandingLocale } from "@/components/use-landing-locale";
@@ -13,11 +15,20 @@ import "@/components/landing-adjustments.css";
 export default function LandingPage() {
   const locale = useLandingLocale();
   const english = locale === "en";
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const navigation = [
+    { href: "#como-funciona", label: english ? "How it works" : "Cómo funciona" },
+    { href: "#beneficios", label: english ? "Features" : "Funciones" },
+    { href: "#planes", label: english ? "Plans" : "Planes" },
+    { href: "#preguntas-frecuentes", label: english ? "FAQ" : "Preguntas frecuentes" },
+    { href: "#ia", label: "AI" },
+  ];
   return <main className="landing">
     <header className="public-nav">
       <Link className="brand" href="/"><YuppiFactsLogo /><span className="public-brand-name yuppifacts-logo-name">YuppiFacts AI<sup>®</sup></span></Link>
-      <nav><a href="#como-funciona">{english ? "How it works" : "Cómo funciona"}</a><a href="#beneficios">{english ? "Features" : "Funciones"}</a><a href="#planes">{english ? "Plans" : "Planes"}</a><a href="#ia">AI</a></nav>
-      <div className="nav-actions"><a className="nav-account-whatsapp" href="https://wa.me/528120809011" target="_blank" rel="noreferrer" aria-label="WhatsApp YuppiFacts" /><Link className="nav-account" href="https://app.yuppifacts.com/">{english ? "My account" : "Mi Cuenta"}</Link><Link className="button small" href="https://promo.yuppifacts.com">{english ? "Subscribe" : "Suscríbete"} <ArrowRight size={16} /></Link></div>
+      <nav>{navigation.map(item => <a key={item.href} href={item.href}>{item.label}</a>)}</nav>
+      <div className="nav-actions"><a className="nav-account-whatsapp" href="https://wa.me/528120809011" target="_blank" rel="noreferrer" aria-label="WhatsApp YuppiFacts" /><Link className="nav-account" href="https://app.yuppifacts.com/">{english ? "My account" : "Mi Cuenta"}</Link><Link className="button small" href="https://promo.yuppifacts.com">{english ? "Subscribe" : "Suscríbete"} <ArrowRight size={16} /></Link><button type="button" className="mobile-nav-toggle" aria-label={mobileNavOpen ? (english ? "Close menu" : "Cerrar menú") : (english ? "Open menu" : "Abrir menú")} aria-expanded={mobileNavOpen} aria-controls="landing-mobile-navigation" onClick={() => setMobileNavOpen(value => !value)}>{mobileNavOpen ? <X /> : <Menu />}</button></div>
+      {mobileNavOpen && <nav id="landing-mobile-navigation" className="mobile-nav-popover" aria-label={english ? "Mobile navigation" : "Navegación móvil"}>{navigation.map(item => <a key={item.href} href={item.href} onClick={() => setMobileNavOpen(false)}>{item.label}<ArrowRight size={16} /></a>)}</nav>}
     </header>
 
     <section className="hero">
@@ -59,6 +70,7 @@ export default function LandingPage() {
     </section>
 
     <PricingSection locale={locale} />
+    <FaqSection locale={locale} />
 
     <section id="ia" className="cta">
       <p className="eyebrow">{english ? "AI AT EVERY STEP" : "IA EN CADA PASO"}</p>
