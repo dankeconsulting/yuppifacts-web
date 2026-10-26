@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, CreditCard, FileType, LayoutPanelTop, ReceiptText, Siren, TicketCheck, UsersRound } from "lucide-react";
 import "@/components/admin-settings.css";
+import "@/components/configuration-authorized-buttons.css";
 
 export default function AdminConfigurationPage() {
   return <main className="admin-settings-page">

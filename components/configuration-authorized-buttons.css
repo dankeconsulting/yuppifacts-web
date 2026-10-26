@@ -1,0 +1,12 @@
+/* Acciones de Configuración: UI autorizado YuppiFacts AI®. */
+.admin-settings-page .admin-settings-card a,.admin-settings-page .admin-settings-choice small{font-weight:500!important}
+.admin-settings-page .admin-settings-card a{padding:10px 13px;background:#191721!important;color:#cfbcff!important;border-color:#7650b7!important}
+.promotion-settings .promotion-primary{min-height:40px;padding:9px 14px;font-weight:500!important;background:#9c7af2!important;color:#160f22!important}
+.promotion-settings .campaign-actions button,.promotion-settings .text-button,.promotion-settings .promotion-secondary{min-height:40px;padding:9px 13px;font-weight:500!important;background:#191721!important;color:#cfbcff!important;border-color:#7650b7!important}
+.mp-reference .mp-primary{min-height:40px;padding:9px 14px;background:#9c7af2!important;color:#160f22!important;border-color:#9c7af2!important;font-weight:500!important}
+.mp-reference .mp-secondary,.mp-reference .mp-actions-reference a{min-height:40px;padding:9px 13px;background:#191721!important;color:#cfbcff!important;border-color:#7650b7!important;font-weight:500!important}
+.mp-reference .mp-credential-modal footer button{font-weight:500!important}
+.mp-reference .mp-credential-modal footer .confirm{background:#9c7af2!important;color:#160f22!important;border-color:#9c7af2!important}
+.promotion-vouchers-page .voucher-open-button{min-height:40px;padding:9px 14px;background:#9c7af2!important;color:#160f22!important;border-color:#9c7af2!important;font-weight:500!important;white-space:nowrap}
+.promotion-vouchers-page .promotion-voucher-actions button{min-height:38px;padding:8px 12px;font-weight:500!important;background:#191721!important;color:#cfbcff!important;border-color:#7650b7!important}
+.promotion-vouchers-page .promotion-voucher-actions .button{background:#9c7af2!important;color:#160f22!important;border-color:#9c7af2!important}

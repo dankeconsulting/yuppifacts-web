@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import "./promotion-settings.css";
 import "./promotion-settings-adjustments.css";
+import "./configuration-authorized-buttons.css";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 type Period = "monthly" | "quarterly" | "semiannual" | "annual";

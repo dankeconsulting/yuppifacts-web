@@ -3,6 +3,7 @@
 import { ShieldCheck, X } from "lucide-react";
 import { useState } from "react";
 import "./promotion-voucher-review.css";
+import "./configuration-authorized-buttons.css";
 
 const api=(process.env.NEXT_PUBLIC_API_URL??"").replace(/\/$/,"");
 type Voucher={id:string;fullName:string;email:string;phone:string;filename:string;status:"submitted"|"verified"|"rejected";folio:string|null;profile:string|null;planId:string|null};

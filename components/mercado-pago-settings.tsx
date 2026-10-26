@@ -3,6 +3,7 @@
 import { Check, EyeOff, ExternalLink, KeyRound, Lock, Pencil, ShieldCheck, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./mercado-pago-settings.css";
+import "./configuration-authorized-buttons.css";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 type Environment = "sandbox" | "production";
