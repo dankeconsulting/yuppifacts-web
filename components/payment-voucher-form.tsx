@@ -45,6 +45,8 @@ export default function PaymentVoucherForm() {
   const [checkingAccount, setCheckingAccount] = useState(false);
   const [stateName, setStateName] = useState("");
   const [cityName, setCityName] = useState("");
+  const [pin, setPin] = useState("");
+  const [pinConfirmation, setPinConfirmation] = useState("");
   const [showPin, setShowPin] = useState(false); const [showPinConfirmation, setShowPinConfirmation] = useState(false);
   const [picker, setPicker] = useState<Picker>(null);
   const [pickerSearch, setPickerSearch] = useState("");
@@ -60,6 +62,7 @@ export default function PaymentVoucherForm() {
   const [promotion, setPromotion] = useState<{promotionId:string;promotionToken:string}|null>(null);
   const stateOptions = useMemo(() => currentCountry.states, [currentCountry]);
   const cityOptions = useMemo(() => citiesByState[stateName] ?? [], [stateName]);
+  const pinStatus = pinConfirmation.length === 4 ? (pin === pinConfirmation ? "matched" : "mismatched") : "idle";
   const countryOptions = useMemo(() => {
     const query = pickerSearch.trim().toLocaleLowerCase("es-MX");
     return (Object.keys(countries) as CountryCode[]).filter((code) => !query || countries[code].name.toLocaleLowerCase("es-MX").includes(query) || countries[code].dial.includes(query));
@@ -129,6 +132,10 @@ export default function PaymentVoucherForm() {
       setError("Selecciona tu estado o departamento para continuar.");
       return;
     }
+    if (pin !== pinConfirmation) {
+      setError("El valor de tu PIN deben ser identicos.");
+      return;
+    }
     if (!api) {
       setError("La comprobación no está disponible temporalmente. Inténtalo de nuevo más tarde.");
       return;
@@ -172,7 +179,7 @@ export default function PaymentVoucherForm() {
       setReceiptOpen(true);
       event.currentTarget.reset();
       setCountryCode("MX");
-      setStateName(""); setCityName("");
+      setStateName(""); setCityName(""); setPin(""); setPinConfirmation("");
       setFile(null);
     } catch (reason) {
       const message = reason instanceof Error ? reason.message : "";
@@ -226,7 +233,26 @@ export default function PaymentVoucherForm() {
             </div>
           </fieldset>
           <hr className="voucher-divider" />
-          <fieldset className="voucher-pin-fields" disabled={!accountExists}><legend>PIN de seguridad</legend><label>Crea tu PIN de seguridad<span className="voucher-secret"><input name="pin" type={showPin ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar PIN" onClick={()=>setShowPin(value=>!value)}>{showPin?<EyeOff/>:<Eye/>}</button></span></label><label>Confirma tu PIN de seguridad<span className="voucher-secret"><input name="pinConfirmation" type={showPinConfirmation ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event)=>event.currentTarget.value=event.currentTarget.value.replace(/\D/g,"").slice(0,4)} /><button type="button" aria-label="Mostrar u ocultar confirmación" onClick={()=>setShowPinConfirmation(value=>!value)}>{showPinConfirmation?<EyeOff/>:<Eye/>}</button></span></label></fieldset>
+          <fieldset className="voucher-pin-fields" disabled={!accountExists}>
+            <legend>PIN de seguridad</legend>
+            <label>
+              Crea tu PIN de seguridad
+              <span className="voucher-secret">
+                <input name="pin" value={pin} type={showPin ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required onChange={(event) => setPin(event.currentTarget.value.replace(/\D/g, "").slice(0, 4))} />
+                <button type="button" aria-label="Mostrar u ocultar PIN" onClick={() => setShowPin((value) => !value)}>{showPin ? <EyeOff /> : <Eye />}</button>
+              </span>
+            </label>
+            <label>
+              Confirma tu PIN de seguridad
+              <span className={`voucher-secret ${pinStatus === "matched" ? "is-valid" : pinStatus === "mismatched" ? "is-invalid" : ""}`}>
+                <input name="pinConfirmation" value={pinConfirmation} type={showPinConfirmation ? "text" : "password"} inputMode="numeric" maxLength={4} placeholder="••••" required aria-invalid={pinStatus === "mismatched"} onChange={(event) => setPinConfirmation(event.currentTarget.value.replace(/\D/g, "").slice(0, 4))} />
+                {pinStatus === "matched" && <CheckCircle2 className="voucher-pin-status voucher-pin-status--valid" aria-label="Los PIN coinciden" />}
+                {pinStatus === "mismatched" && <CircleX className="voucher-pin-status voucher-pin-status--invalid" aria-label="Los PIN no coinciden" />}
+                <button type="button" aria-label="Mostrar u ocultar confirmación" onClick={() => setShowPinConfirmation((value) => !value)}>{showPinConfirmation ? <EyeOff /> : <Eye />}</button>
+              </span>
+              {pinStatus === "mismatched" && <small className="voucher-pin-error">El valor de tu PIN deben ser identicos.</small>}
+            </label>
+          </fieldset>
           <div className="voucher-security"><ShieldCheck aria-hidden="true" /><span>Tu comprobante se almacena de forma privada y se usa únicamente para validar este pago.</span></div>
           {error && <p className="voucher-message error"><CircleAlert aria-hidden="true" />{error}</p>}
           <button className="voucher-submit" disabled={submitting || !accountExists} type="submit">{submitting ? "Enviando comprobante…" : "Confirmar y enviar"}</button>

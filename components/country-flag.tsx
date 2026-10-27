@@ -3,8 +3,8 @@ type CountryFlagProps = { code: string; className?: string; official?: boolean }
 const emoji: Record<string, string> = { co: "🇨🇴", cr: "🇨🇷", es: "🇪🇸", pa: "🇵🇦" };
 const officialFlags: Record<string, string> = { mx: "/flag-mx-official.svg", co: "/flag-co-official.svg", cr: "/flag-cr-official.svg", es: "/flag-es-official.svg", pa: "/flag-pa-official.svg" };
 
-/** The official SVG treatment is intentionally opt-in for the administrator only. */
-export default function CountryFlag({ code, className = "", official = false }: CountryFlagProps) {
+/** Render the official local SVG flags consistently in every product surface. */
+export default function CountryFlag({ code, className = "", official = true }: CountryFlagProps) {
   const country = code.toLowerCase();
   return <span className={`yf-country-flag ${className}`} aria-hidden="true">
     {official && officialFlags[country] ? <img src={officialFlags[country]} alt="" /> : country === "mx" ? <svg viewBox="0 0 36 24" focusable="false">
