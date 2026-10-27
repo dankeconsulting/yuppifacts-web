@@ -1,4 +1,12 @@
-.admin-user-statuses .new{background:#9b78f2;color:#fff}
+.admin-user-statuses b{display:inline-flex;align-items:center;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:500;white-space:nowrap}
+.admin-user-statuses .new{background:#30224e;color:#d6c1ff}
+.admin-user-statuses .review{background:#493b19;color:#f0c76a}
+.admin-user-statuses .verified{background:#30224e;color:#d6c1ff}
+.admin-user-statuses .online,.admin-user-statuses .offline{gap:5px}
+.admin-user-statuses .online{background:#12382d;color:#71e2bb}
+.admin-user-statuses .offline{background:#421d2b;color:#ff9bb2}
+.admin-user-statuses .online::before,.admin-user-statuses .offline::before{width:6px;height:6px;border-radius:50%;background:currentColor;content:""}
+.admin-user-statuses .offline::before{background:#cdb6ee}
 .admin-user-country{display:inline-flex;align-items:center;gap:8px}
 .admin-user-country .yf-country-flag{width:20px;height:20px;flex:0 0 20px;overflow:hidden;border-radius:50%}
 .admin-user-detail-pin button,.admin-billing-meta button{background:transparent!important;color:#d9c6ff!important}

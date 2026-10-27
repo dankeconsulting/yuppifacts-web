@@ -1,0 +1,37 @@
+.admin-billing-card > div:nth-child(2) { min-width: 0; flex: 1; }
+
+.admin-billing-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.admin-billing-title > .payment-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.admin-billing-title > .payment-status::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.admin-billing-title > .payment-status-approved { background: #12382d; color: #71e2bb; }
+.admin-billing-title > .payment-status-invalid { background: #421d2b; color: #ff9bb2; }
+.admin-billing-meta { margin-left: auto; align-self: center; }
+
+@media (max-width: 620px) {
+  .admin-billing-title { align-items: flex-start; flex-wrap: wrap; gap: 4px 8px; }
+  .admin-billing-meta { align-self: flex-end; }
+}
