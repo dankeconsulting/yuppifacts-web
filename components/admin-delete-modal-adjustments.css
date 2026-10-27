@@ -33,10 +33,11 @@
   text-align:left;
 }
 
-.admin-delete-input input[type="password"] {
+.admin-delete-input .admin-master-pin {
   text-align:center;
   font-variant-numeric:tabular-nums;
   letter-spacing:.42em;
+  -webkit-text-security:disc;
 }
 
 .admin-delete-modal footer .danger:not(:disabled) {
