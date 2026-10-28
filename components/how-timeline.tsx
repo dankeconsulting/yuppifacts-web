@@ -5,7 +5,7 @@ import { type CSSProperties, useEffect, useRef, useState } from "react";
 import styles from "./how-timeline.module.css";
 
 const steps = [
-  { number: "01", icon: QrCode, title: "Carga tu ticket o escanea el QR", description: "Sube un JPG, PNG, PDF o pega el enlace oficial de facturación." },
+  { number: "01", icon: QrCode, title: "Escanea el código QR o tu ticket de compra", description: "Toma una foto o escanea el código QR para iniciar la solicitud." },
   { number: "02", icon: ListChecks, title: "Elige tu perfil fiscal", description: "YuppiFacts AI® utiliza solo los datos del RFC que autorizaste para esa solicitud." },
   { number: "03", icon: Sparkles, title: "La IA prepara, tú confirmas", description: "Detectamos requisitos del proveedor, proponemos el llenado y señalamos lo que falta." },
   { number: "04", icon: FileText, title: "Recibe y organiza tus facturas", description: "Vincula XML y PDF al ticket, contribuyente y periodo correcto." },

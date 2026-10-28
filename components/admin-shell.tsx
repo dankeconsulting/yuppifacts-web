@@ -80,6 +80,18 @@ export default function AdminShell({ children }: { children: ReactNode }) {
     };
   }, [allowed, pathname]);
 
+  useEffect(() => {
+    if (!allowed || !apiOrigin) return;
+    const token = sessionStorage.getItem("yuppifacts.access");
+    if (!token) return;
+    const detail = navigation.find((item) => item.href === pathname);
+    const isSubscriberRecord = pathname.startsWith("/admin/usuarios/") && pathname.split("/").length > 3;
+    const body = isSubscriberRecord
+      ? { action: "admin_subscriber_view", title: "Ficha de usuario consultada", detail: "Se consultó una ficha desde el administrador maestro.", route: pathname }
+      : { action: "admin_section_view", title: detail ? `${detail.label} consultado` : "Administrador maestro consultado", detail: "Se accedió a una sección del administrador maestro.", route: pathname };
+    void fetch(`${apiOrigin}/v1/admin/activity`, { method: "POST", headers: { "content-type": "application/json", "x-application-token": token }, body: JSON.stringify(body) }).catch(() => undefined);
+  }, [allowed, pathname]);
+
   if (isPublicRoute) return <>{children}</>;
   if (!allowed) return <main className="admin-loading">Validando acceso administrativo…</main>;
 
