@@ -67,7 +67,15 @@ export default function PaymentVoucherForm() {
     const query = pickerSearch.trim().toLocaleLowerCase("es-MX");
     return (Object.keys(countries) as CountryCode[]).filter((code) => !query || countries[code].name.toLocaleLowerCase("es-MX").includes(query) || countries[code].dial.includes(query));
   }, [pickerSearch]);
-  useEffect(() => { const value=new URLSearchParams(window.location.hash.slice(1)).get("promo");const [promotionId,promotionToken]=value?.split(".")??[];if(promotionId&&promotionToken)setPromotion({promotionId,promotionToken}); }, []);
+  useEffect(() => {
+    // Voucher processing is a server-side stage. Never leave a client draft that
+    // can reopen the promotion wizard when the visitor returns to the landing.
+    localStorage.removeItem("yuppifacts.promotion.draft");
+    localStorage.setItem("yuppifacts.promotion.completed-handoff","1");
+    const value=new URLSearchParams(window.location.hash.slice(1)).get("promo");
+    const [promotionId,promotionToken]=value?.split(".")??[];
+    if(promotionId&&promotionToken)setPromotion({promotionId,promotionToken});
+  }, []);
   useEffect(() => {
     if (!picker) return;
     const htmlOverflow = document.documentElement.style.overflow;

@@ -20,7 +20,7 @@ export default function SignInPage() {
       <div className="access-aside-bottom"><p className="access-stack"><span><Check size={15} /> Sin e.firma ni certificados</span><span><Check size={15} /> Datos fiscales protegidos</span><span><Check size={15} /> Personas, contadores y empresas</span></p></div>
     </section>
     <section className="access-form-wrap">
-      <header className="access-topbar"><a href="https://yuppifacts.com">Ir a YuppiFacts.com</a><a href="https://promo.yuppifacts.com">¿Aún no tienes una cuenta YuppiFacts? <b>Suscríbete</b></a></header>
+      <header className="access-topbar"><a href="https://yuppifacts.com">Ir a YuppiFacts.com</a><a href="https://promo.yuppifacts.com?start=1">¿Aún no tienes una cuenta YuppiFacts? <b>Suscríbete</b></a></header>
       <LoginFlow />
       <footer className="access-form-footer"><span>©2026 YuppiFacts<sup>®</sup>. Todos los derechos reservados.</span>{" "}<nav><Link href="https://yuppifacts.com/privacidad">Política de Privacidad</Link>{" | "}<Link href="https://yuppifacts.com/terminos">Condiciones de Servicio</Link></nav></footer>
     </section>

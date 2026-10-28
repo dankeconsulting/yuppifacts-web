@@ -189,7 +189,7 @@ export default function ConsentLayer({ isPublicLandingHost }: { isPublicLandingH
                 <b>{english ? <>Only <em>{remainingSpots}</em> spots remain</> : <>Solo quedan <em>{remainingSpots}</em> espacios disponibles</>}</b>
                 <span className="landing-modal-spots-copy">{english ? "Day of the Dead special price for\naccountants, accounting firms,\nbusinesses and corporations\nFor new subscriptions." : <><strong>Precio especial por Día de Muertos</strong><br />para contadores, despachos contables,<br />empresas y corporativos<br /><em>*</em>Aplica para nuevas contrataciones.</>}</span>
               </div>
-              <Link className="landing-modal-cta" href={promoUrl} onClick={closeModal}>
+              <Link className="landing-modal-cta" href={`${promoUrl}?start=1`} onClick={closeModal}>
                 {english ? "I want to speed up invoice requests" : "Quiero agilizar solicitudes de facturas"}
                 <Rocket size={21} />
               </Link>
