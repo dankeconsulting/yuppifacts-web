@@ -14,6 +14,7 @@
 .yf-contributor-table,.yf-doc-table{max-width:none;width:100%}.yf-settings-page article{max-width:none;width:100%;box-sizing:border-box}
 .yf-contributors>header>button.yf-authorized-button{border:1px solid #9f7df3!important;background:transparent!important;color:#cdbdff!important;padding:11px 15px!important;font:500 14px/1.1 inherit!important}.yf-contributors>header>button.yf-authorized-button:hover{background:#302051!important;color:#fff!important;border-color:#ad91ff!important}
 .yf-doc-page>header,.yf-contributors>header{min-height:112px}.yf-doc-page>header h1,.yf-contributors>header h1{line-height:1.14}.yf-doc-page>header span,.yf-contributors>header span{max-width:760px;line-height:1.5}
+.yf-doc-page>header>div:last-child{display:block!important}.yf-doc-page>header>div>p,.yf-doc-page>header>div>h1,.yf-doc-page>header>div>span{display:block!important}.yf-doc-page>header>div>h1{margin:7px 0 4px!important}.yf-doc-page>header>div>span{margin-top:0!important}
 
 /* The accountant workspace shares the same geometry and table contract as Admin Maestro. */
 @media(min-width:801px){
