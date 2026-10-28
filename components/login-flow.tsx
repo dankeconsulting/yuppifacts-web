@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, ChevronDown, ShieldCheck, UserPlus, X } from "lu
 import "./access-login.css";
 import CountryFlag from "./country-flag";
 import "./access-login-official-flags.css";
+import "./access-login-pin-overrides.css";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 const countries = [
@@ -117,7 +118,7 @@ export default function LoginFlow({ returnTo = "/panel" }: { returnTo?: string }
     </>}
     {step === "pin" && <>
       <p className="eyebrow">SEGURIDAD DE ACCESO</p><h2>Ingresa tu PIN</h2><p className="access-lead">Tu código fue confirmado. Escribe el PIN de cuatro dígitos que creaste para entrar.</p>
-      <label className="access-login-label">PIN de acceso<input className="access-pin-input" type="password" inputMode="numeric" autoComplete="current-password" maxLength={4} value={pin} onChange={(event) => { setPin(event.target.value.replace(/\D/g, "").slice(0, 4)); setNotice(""); }} placeholder="••••" /></label>
+      <label className="access-login-label">PIN de acceso<input className="access-pin-input" type="text" inputMode="numeric" autoComplete="off" name="yuppifacts-temporary-access-code" data-1p-ignore="true" data-lpignore="true" data-bwignore="true" maxLength={4} value={pin} onChange={(event) => { setPin(event.target.value.replace(/\D/g, "").slice(0, 4)); setNotice(""); }} placeholder="••••" /></label>
       <div className="access-login-actions"><button type="button" onClick={goBack}><ArrowLeft size={17} /> Regresar</button><button type="button" className="button" disabled={busy || pin.length !== 4} onClick={enter}>{busy ? "Entrando…" : "Entrar"}<ArrowRight size={18} /></button></div>
     </>}
     {notice && <p className="access-login-error" role="alert">{notice}</p>}
