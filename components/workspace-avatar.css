@@ -65,8 +65,9 @@
 .yf-avatar-picker-delete {
   position: absolute;
   z-index: 2;
-  right: 7px;
-  bottom: 7px;
+  /* Sit on the lower-right outer edge of the circular avatar. */
+  right: -9px;
+  bottom: -9px;
   display: grid;
   place-items: center;
   width: 32px;
