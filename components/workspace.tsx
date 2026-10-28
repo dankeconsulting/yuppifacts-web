@@ -15,6 +15,7 @@ import "./workspace-request.css";
 import "./workspace-profile-menu.css";
 import "./workspace-authorized-overrides.css";
 import "./workspace-pin-overrides.css";
+import "./internal-ui-authority.css";
 
 export type WorkspaceProfile = "individual" | "independent_accountant" | "accounting_firm" | "company" | "corporate";
 const labels: Record<WorkspaceProfile, string> = { individual: "Persona física", independent_accountant: "Contador independiente", accounting_firm: "Despacho contable", company: "Empresa", corporate: "Corporativo" };

@@ -5,6 +5,7 @@ import { Archive, BadgeCheck, Bell, ChevronDown, History, LayoutDashboard, LogOu
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import "./admin-shell.css";
+import "./internal-ui-authority.css";
 import CountryFlag from "./country-flag";
 import YuppiFactsLogo from "./yuppifacts-logo";
 
