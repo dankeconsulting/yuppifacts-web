@@ -123,7 +123,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
     </aside>
     <section className="admin-shell-page">
       <header className="admin-shell-topbar"><div className="admin-topbar-date"><span>{formattedDate}</span></div><div className="admin-topbar-actions"><button type="button" aria-label="Notificaciones" className="admin-topbar-icon"><Bell size={19} /><i>1</i></button><Link href="/admin/configuracion" aria-label="Configuración" className="admin-topbar-icon"><Settings size={19} /></Link><div className="admin-profile"><button type="button" className="admin-profile-trigger" onClick={() => setProfileOpen(value => !value)}><img src="/avatars/claudia-cruz.jpg" alt="Claudia Cruz" /><span><b>Claudia Cruz</b><small>Admin Maestro</small></span><ChevronDown size={16} /></button>{profileOpen && <div className="admin-profile-menu"><button type="button" onClick={() => setProfileOpen(false)}><UserRound size={18} />Mi perfil</button><button type="button" onClick={() => setProfileOpen(false)}><Archive size={18} />Archivo</button><button type="button" onClick={() => setProfileOpen(false)}><Trash2 size={18} />Papelera</button><hr /><button type="button" onClick={() => { setProfileOpen(false); router.push("/admin/historial"); }}><History size={18} />Logs</button><hr /><button type="button" className="admin-profile-logout" onClick={signOut}><LogOut size={18} />Cerrar sesión</button></div>}</div></div></header>
-      {children}
+      <div className="admin-shell-scroll">{children}</div>
     </section>
   </div>;
 }
