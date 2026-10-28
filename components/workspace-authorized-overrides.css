@@ -1,0 +1,6 @@
+.yf-header{position:relative}
+.yf-new-request{position:static;display:inline-flex;align-items:center;gap:8px;align-self:center;margin-left:auto;border:1px solid var(--purple);border-radius:10px;background:transparent;color:#cbb7ff;padding:11px 15px;font:600 13px inherit;white-space:nowrap;cursor:pointer;transition:border-color .18s ease,background .18s ease,color .18s ease}
+.yf-new-request:hover{border-color:#cbb7ff;background:var(--purple-soft);color:#f7f3ff}
+.yf-new-request svg{width:17px;height:17px}
+.yf-nav button:nth-child(4)::after{color:#fff;font:500 13px inherit;line-height:1}
+@media(max-width:760px){.yf-header{align-items:flex-start}.yf-new-request{align-self:flex-start;margin-top:2px;padding:10px 12px;font-size:12px}}

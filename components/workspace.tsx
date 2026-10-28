@@ -13,6 +13,7 @@ import AccountContributors from "./account-contributors";
 import AccountDocumentWorkspace from "./account-document-workspace";
 import "./workspace-request.css";
 import "./workspace-profile-menu.css";
+import "./workspace-authorized-overrides.css";
 
 export type WorkspaceProfile = "individual" | "independent_accountant" | "accounting_firm" | "company" | "corporate";
 const labels: Record<WorkspaceProfile, string> = { individual: "Persona física", independent_accountant: "Contador independiente", accounting_firm: "Despacho contable", company: "Empresa", corporate: "Corporativo" };
@@ -62,7 +63,7 @@ export default function Workspace({ userName = "Usuario YuppiFacts", profile = "
   }, [activationOpen]);
   const canManageTaxpayers = ["independent_accountant", "accounting_firm", "company", "corporate"].includes(profile);
   const scopeLabel = canManageTaxpayers ? "Contribuyente" : null;
-  const options = scopeLabel === "Contribuyente" ? ["Contribuyente", "Todos los contribuyentes"] : [];
+  const options = scopeLabel === "Contribuyente" ? ["Contribuyente", "Ver todos"] : [];
   const [scope, setScope] = useState(options[0] ?? "");
   const initials = initialsFor(userName);
   const chooseAvatar = (file?: File) => { if (!file) return; if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 8 * 1024 * 1024) { setAvatarNotice("Usa una imagen JPG, PNG o WebP de hasta 8 MB."); return; } const reader = new FileReader(); reader.onload = () => { setAvatar(String(reader.result)); setAvatarFile(file); setAvatarNotice(""); }; reader.readAsDataURL(file); };
