@@ -25,6 +25,15 @@
   .yf-doc-page,.yf-settings-page{left:314px;padding:44px clamp(44px,5vw,92px)}
   .yf-panel.is-collapsed .yf-doc-page,.yf-panel.is-collapsed .yf-settings-page{left:84px}
   .yf-contributor-page .yf-contributors{padding:44px clamp(44px,5vw,92px)}
+
+  /* Keep the user workspace navigation at the same measured width as Admin
+     Maestro and preserve the account controls at the bottom of the viewport.
+     Long navigation lists can scroll internally, but never expose a scrollbar
+     or push the controls outside the available height. */
+  .yf-sidebar{width:314px;min-width:314px}
+  .yf-sidebar .yf-nav{min-height:0;overflow-y:auto;scrollbar-width:none}
+  .yf-sidebar .yf-nav::-webkit-scrollbar{display:none}
+  .yf-sidebar-bottom{flex:0 0 auto}
 }
 .yf-contributors>header,.yf-doc-page>header,.yf-settings-page>header,.yf-table-tools,.yf-contributor-table,.yf-doc-table,.yf-settings-group{width:min(100%,1422px);margin-left:auto;margin-right:auto}
 .yf-contributors>header,.yf-doc-page>header,.yf-settings-page>header{min-height:0;padding-bottom:30px}.yf-settings-page>header{display:block;border-bottom:1px solid #312d3f}.yf-settings-page>header p{margin:0 0 8px;color:#b892ff;font:500 11px "DM Mono",monospace;letter-spacing:.14em}.yf-settings-page>header h1{margin:0;font-size:32px;font-weight:600;letter-spacing:-1.4px}.yf-settings-page>header>span{display:block;margin-top:7px;color:#aab5c9;font-weight:400}
