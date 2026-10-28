@@ -2,5 +2,5 @@
 .yf-new-request{position:static;display:inline-flex;align-items:center;gap:8px;align-self:center;margin-left:auto;border:1px solid var(--purple);border-radius:10px;background:transparent;color:#cbb7ff;padding:11px 15px;font:600 13px inherit;white-space:nowrap;cursor:pointer;transition:border-color .18s ease,background .18s ease,color .18s ease}
 .yf-new-request:hover{border-color:#cbb7ff;background:var(--purple-soft);color:#f7f3ff}
 .yf-new-request svg{width:17px;height:17px}
-.yf-nav button:nth-child(4)::after{width:24px;min-width:24px;height:24px;flex:0 0 24px;margin-left:auto;padding:0;border-radius:50%;color:#fff;font:500 14px/1 inherit;line-height:1}
+.yf-nav button:nth-child(4)::after{width:24px;min-width:24px;height:24px;flex:0 0 24px;margin-left:auto;padding:0;border-radius:50%;color:#fff;font:500 15px/1 inherit;line-height:1}
 @media(max-width:760px){.yf-header{align-items:flex-start}.yf-new-request{align-self:flex-start;margin-top:2px;padding:10px 12px;font-size:12px}}
