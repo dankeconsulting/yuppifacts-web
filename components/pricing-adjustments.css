@@ -25,7 +25,7 @@
 .plan-price .price-from { display:inline; margin-right:9px; font-size:15px; color:#c9c3d7; font-weight:600; }
 .plan-note { font-size:15px; }
 .plan-price .promo-regular-price{display:block;margin:0 0 5px;color:#c9c3d7;font-size:13px;font-weight:500}
-.plan-price .promo-label{display:table;margin:7px 0 0;border-radius:999px;padding:4px 9px;background:#0b402d;color:#44dd9a;font-size:12px;font-weight:500}
+.plan-price .plan-price-line{display:flex;align-items:baseline;gap:7px;width:100%}.plan-price .promo-label{display:table;margin:7px 0 0;border-radius:999px;padding:4px 9px;background:#0b402d;color:#44dd9a;font-size:12px;font-weight:500}.plan-price .plan-currency{display:inline;margin:0;color:#a5adbc;font-size:14px}
 
 @media (min-width: 981px) {
   .plan-grid-scroll { display:flex; overflow-x:auto; gap:24px; scroll-snap-type:x proximity; padding-bottom:8px; }
