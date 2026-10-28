@@ -33,6 +33,10 @@
   text-align:left;
 }
 
+.admin-delete-targets div span {
+  font-size:14px;
+}
+
 .admin-delete-input .admin-master-pin {
   text-align:center;
   font-variant-numeric:tabular-nums;
@@ -40,11 +44,10 @@
   -webkit-text-security:disc;
 }
 
-/* Every administrative delete PIN is a four-digit confirmation code, never a password. */
-.admin-delete-input input[inputmode="numeric"] {
-  text-align:center;
-  font-variant-numeric:tabular-nums;
-  letter-spacing:.42em;
+.admin-delete-input input:not(.admin-master-pin) {
+  text-align:left;
+  font-variant-numeric:normal;
+  letter-spacing:normal;
 }
 
 .admin-delete-modal footer .danger:not(:disabled) {
