@@ -58,6 +58,18 @@ export default function LoginFlow({ returnTo = "/panel" }: { returnTo?: string }
   const formattedCountdown = `${String(Math.floor(secondsRemaining / 60)).padStart(2, "0")}:${String(secondsRemaining % 60).padStart(2, "0")}`;
 
   useEffect(() => {
+    if (step !== "pin") return;
+    const input = document.querySelector<HTMLInputElement>(".access-pin-input");
+    if (!input) return;
+    input.autocomplete = "one-time-code";
+    input.name = "yuppifacts-access-pin-code";
+    input.setAttribute("data-form-type", "other");
+    input.setAttribute("data-1p-ignore", "true");
+    input.setAttribute("data-lpignore", "true");
+    input.setAttribute("data-bwignore", "true");
+  }, [step, pin]);
+
+  useEffect(() => {
     if (step !== "code" || !codeExpiresAt) return;
     const updateCountdown = () => setSecondsRemaining(Math.max(0, Math.ceil((new Date(codeExpiresAt).getTime() - Date.now()) / 1000)));
     updateCountdown();

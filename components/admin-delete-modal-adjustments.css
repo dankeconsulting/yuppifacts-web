@@ -40,6 +40,13 @@
   -webkit-text-security:disc;
 }
 
+/* Every administrative delete PIN is a four-digit confirmation code, never a password. */
+.admin-delete-input input[inputmode="numeric"] {
+  text-align:center;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.42em;
+}
+
 .admin-delete-modal footer .danger:not(:disabled) {
   border-color:#dc2626;
   background:#dc2626;

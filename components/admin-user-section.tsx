@@ -17,6 +17,19 @@ export default function AdminUserSection({ stage }: { stage: Stage }) {
   const config=titles[stage];
   const load=async()=>{if(!api)return;try{setError("");const token=sessionStorage.getItem("yuppifacts.access");const response=await fetch(api+"/v1/admin/subscribers?stage="+stage,{cache:"no-store",headers:{"x-application-token":token??""}});const raw=await response.text();let body:{subscribers?:Subscriber[];error?:string}={};try{body=raw?JSON.parse(raw) as {subscribers?:Subscriber[];error?:string}:{};}catch{}if(!response.ok)throw new Error(body.error??(response.status===429?"El servidor está actualizando los conteos. Intenta de nuevo en unos segundos.":"No fue posible cargar los usuarios."));const subscribers=Array.isArray(body.subscribers)?body.subscribers:[];setItems(subscribers);setSelected(current=>current.filter(id=>subscribers.some(item=>item.id===id)));window.dispatchEvent(new Event("admin-subscriber-counts-changed"));}catch(reason){setItems([]);setError(reason instanceof Error?reason.message:"No fue posible cargar los usuarios.");}};
   useEffect(()=>{void load();},[stage]);
+  useEffect(()=>{
+    if(deleteStep!=="pin")return;
+    const input=document.querySelector<HTMLInputElement>(".admin-delete-input input[type='password']");
+    if(!input)return;
+    input.type="text";
+    input.classList.add("admin-master-pin");
+    input.autocomplete="one-time-code";
+    input.name="master-admin-confirmation-code";
+    input.setAttribute("data-form-type","other");
+    input.setAttribute("data-1p-ignore","true");
+    input.setAttribute("data-lpignore","true");
+    input.setAttribute("data-bwignore","true");
+  },[deleteStep,pin]);
   const tableItems=deleteStep?tableSnapshot??items:items;
   const rows=useMemo(()=>tableItems.filter(item=>{const needle=[item.fullName,item.email,item.phone,item.profile,item.city??"",item.recordNumber].join(" ").toLowerCase();return needle.includes(query.toLowerCase())&&(!profile||item.profile===profile);}),[tableItems,query,profile]);
   const targets=useMemo(()=>tableItems.filter(item=>selected.includes(item.id)),[tableItems,selected]);

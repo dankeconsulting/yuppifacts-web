@@ -118,6 +118,12 @@ export default function PaymentVoucherForm() {
     finally { setCheckingAccount(false); }
   };
 
+  useEffect(() => {
+    if (!promotion || !api || phoneDigits.length !== currentCountry.digits) return;
+    const timeout = window.setTimeout(() => { void validateAccount(); }, 300);
+    return () => window.clearTimeout(timeout);
+  }, [countryCode, currentCountry.digits, phoneDigits, promotion?.promotionId, promotion?.promotionToken]);
+
   const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
