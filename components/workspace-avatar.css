@@ -70,16 +70,16 @@
   width: 32px;
   height: 32px;
   padding: 0 !important;
-  border: 1px solid #cf647a !important;
+  border: 1px solid #7b3143 !important;
   border-radius: 50% !important;
-  background: #68283a !important;
-  color: #ffe7ed !important;
+  background: #612233 !important;
+  color: #f58ba3 !important;
   box-shadow: 0 4px 12px #0009;
   cursor: pointer;
 }
 
 .yf-avatar-picker-delete:hover:not(:disabled),
-.yf-avatar-picker-delete:focus-visible { background: #852f47 !important; border-color: #f0849b !important; outline: none; }
+.yf-avatar-picker-delete:focus-visible { background: #7a2b40 !important; border-color: #d96580 !important; color: #ffc2d0 !important; outline: none; }
 .yf-avatar-picker-delete svg { width: 15px; height: 15px; stroke-width: 2.2; }
 .yf-avatar-modal > .yf-avatar-picker + h2 { margin-top: 16px; }
 .yf-avatar-notice { display: block; margin-top: 12px; color: #f1a3bb; font-size: 11px; line-height: 1.4; }
