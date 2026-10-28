@@ -32,7 +32,7 @@
   margin: 2px auto 0;
   padding: 0;
   border: 1px solid #8f6fe5;
-  border-radius: 50%;
+  border-radius: 50% !important;
   background: #201934;
   box-shadow: 0 0 0 7px #8f6fe51f;
 }
@@ -48,7 +48,7 @@
   min-height: 0;
   padding: 0 !important;
   border: 0 !important;
-  border-radius: 50%;
+  border-radius: 50% !important;
   background: #2b2148 !important;
   color: #cdbbff !important;
   cursor: pointer;
@@ -62,21 +62,25 @@
 
 .yf-avatar-picker-delete {
   position: absolute;
-  right: -4px;
-  bottom: -4px;
+  z-index: 2;
+  right: 7px;
+  bottom: 7px;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  border: 1px solid #5d5080;
-  border-radius: 50%;
-  background: #251e37;
-  color: #c5b2ff;
-  box-shadow: 0 4px 12px #0008;
+  width: 32px;
+  height: 32px;
+  padding: 0 !important;
+  border: 1px solid #cf647a !important;
+  border-radius: 50% !important;
+  background: #68283a !important;
+  color: #ffe7ed !important;
+  box-shadow: 0 4px 12px #0009;
   cursor: pointer;
 }
 
-.yf-avatar-picker-delete svg { width: 16px; height: 16px; }
+.yf-avatar-picker-delete:hover:not(:disabled),
+.yf-avatar-picker-delete:focus-visible { background: #852f47 !important; border-color: #f0849b !important; outline: none; }
+.yf-avatar-picker-delete svg { width: 15px; height: 15px; stroke-width: 2.2; }
 .yf-avatar-modal > .yf-avatar-picker + h2 { margin-top: 16px; }
 .yf-avatar-notice { display: block; margin-top: 12px; color: #f1a3bb; font-size: 11px; line-height: 1.4; }
 
