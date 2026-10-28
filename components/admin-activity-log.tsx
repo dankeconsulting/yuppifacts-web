@@ -6,6 +6,7 @@ import "./admin-activity-log.css";
 import "./admin-activity-calendar.css";
 import "./admin-activity-extras.css";
 import "./admin-activity-tags.css";
+import "./activity-typography-overrides.css";
 
 const api = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 type Activity = { id:string; action:string; title:string; detail:string|null; actorName:string|null; actorPhone?:string|null; createdAt:string; incident:{code:string;name:string|null}|null; subscriber:{id:string;reference:string|null;fullName:string|null;phone:string|null;state:string|null;city:string|null}|null };
