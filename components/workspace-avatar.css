@@ -30,9 +30,11 @@
   width: 112px;
   height: 112px;
   margin: 2px auto 0;
-  padding: 5px;
-  border: 1px dashed #5d5080;
+  padding: 0;
+  border: 1px solid #8f6fe5;
   border-radius: 50%;
+  background: #201934;
+  box-shadow: 0 0 0 7px #8f6fe51f;
 }
 
 .yf-avatar-picker-target {
@@ -42,16 +44,19 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border: 0;
+  min-width: 0;
+  min-height: 0;
+  padding: 0 !important;
+  border: 0 !important;
   border-radius: 50%;
-  background: #2a2043;
-  color: #c5b2ff;
+  background: #2b2148 !important;
+  color: #cdbbff !important;
   cursor: pointer;
 }
 
-.yf-avatar-picker-target > span { position: relative; display: grid; place-items: center; width: 47px; height: 47px; }
-.yf-avatar-picker-target svg { width: 25px; height: 25px; }
-.yf-avatar-picker-target > span svg:last-child { position: absolute; right: -1px; bottom: -1px; width: 14px; height: 14px; stroke-width: 3; }
+.yf-avatar-picker-target > span { position: relative; display: grid; place-items: center; width: 46px; height: 46px; }
+.yf-avatar-picker-target svg { width: 27px; height: 27px; }
+.yf-avatar-picker-target > span svg:last-child { position: absolute; right: -2px; bottom: -2px; width: 14px; height: 14px; stroke-width: 3; }
 .yf-avatar-picker-target img { width: 100%; height: 100%; object-fit: cover; }
 .yf-avatar-picker.has-image { border-style: solid; border-color: #5d5080; }
 
@@ -77,16 +82,16 @@
 
 .yf-avatar-modal > .yf-avatar-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   grid-template-columns: none;
   margin-top: 15px;
 }
 
 .yf-avatar-modal > .yf-avatar-actions .yf-save-avatar {
   min-width: 126px;
-  border: 1px solid #7654c4;
-  background: transparent;
-  color: #cdbbff;
+  border: 1px solid #9c72f6;
+  background: #2a2043;
+  color: #d9ccff;
   padding: 10px 14px;
 }
 
