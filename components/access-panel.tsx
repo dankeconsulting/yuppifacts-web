@@ -35,6 +35,9 @@ function PaymentVerificationGate({ accessToken, userName }: { accessToken?: stri
   return <main className="payment-verification-gate">
     <section className="payment-verification-card" role="dialog" aria-modal="true" aria-labelledby="payment-verification-title">
       <header className="payment-verification-product">
+        <span className="payment-verification-logo" aria-hidden="true">
+          <img src="/brand/yuppifacts-iso-dark.svg" alt="" />
+        </span>
         <p className="payment-verification-eyebrow">YuppiFacts AI<sup>®</sup></p>
         <div className="payment-verification-tools" aria-hidden="true">
           <span><QrCode /></span><span><FileText /></span><span><UsersRound /></span><span><BarChart3 /></span>
