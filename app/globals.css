@@ -5,17 +5,20 @@ html:has(.landing),
 html:has(.signup-shell),
 html:has(.access-shell),
 html:has(.access-panel-state),
+html:has(.payment-verification-gate),
 html:has(.legal-page) { scrollbar-width: none; }
 html:has(.landing)::-webkit-scrollbar,
 html:has(.signup-shell)::-webkit-scrollbar,
 html:has(.access-shell)::-webkit-scrollbar,
 html:has(.access-panel-state)::-webkit-scrollbar,
+html:has(.payment-verification-gate)::-webkit-scrollbar,
 html:has(.legal-page)::-webkit-scrollbar,
 .landing-modal-backdrop::-webkit-scrollbar { display: none; }
 .landing-modal-backdrop { scrollbar-width: none; }
 
 body { font-family: Poppins, Arial, sans-serif !important; }
 .access-panel-state{display:grid;grid-template-columns:minmax(0,660px) minmax(240px,320px);gap:26px;align-items:center;justify-content:center;min-height:100dvh;padding:32px;background:radial-gradient(circle at 70% 20%,#2a1a4a 0,transparent 35%),#090a0d}.access-panel-state section,.access-panel-state aside{border:1px solid #302d3d;border-radius:24px;background:#12141ccc;padding:38px;color:#f5f6fa}.access-panel-state section>span{display:grid;place-items:center;width:54px;height:54px;border-radius:17px;background:#261d43;color:#ae98ff}.access-panel-state h1{margin:16px 0 10px;font-size:clamp(34px,4vw,52px);font-weight:600;letter-spacing:-2.8px}.access-panel-state section>p:not(.eyebrow),.access-panel-state aside p{color:#aeb7c7;line-height:1.65}.access-panel-state dl{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}.access-panel-state dl div{padding:15px;border-radius:13px;background:#191b25}.access-panel-state dt{color:#8994a8;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.08em}.access-panel-state dd{margin:5px 0 0;font-size:14px;font-weight:500}.access-panel-state button{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;color:#c6b8ff;font:500 14px inherit;cursor:pointer}.access-panel-state aside{display:grid;gap:10px;align-self:center}.access-panel-state aside svg{color:#ab93ff}.access-panel-state aside p{margin:0;font-size:13px}@media(max-width:800px){.access-panel-state{grid-template-columns:1fr;padding:24px}.access-panel-state section,.access-panel-state aside{padding:28px}.access-panel-state dl{grid-template-columns:1fr}}
+.payment-verification-gate{display:grid;min-height:100dvh;place-items:center;padding:24px;background:#090a0d;color:#f5f2fb}.payment-verification-card{width:min(480px,100%);border:1px solid #49415e;border-radius:22px;background:#15151d;padding:34px 32px;text-align:center;box-shadow:0 28px 70px #0009}.payment-verification-icon{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 17px;border-radius:14px;background:#2b2146;color:#ae94ff}.payment-verification-icon svg{width:23px}.payment-verification-eyebrow{margin:0;color:#ae94ff;font:500 10px "DM Mono",monospace;letter-spacing:.12em}.payment-verification-card h1{margin:9px 0 10px;font-size:24px;font-weight:500;letter-spacing:-1px}.payment-verification-card>p:not(.payment-verification-eyebrow){margin:0;color:#b8b4c4;font-size:14px;font-weight:400;line-height:1.6}.payment-verification-card button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:24px;border:1px solid #8f70df;border-radius:10px;background:transparent;color:#cbb9ff;padding:12px 15px;font:500 14px Poppins,Arial,sans-serif;cursor:pointer;transition:background .18s ease,color .18s ease}.payment-verification-card button:hover{background:#322454;color:#fff}.payment-verification-card button svg{width:17px}@media(max-width:540px){.payment-verification-gate{padding:18px}.payment-verification-card{padding:29px 22px;border-radius:18px}.payment-verification-card h1{font-size:22px}.payment-verification-card>p:not(.payment-verification-eyebrow){font-size:13px}}
 .landing { padding-top: 84px; }
 .public-nav {
   position: fixed !important;
