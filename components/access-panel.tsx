@@ -7,7 +7,7 @@ import Workspace from "./workspace";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
 type WorkspaceProfile = "individual" | "independent_accountant" | "accounting_firm" | "company" | "corporate";
-type Account = { fullName: string; phoneE164: string; role: string; accountStatus: string; subscriptionLifecycle?: string | null; online: boolean; profile: WorkspaceProfile };
+type Account = { fullName: string; phoneE164: string; role: string; accountStatus: string; subscriptionLifecycle?: string | null; online: unknown; profile: WorkspaceProfile };
 
 // The API has used both the legacy pre-registration names and the concise
 // review names. Both mean that payment was validated and the account is now
@@ -58,7 +58,9 @@ export default function AccessPanel() {
     if (!token || !apiOrigin) { setState("invalid"); return; }
 
     let active = true;
+    let latestRequest = 0;
     const loadSession = async () => {
+      const requestId = ++latestRequest;
       try {
         const response = await fetch(`${apiOrigin}/v1/access/session`, {
           headers: { "x-application-token": token },
@@ -66,11 +68,11 @@ export default function AccessPanel() {
         });
         if (!response.ok) throw new Error();
         const result = await response.json() as { account: Account };
-        if (!active) return;
+        if (!active || requestId !== latestRequest) return;
         setAccount(result.account);
         setState("ready");
       } catch {
-        if (!active) return;
+        if (!active || requestId !== latestRequest) return;
         sessionStorage.removeItem("yuppifacts.access");
         setState("invalid");
       }
@@ -82,10 +84,12 @@ export default function AccessPanel() {
     };
     window.addEventListener("focus", refreshWhenVisible);
     document.addEventListener("visibilitychange", refreshWhenVisible);
+    window.addEventListener("pageshow", refreshWhenVisible);
     return () => {
       active = false;
       window.removeEventListener("focus", refreshWhenVisible);
       document.removeEventListener("visibilitychange", refreshWhenVisible);
+      window.removeEventListener("pageshow", refreshWhenVisible);
     };
   }, []);
   if (state === "loading") return <main className="access-panel-state">Validando tu acceso…</main>;
@@ -93,8 +97,9 @@ export default function AccessPanel() {
   const accessToken = sessionStorage.getItem("yuppifacts.access") ?? undefined;
   const accountStatus = account?.accountStatus.trim().toLowerCase() ?? "";
   const subscriptionLifecycle = account?.subscriptionLifecycle?.trim().toLowerCase() ?? "";
-  const isReadyForPreparation = preparationStatuses.has(accountStatus) || preparationStatuses.has(subscriptionLifecycle);
-  const paymentIsPending = !account?.online && !isReadyForPreparation;
+  const isOnline = account?.online === true;
+  const isReadyForPreparation = !isOnline && (preparationStatuses.has(accountStatus) || preparationStatuses.has(subscriptionLifecycle));
+  const paymentIsPending = !isOnline && !isReadyForPreparation;
   if (paymentIsPending) return <PaymentVerificationGate accessToken={accessToken} userName={account?.fullName} />;
-  return <Workspace userName={account?.fullName} profile={account?.profile ?? "individual"} showActivationOverlay={!account?.online} accessToken={accessToken} />;
+  return <Workspace userName={account?.fullName} profile={account?.profile ?? "individual"} showActivationOverlay={!isOnline} accessToken={accessToken} />;
 }
