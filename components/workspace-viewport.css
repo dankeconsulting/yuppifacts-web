@@ -118,9 +118,34 @@ body:has(.yf-panel) {
   min-height: 26px;
 }
 
-.yf-activation-head > b {
+.yf-activation-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #e8e1ff;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.yf-activation-brand .yuppifacts-logo-mark {
+  display: inline-grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+  place-items: center;
+}
+
+.yf-activation-brand .yuppifacts-logo-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.yf-activation-brand sup {
+  margin-left: 1px;
+  font-size: 8px;
+  vertical-align: top;
 }
 
 .yf-activation .yf-activation-settings {
@@ -170,6 +195,13 @@ body:has(.yf-panel) {
 
 .yf-activation-card h2 { margin: 13px 0 9px; font-size: 20px; }
 .yf-activation-card p { margin: 6px auto; }
+.yf-activation-card .yf-activation-greeting {
+  margin: 13px auto 0;
+  color: #efeafd;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
 .yf-activation-card small {
   margin: 16px 0 12px;
   padding: 12px 14px;
@@ -209,7 +241,7 @@ body:has(.yf-panel) {
   touch-action: none;
 }
 
-.yf-activation-overlay{z-index:2147483646!important;background:#090a0df2!important;backdrop-filter:blur(9px)}
+.yf-activation-overlay{z-index:2147483646!important;background:#090a0db8!important;backdrop-filter:blur(5px)}
 .yf-avatar-overlay{z-index:2147483647!important}
 
 .yf-activation {
