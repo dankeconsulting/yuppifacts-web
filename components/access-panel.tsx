@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Clock3, LogOut } from "lucide-react";
+import { BarChart3, FileText, QrCode, UsersRound } from "lucide-react";
 import Workspace from "./workspace";
 
 const apiOrigin = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(/\/$/, "");
@@ -13,14 +13,15 @@ type Account = { fullName: string; phoneE164: string; role: string; accountStatu
 // review names. Both mean that payment was validated and the account is now
 // waiting for the administrator to take it online.
 const preparationStatuses = new Set([
+  "payment_verified",
   "pre_registration_approved",
   "profile_in_progress",
   "profile_submitted",
-  "pending_review",
-  "in_review",
+  "approved",
+  "active",
 ]);
 
-function PaymentVerificationGate({ accessToken }: { accessToken?: string }) {
+function PaymentVerificationGate({ accessToken, userName }: { accessToken?: string; userName?: string }) {
   const signOut = async () => {
     if (accessToken && apiOrigin) {
       await fetch(`${apiOrigin}/v1/access/logout`, { method: "POST", headers: { "x-application-token": accessToken } }).catch(() => undefined);
@@ -29,13 +30,19 @@ function PaymentVerificationGate({ accessToken }: { accessToken?: string }) {
     window.location.assign("/entrar");
   };
 
+  const greeting = userName?.trim() ? `Hola, ${userName.trim()}.` : "Hola.";
+
   return <main className="payment-verification-gate">
     <section className="payment-verification-card" role="dialog" aria-modal="true" aria-labelledby="payment-verification-title">
-      <span className="payment-verification-icon"><Clock3 /></span>
-      <p className="payment-verification-eyebrow">YUPPIFACTS</p>
-      <h1 id="payment-verification-title">Estamos verificando tu pago</h1>
-      <p>En cuanto validemos tu comprobante, activaremos tu cuenta para continuar con la configuración de tu plataforma.</p>
-      <button type="button" onClick={() => void signOut()}><LogOut />De acuerdo, cerrar sesión</button>
+      <header className="payment-verification-product">
+        <p className="payment-verification-eyebrow">YuppiFacts AI<sup>®</sup></p>
+        <div className="payment-verification-tools" aria-hidden="true">
+          <span><QrCode /></span><span><FileText /></span><span><UsersRound /></span><span><BarChart3 /></span>
+        </div>
+      </header>
+      <h1 id="payment-verification-title">{greeting}</h1>
+      <p>Te damos la más cordial bienvenida a YuppiFacts AI<sup>®</sup> y agradecemos tu preferencia. Nuestro equipo está validando tu pago. En cuanto se haya verificado, procederemos a activar tu cuenta.</p>
+      <button type="button" onClick={() => void signOut()}>De acuerdo, cerrar sesión</button>
     </section>
   </main>;
 }
@@ -59,6 +66,6 @@ export default function AccessPanel() {
   const accessToken = sessionStorage.getItem("yuppifacts.access") ?? undefined;
   const accountStatus = account?.accountStatus.trim().toLowerCase() ?? "";
   const paymentIsPending = !account?.online && !preparationStatuses.has(accountStatus);
-  if (paymentIsPending) return <PaymentVerificationGate accessToken={accessToken} />;
+  if (paymentIsPending) return <PaymentVerificationGate accessToken={accessToken} userName={account?.fullName} />;
   return <Workspace userName={account?.fullName} profile={account?.profile ?? "individual"} showActivationOverlay={!account?.online} accessToken={accessToken} />;
 }

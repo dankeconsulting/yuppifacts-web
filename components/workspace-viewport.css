@@ -209,6 +209,9 @@ body:has(.yf-panel) {
   touch-action: none;
 }
 
+.yf-activation-overlay{z-index:2147483646!important;background:#090a0df2!important;backdrop-filter:blur(9px)}
+.yf-avatar-overlay{z-index:2147483647!important}
+
 .yf-activation {
   width: min(620px, calc(100vw - clamp(24px, 5vw, 48px)));
   max-width: 100%;
