@@ -366,7 +366,7 @@
   .voucher-picker { width: 100%; max-height: min(74dvh, 630px); border-radius: 19px 19px 0 0; border-bottom: 0; }
 }
 .voucher-modal-actions{display:flex;gap:10px;width:100%}.voucher-modal-actions button{flex:1}.voucher-modal-actions button+button{background:transparent;border:1px solid #645c71;color:#eee8f7}
-.voucher-account-check{border-color:#5d477f!important}.voucher-account-status{position:absolute;right:42px;color:#b8a1f8;font-size:11px}.voucher-account-ok,.voucher-account-missing{position:absolute;right:13px;width:18px;height:18px}.voucher-account-ok{color:#3bd38a}.voucher-account-missing{color:#ff7180}.voucher-form fieldset:disabled{opacity:.48}.voucher-form fieldset:disabled .voucher-dropzone,.voucher-form fieldset:disabled input,.voucher-form fieldset:disabled button{cursor:not-allowed}
+.voucher-account-check{border-color:#5d477f!important}.voucher-account-status{position:absolute;right:42px;color:#b8a1f8;font-size:11px}.voucher-account-ok,.voucher-account-missing{position:absolute;right:13px;width:18px;height:18px}.phone-field>.voucher-account-ok{color:#3bd38a!important}.phone-field>.voucher-account-missing{color:#ff7180!important}.voucher-form fieldset:disabled{opacity:.48}.voucher-form fieldset:disabled .voucher-dropzone,.voucher-form fieldset:disabled input,.voucher-form fieldset:disabled button{cursor:not-allowed}
 
 /* Responsive actions remain inside the form grid; the privacy notice follows, centered. */
 @media(max-width:640px){
